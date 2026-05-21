@@ -23,17 +23,26 @@ if (togglePassword && password) {
 // ROLE SYSTEM
 // ============================
 
+// DEFAULT ROLE
 let selectedRole = "customer";
 
+// ALL ROLE BUTTONS
 const roleButtons = document.querySelectorAll(".role-btn");
 
+// LOOP THROUGH BUTTONS
 roleButtons.forEach((button) => {
   button.addEventListener("click", () => {
+    // REMOVE ACTIVE CLASS FROM ALL BUTTONS
+
     roleButtons.forEach((btn) => {
       btn.classList.remove("active-role");
     });
 
+    // ADD ACTIVE CLASS TO CLICKED BUTTON
+
     button.classList.add("active-role");
+
+    // SAVE ROLE
 
     selectedRole = button.dataset.role;
 
@@ -47,14 +56,17 @@ roleButtons.forEach((button) => {
 
 const authForm = document.querySelector(".auth-form");
 
+// FORM SUBMIT
 authForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
+  // GET INPUT VALUES
 
-  const email = document.getElementById("email").value.trim();
+  const name = document.getElementById("name").value;
 
-  const password = document.getElementById("password").value.trim();
+  const email = document.getElementById("email").value;
+
+  const password = document.getElementById("password").value;
 
   // VALIDATION
 
@@ -85,29 +97,37 @@ authForm.addEventListener("submit", async (e) => {
       },
     );
 
+    // CONVERT RESPONSE TO JSON
+
     const data = await response.json();
 
     console.log(data);
 
+    // ============================
     // SUCCESS
+    // ============================
 
     if (response.ok) {
+      // SAVE USER IN LOCAL STORAGE
+
       localStorage.setItem("nexserveUser", JSON.stringify(data.user));
 
       alert("Signup Successful");
 
-      // REDIRECT
+      // REDIRECT TO LOGIN PAGE
 
-      window.location.href = "./login.html";
+      window.location.href = "login.html";
     }
 
+    // ============================
     // ERROR
+    // ============================
     else {
-      alert(data.message || "Signup failed");
+      alert(data.message);
     }
   } catch (error) {
     console.log(error);
 
-    alert("Cannot connect to server. Check Render backend or MongoDB.");
+    alert("Server Error");
   }
 });
