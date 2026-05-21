@@ -1,0 +1,403 @@
+<!-- dashboard/customer-dashboard.html -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NexServe Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <!-- FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ICONS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- BACKGROUND -->
+
+    <div class="bg-blur blur-1"></div>
+
+    <div class="bg-blur blur-2"></div>
+
+    <!-- DASHBOARD -->
+
+    <section class="dashboard">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+
+          <div>
+            <h2>NexServe</h2>
+            <span>Customer Panel</span>
+          </div>
+        </div>
+
+        <!-- MENU -->
+
+        <div class="menu">
+          <div class="menu-item active">
+            <i class="fa-solid fa-house"></i>
+            <span>Dashboard</span>
+          </div>
+
+          <div class="menu-item">
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Bookings</span>
+          </div>
+
+          <div class="menu-item">
+            <i class="fa-solid fa-comments"></i>
+            <span>Messages</span>
+          </div>
+
+          <div class="menu-item">
+            <i class="fa-solid fa-heart"></i>
+            <span>Favorites</span>
+          </div>
+
+          <div class="menu-item">
+            <i class="fa-solid fa-bell"></i>
+            <span>Notifications</span>
+          </div>
+
+          <div class="menu-item">
+            <i class="fa-solid fa-user"></i>
+            <span>Profile</span>
+          </div>
+        </div>
+
+        <!-- BOTTOM -->
+
+        <div class="sidebar-bottom">
+          <button class="logout-btn" id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+
+      <main class="main-content">
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input type="text" placeholder="Search services..." />
+          </div>
+
+          <div class="topbar-right">
+            <div class="location-box">
+              <i class="fa-solid fa-location-dot"></i>
+              India
+            </div>
+
+            <div class="notification">
+              <i class="fa-regular fa-bell"></i>
+            </div>
+
+            <div class="profile-box">
+              <img src="https://i.pravatar.cc/100" alt="" />
+
+              <div>
+                <h4 id="userName">User</h4>
+                <p>Customer</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- HERO -->
+
+        <section class="hero">
+          <div class="hero-content">
+            <span class="tag"> Welcome Back 👋 </span>
+
+            <h1>What service do you need today?</h1>
+
+            <p>
+              Book trusted professionals for your home and daily needs
+              instantly.
+            </p>
+
+            <button>Explore Services</button>
+          </div>
+
+          <div class="hero-image">
+            <img src="../assets/hero-worker.png" alt="" />
+          </div>
+        </section>
+
+        <!-- STATS -->
+
+        <section class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+
+            <div>
+              <h2>12</h2>
+              <p>Total Bookings</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+
+            <div>
+              <h2>03</h2>
+              <p>Pending Services</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div>
+              <h2>4.9</h2>
+              <p>Average Ratings</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+
+            <div>
+              <h2>08</h2>
+              <p>Saved Providers</p>
+            </div>
+          </div>
+        </section>
+        <!-- CREATE BOOKING SECTION -->
+
+        <section class="booking-section">
+          <div class="booking-header">
+            <div>
+              <span class="section-badge"> Quick Booking </span>
+
+              <h2>Create New Booking</h2>
+
+              <p>
+                Book trusted professionals instantly with real-time
+                availability.
+              </p>
+            </div>
+
+            <div class="booking-header-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+          </div>
+
+          <form id="bookingForm" class="booking-form">
+            <!-- SERVICE -->
+
+            <div class="form-group">
+              <label>Service Category</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-briefcase"></i>
+
+                <select id="service" required>
+                  <option value="">Select Service</option>
+
+                  <option>Plumbing</option>
+
+                  <option>Electrician</option>
+
+                  <option>Cleaning</option>
+
+                  <option>Carpentry</option>
+
+                  <option>Tutoring</option>
+
+                  <option>Appliance Repair</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- ADDRESS -->
+
+            <div class="form-group">
+              <label>Service Address</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-location-dot"></i>
+
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="Enter your address"
+                  required
+                />
+              </div>
+            </div>
+
+            <!-- DATE -->
+
+            <div class="form-group">
+              <label>Preferred Date</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <input type="date" id="date" required />
+              </div>
+            </div>
+
+            <!-- TIME -->
+
+            <div class="form-group">
+              <label>Preferred Time</label>
+
+              <div class="input-field">
+                <i class="fa-solid fa-clock"></i>
+
+                <input type="time" id="time" required />
+              </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+
+            <div class="form-group full-width">
+              <label>Describe Your Issue</label>
+
+              <div class="textarea-field">
+                <textarea
+                  id="description"
+                  placeholder="Explain what service you need..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- BUTTON -->
+
+            <button type="submit" class="booking-btn">
+              <i class="fa-solid fa-paper-plane"></i>
+
+              Book Service
+            </button>
+          </form>
+        </section>
+
+        <!-- CATEGORIES -->
+
+        <section class="categories">
+          <div class="section-title">
+            <h2>Popular Categories</h2>
+
+            <a href="#">View All</a>
+          </div>
+
+          <div class="categories-grid">
+            <div class="category-card">
+              <i class="fa-solid fa-faucet-drip"></i>
+
+              <h3>Plumbing</h3>
+
+              <p>120+ Professionals</p>
+            </div>
+
+            <div class="category-card">
+              <i class="fa-solid fa-bolt"></i>
+
+              <h3>Electrician</h3>
+
+              <p>95+ Professionals</p>
+            </div>
+
+            <div class="category-card">
+              <i class="fa-solid fa-broom"></i>
+
+              <h3>Cleaning</h3>
+
+              <p>210+ Professionals</p>
+            </div>
+
+            <div class="category-card">
+              <i class="fa-solid fa-book"></i>
+
+              <h3>Tutors</h3>
+
+              <p>340+ Professionals</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOOKINGS -->
+
+        <section class="bookings">
+          <div class="section-title">
+            <h2>Recent Bookings</h2>
+
+            <a href="#">See All</a>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-left">
+              <img src="https://i.pravatar.cc/120?img=12" alt="" />
+
+              <div>
+                <h3>Rahul Sharma</h3>
+
+                <p>Electrician Service</p>
+
+                <span>Today • 4:30 PM</span>
+              </div>
+            </div>
+
+            <div class="booking-status completed">Completed</div>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-left">
+              <img src="https://i.pravatar.cc/120?img=32" alt="" />
+
+              <div>
+                <h3>Priya Verma</h3>
+
+                <p>Home Cleaning</p>
+
+                <span>Tomorrow • 11:00 AM</span>
+              </div>
+            </div>
+
+            <div class="booking-status pending">Pending</div>
+          </div>
+        </section>
+        <section class="customer-bookings">
+          <h2>Your Bookings</h2>
+
+          <div id="customerBookings"></div>
+        </section>
+      </main>
+    </section>
+
+    <script src="dashboard.js"></script>
+  </body>
+</html>

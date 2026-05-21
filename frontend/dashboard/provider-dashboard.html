@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Provider Dashboard</title>
+
+    <link rel="stylesheet" href="./provider-dashboard.css" />
+  </head>
+
+  <body>
+    <div class="dashboard">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <h2>NexServe</h2>
+
+        <div class="menu">
+          <div class="menu-item active">Dashboard</div>
+
+          <div class="menu-item">Booking Requests</div>
+
+          <div class="menu-item">
+            <div class="card">
+              <h2>12</h2>
+              <p>Pending Tasks</p>
+            </div>
+          </div>
+
+          <div class="menu-item">Reviews</div>
+        </div>
+
+        <button id="logoutBtn">Logout</button>
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main-content">
+        <h1>
+          Welcome,
+          <span id="providerName"> Provider </span>
+        </h1>
+
+        <div class="stats-grid">
+          <div class="card">
+            <h2>45</h2>
+            <p>Total Bookings</p>
+          </div>
+          <section class="requests-section">
+            <h2>Booking Requests</h2>
+
+            <div id="bookingRequests"></div>
+          </section>
+
+          <div class="card">
+            <h2>₹25,000</h2>
+            <p>Earnings</p>
+          </div>
+
+          <div class="card">
+            <h2>4.9★</h2>
+            <p>Ratings</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="./provider-dashboard.js"></script>
+  </body>
+</html>
