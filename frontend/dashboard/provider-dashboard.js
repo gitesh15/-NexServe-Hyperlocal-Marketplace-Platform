@@ -21,7 +21,9 @@ const bookingRequests = document.getElementById("bookingRequests");
 
 const fetchBookings = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/bookings/all");
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/all",
+    );
 
     const data = await response.json();
 
@@ -80,7 +82,7 @@ fetchBookings();
 const acceptBooking = async (id) => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/bookings/accept/${id}`,
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/accept/${id}`,
 
       {
         method: "PUT",

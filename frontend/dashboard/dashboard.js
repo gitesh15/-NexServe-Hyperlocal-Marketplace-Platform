@@ -36,7 +36,7 @@ if (bookingForm) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/bookings/create",
+        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/create",
         {
           method: "POST",
 
@@ -72,7 +72,9 @@ const fetchCustomerBookings = async () => {
   try {
     const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
 
-    const response = await fetch("http://localhost:5000/api/bookings/all");
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/all",
+    );
 
     const data = await response.json();
 

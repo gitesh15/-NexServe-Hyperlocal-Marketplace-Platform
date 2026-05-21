@@ -79,20 +79,23 @@ authForm.addEventListener("submit", async (e) => {
   try {
     // API CALL
 
-    const response = await fetch("http://localhost:5000/api/auth/register", {
-      method: "POST",
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/auth/register",
+      {
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role: selectedRole,
+        }),
       },
-
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        role: selectedRole,
-      }),
-    });
+    );
 
     // CONVERT RESPONSE TO JSON
 

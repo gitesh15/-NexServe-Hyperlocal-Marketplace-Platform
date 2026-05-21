@@ -37,19 +37,22 @@ loginForm.addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
 
   try {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/auth/login",
+      {
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          password,
+          role: selectedRole,
+        }),
       },
-
-      body: JSON.stringify({
-        email,
-        password,
-        role: selectedRole,
-      }),
-    });
+    );
 
     const data = await response.json();
 
