@@ -9,6 +9,39 @@ body {
   background: #f5f7fb;
   color: #111;
 }
+/* PROFILE BUTTON */
+
+.profile-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #111827;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.profile-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* LOGOUT BUTTON */
+
+.logout-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  opacity: 0.9;
+}
 
 /* NAVBAR */
 
