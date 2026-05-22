@@ -6,12 +6,6 @@ const togglePassword = document.getElementById("togglePassword");
 
 const password = document.getElementById("password");
 
-const service = document.getElementById("service")?.value;
-
-const location = document.getElementById("location")?.value;
-
-const experience = document.getElementById("experience")?.value;
-
 if (togglePassword && password) {
   togglePassword.addEventListener("click", () => {
     const type =
@@ -30,29 +24,34 @@ if (togglePassword && password) {
 // ============================
 
 // DEFAULT ROLE
+
 let selectedRole = "customer";
+
+// PROVIDER FIELDS
 
 const providerFields = document.querySelectorAll(".provider-field");
 
-// HIDE DEFAULT
+// HIDE PROVIDER FIELDS INITIALLY
 
 providerFields.forEach((field) => {
   field.style.display = "none";
 });
 
-// ALL ROLE BUTTONS
+// ROLE BUTTONS
+
 const roleButtons = document.querySelectorAll(".role-btn");
 
-// LOOP THROUGH BUTTONS
+// ROLE SWITCH
+
 roleButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    // REMOVE ACTIVE CLASS FROM ALL BUTTONS
+    // REMOVE ACTIVE CLASS
 
     roleButtons.forEach((btn) => {
       btn.classList.remove("active-role");
     });
 
-    // ADD ACTIVE CLASS TO CLICKED BUTTON
+    // ADD ACTIVE CLASS
 
     button.classList.add("active-role");
 
@@ -60,22 +59,19 @@ roleButtons.forEach((button) => {
 
     selectedRole = button.dataset.role;
 
-    // SHOW PROVIDER FIELDS
+    console.log("Selected Role:", selectedRole);
+
+    // SHOW/HIDE PROVIDER FIELDS
 
     if (selectedRole === "provider") {
       providerFields.forEach((field) => {
         field.style.display = "block";
       });
-    }
-
-    // HIDE PROVIDER FIELDS
-    else {
+    } else {
       providerFields.forEach((field) => {
         field.style.display = "none";
       });
     }
-
-    console.log("Selected Role:", selectedRole);
   });
 });
 
@@ -85,11 +81,12 @@ roleButtons.forEach((button) => {
 
 const authForm = document.querySelector(".auth-form");
 
-// FORM SUBMIT
+// SUBMIT
+
 authForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // GET INPUT VALUES
+  // COMMON FIELDS
 
   const name = document.getElementById("name").value;
 
@@ -105,6 +102,43 @@ authForm.addEventListener("submit", async (e) => {
     return;
   }
 
+  // BODY OBJECT
+
+  let userData = {
+    name,
+    email,
+    password,
+    role: selectedRole,
+  };
+
+  // ============================
+  // PROVIDER DATA
+  // ============================
+
+  if (selectedRole === "provider") {
+    const service = document.getElementById("service").value;
+
+    const location = document.getElementById("location").value;
+
+    const experience = document.getElementById("experience").value;
+
+    // VALIDATE PROVIDER FIELDS
+
+    if (!service || !location || !experience) {
+      alert("Please fill provider details");
+
+      return;
+    }
+
+    // ADD TO BODY
+
+    userData.service = service;
+
+    userData.location = location;
+
+    userData.experience = experience;
+  }
+
   try {
     // API CALL
 
@@ -117,43 +151,29 @@ authForm.addEventListener("submit", async (e) => {
           "Content-Type": "application/json",
         },
 
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role: selectedRole,
-          service,
-          location,
-          experience,
-        }),
+        body: JSON.stringify(userData),
       },
     );
 
-    // CONVERT RESPONSE TO JSON
+    // JSON
 
     const data = await response.json();
 
     console.log(data);
 
-    // ============================
     // SUCCESS
-    // ============================
 
     if (response.ok) {
-      // SAVE USER IN LOCAL STORAGE
-
       localStorage.setItem("nexserveUser", JSON.stringify(data.user));
 
       alert("Signup Successful");
 
-      // REDIRECT TO LOGIN PAGE
+      // REDIRECT
 
       window.location.href = "login.html";
     }
 
-    // ============================
     // ERROR
-    // ============================
     else {
       alert(data.message);
     }
