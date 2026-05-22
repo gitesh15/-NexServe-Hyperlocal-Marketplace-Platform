@@ -22,6 +22,25 @@ const userSchema = new mongoose.Schema({
     enum: ["customer", "provider"],
     default: "customer",
   },
+
+  // PROVIDER DATA
+
+  service: {
+    type: String,
+  },
+
+  location: {
+    type: String,
+  },
+
+  experience: {
+    type: String,
+  },
+
+  rating: {
+    type: Number,
+    default: 4.8,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);

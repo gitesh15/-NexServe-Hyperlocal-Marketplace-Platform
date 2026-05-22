@@ -143,7 +143,7 @@
       <h2>How NexServe Works</h2>
 
       <div class="steps-grid">
-        <div class="step-card">
+        <div class="step-card" id="searchServiceCard">
           <div class="step-icon blue">
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
@@ -367,5 +367,12 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      const searchServiceCard = document.getElementById("searchServiceCard");
+
+      searchServiceCard.addEventListener("click", () => {
+        window.location.href = "../frontend/Pages/html/search-services.html";
+      });
+    </script>
   </body>
 </html>

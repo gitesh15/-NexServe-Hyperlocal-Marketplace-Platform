@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Search Services | NexServe</title>
+
+    <link rel="stylesheet" href="../css/search-services.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="bg-blur blur1"></div>
+
+    <div class="bg-blur blur2"></div>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+      <div class="logo">
+        <h2>NEXSERVE</h2>
+
+        <span>Trusted. Local. Reliable.</span>
+      </div>
+
+      <div class="nav-right">
+        <button class="location-btn">
+          <i class="fa-solid fa-location-dot"></i>
+
+          Mumbai
+        </button>
+
+        <button class="back-btn" onclick="history.back()">
+          <i class="fa-solid fa-arrow-left"></i>
+
+          Back
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+
+    <section class="hero-section">
+      <span class="tag"> Smart Service Discovery </span>
+
+      <h1>Find Trusted Local Experts</h1>
+
+      <p>
+        Browse verified professionals, compare ratings and instantly book
+        services near your location.
+      </p>
+
+      <!-- SEARCH -->
+
+      <div class="search-box">
+        <div class="search-input">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search electricians, plumbers, tutors..."
+          />
+        </div>
+
+        <button id="searchBtn">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- FILTERS -->
+
+      <div class="filter-buttons">
+        <button class="filter-btn active-filter" data-category="all">
+          All
+        </button>
+
+        <button class="filter-btn" data-category="electrician">
+          Electrician
+        </button>
+
+        <button class="filter-btn" data-category="plumbing">Plumbing</button>
+
+        <button class="filter-btn" data-category="cleaning">Cleaning</button>
+
+        <button class="filter-btn" data-category="tutoring">Tutoring</button>
+
+        <button class="filter-btn" data-category="repair">Repairs</button>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+
+    <section class="results-section">
+      <div class="results-header">
+        <h2>Available Services</h2>
+
+        <p id="resultsCount">12 services found</p>
+      </div>
+
+      <!-- SERVICES GRID -->
+
+      <div class="services-grid" id="servicesGrid"></div>
+    </section>
+
+    <!-- SERVICE MODAL -->
+
+    <div class="service-modal" id="serviceModal">
+      <div class="modal-content">
+        <div class="modal-top">
+          <h2 id="modalTitle">Service</h2>
+
+          <button id="closeModal">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <p id="modalDescription"></p>
+
+        <div class="modal-stats">
+          <div>
+            <h3 id="modalProviders">120+</h3>
+
+            <span>Providers</span>
+          </div>
+
+          <div>
+            <h3 id="modalRating">4.9★</h3>
+
+            <span>Rating</span>
+          </div>
+        </div>
+
+        <button class="book-btn">
+          <i class="fa-solid fa-calendar-check"></i>
+
+          Book Service
+        </button>
+      </div>
+    </div>
+
+    <script src="../js/search-services.js"></script>
+  </body>
+</html>

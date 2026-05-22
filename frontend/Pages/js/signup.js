@@ -6,6 +6,12 @@ const togglePassword = document.getElementById("togglePassword");
 
 const password = document.getElementById("password");
 
+const service = document.getElementById("service")?.value;
+
+const location = document.getElementById("location")?.value;
+
+const experience = document.getElementById("experience")?.value;
+
 if (togglePassword && password) {
   togglePassword.addEventListener("click", () => {
     const type =
@@ -26,6 +32,14 @@ if (togglePassword && password) {
 // DEFAULT ROLE
 let selectedRole = "customer";
 
+const providerFields = document.querySelectorAll(".provider-field");
+
+// HIDE DEFAULT
+
+providerFields.forEach((field) => {
+  field.style.display = "none";
+});
+
 // ALL ROLE BUTTONS
 const roleButtons = document.querySelectorAll(".role-btn");
 
@@ -45,6 +59,21 @@ roleButtons.forEach((button) => {
     // SAVE ROLE
 
     selectedRole = button.dataset.role;
+
+    // SHOW PROVIDER FIELDS
+
+    if (selectedRole === "provider") {
+      providerFields.forEach((field) => {
+        field.style.display = "block";
+      });
+    }
+
+    // HIDE PROVIDER FIELDS
+    else {
+      providerFields.forEach((field) => {
+        field.style.display = "none";
+      });
+    }
 
     console.log("Selected Role:", selectedRole);
   });
@@ -93,6 +122,9 @@ authForm.addEventListener("submit", async (e) => {
           email,
           password,
           role: selectedRole,
+          service,
+          location,
+          experience,
         }),
       },
     );
