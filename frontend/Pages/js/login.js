@@ -67,13 +67,15 @@ loginForm.addEventListener("submit", async (e) => {
     localStorage.setItem("user", JSON.stringify(data.user));
 
     alert("Login Successful");
+    // GO TO HOME PAGE
 
+    window.location.href = "../../home.html";
     // REDIRECT
-    if (data.user.role === "customer") {
-      window.location.href = "../../dashboard/customer-dashboard.html";
-    } else {
-      window.location.href = "../../dashboard/provider-dashboard.html";
-    }
+    // if (data.user.role === "customer") {
+    //   window.location.href = "../../dashboard/customer-dashboard.html";
+    // } else {
+    //   window.location.href = "../../dashboard/provider-dashboard.html";
+    // }
   } catch (error) {
     console.log(error);
 

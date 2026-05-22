@@ -19,11 +19,18 @@ body {
   color: white;
   font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.profile-btn:hover {
-  transform: translateY(-2px);
+/* LOGOUT BUTTON */
+
+.logout-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: #ef4444;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 /* LOGOUT BUTTON */
