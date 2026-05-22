@@ -8,7 +8,7 @@
     <title>NexServe Home</title>
 
     <link rel="stylesheet" href="./home.css" />
-    <link rel="stylesheet" href="./style.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -33,18 +33,14 @@
       <nav>
         <a href="#">Home</a>
 
-        <a href="#services">Services</a>
-
         <a href="#providers">Providers</a>
 
         <a href="#how-it-works">How It Works</a>
       </nav>
 
-      <!-- DYNAMIC BUTTONS -->
+      <!-- DYNAMIC NAV BUTTONS -->
 
-      <div class="nav-buttons" id="navButtons">
-        <!-- DYNAMIC BUTTONS -->
-      </div>
+      <div class="nav-buttons" id="navButtons"></div>
     </header>
 
     <!-- HERO -->
@@ -53,6 +49,7 @@
       <div class="hero-left">
         <span class="hero-badge">
           <i class="fa-solid fa-shield-halved"></i>
+
           Trusted Marketplace Platform
         </span>
 
@@ -122,7 +119,7 @@
             <div class="service-item">
               <i class="fa-solid fa-faucet-drip"></i>
 
-              Plumber
+              Plumbing
             </div>
 
             <div class="service-item">
@@ -134,7 +131,7 @@
             <div class="service-item">
               <i class="fa-solid fa-book"></i>
 
-              Tutor
+              Tutoring
             </div>
           </div>
 
@@ -189,7 +186,7 @@
       </div>
     </section>
 
-    <!-- TOP PROVIDERS -->
+    <!-- REAL PROVIDERS -->
 
     <section class="providers-section" id="providers">
       <div class="section-header">
@@ -198,67 +195,9 @@
         <p>Verified experts trusted by thousands of customers.</p>
       </div>
 
-      <div class="providers-grid">
-        <div class="provider-card">
-          <div class="provider-top">
-            <div class="provider-avatar">R</div>
+      <!-- DYNAMIC PROVIDERS -->
 
-            <div>
-              <h3>Rahul Electrician</h3>
-
-              <span>Electrician</span>
-            </div>
-          </div>
-
-          <div class="provider-meta">
-            <p><i class="fa-solid fa-location-dot"></i> Mumbai</p>
-
-            <p><i class="fa-solid fa-star"></i> 4.9 Rating</p>
-          </div>
-
-          <button>Book Now</button>
-        </div>
-
-        <div class="provider-card">
-          <div class="provider-top">
-            <div class="provider-avatar">A</div>
-
-            <div>
-              <h3>Arjun Plumbing</h3>
-
-              <span>Plumber</span>
-            </div>
-          </div>
-
-          <div class="provider-meta">
-            <p><i class="fa-solid fa-location-dot"></i> Delhi</p>
-
-            <p><i class="fa-solid fa-star"></i> 4.8 Rating</p>
-          </div>
-
-          <button>Book Now</button>
-        </div>
-
-        <div class="provider-card">
-          <div class="provider-top">
-            <div class="provider-avatar">S</div>
-
-            <div>
-              <h3>Sneha Tutor</h3>
-
-              <span>Math Tutor</span>
-            </div>
-          </div>
-
-          <div class="provider-meta">
-            <p><i class="fa-solid fa-location-dot"></i> Bangalore</p>
-
-            <p><i class="fa-solid fa-star"></i> 4.9 Rating</p>
-          </div>
-
-          <button>Book Now</button>
-        </div>
-      </div>
+      <div class="providers-grid" id="providersGrid"></div>
     </section>
 
     <script src="./home.js"></script>

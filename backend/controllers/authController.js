@@ -6,14 +6,12 @@ const bcrypt = require("bcryptjs");
 // REGISTER USER
 // ============================
 
-// ================= REGISTER USER =================
-
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, role, service, location, experience } =
       req.body;
 
-    // CHECK EXISTING USER
+    // CHECK USER EXISTS
 
     const existingUser = await User.findOne({ email });
 
@@ -39,15 +37,28 @@ const registerUser = async (req, res) => {
       role,
 
       // PROVIDER DATA
+
       service: role === "provider" ? service : "",
       location: role === "provider" ? location : "",
       experience: role === "provider" ? experience : "",
     });
 
+    // REMOVE PASSWORD FROM RESPONSE
+
+    const userWithoutPassword = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      service: user.service,
+      location: user.location,
+      experience: user.experience,
+    };
+
     res.status(201).json({
       success: true,
       message: "Signup successful",
-      user,
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.log(error);
@@ -100,10 +111,22 @@ const loginUser = async (req, res) => {
       });
     }
 
+    // REMOVE PASSWORD
+
+    const userWithoutPassword = {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      service: user.service,
+      location: user.location,
+      experience: user.experience,
+    };
+
     res.status(200).json({
       success: true,
       message: "Login successful",
-      user,
+      user: userWithoutPassword,
     });
   } catch (error) {
     console.log(error);
