@@ -209,3 +209,101 @@
   font-weight: 600;
   cursor: pointer;
 }
+@media (max-width: 992px) {
+  .quick-actions {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .providers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-card,
+  .action-card,
+  .provider-card {
+    padding: 28px;
+  }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .search-box-home {
+    flex-direction: column;
+  }
+
+  .search-box-home button {
+    width: 100%;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr;
+    padding: 60px 5%;
+  }
+
+  .providers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .providers-section {
+    padding: 60px 5%;
+  }
+
+  .hero-card,
+  .action-card,
+  .provider-card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .mini-stats {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .profile-btn,
+  .logout-btn {
+    flex: 1;
+    min-width: 140px;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .hero-badge {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .search-box-home input,
+  .search-box-home button {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .profile-btn,
+  .logout-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .provider-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+
+  .action-card i {
+    font-size: 24px;
+  }
+}
