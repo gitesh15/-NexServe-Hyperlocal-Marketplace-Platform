@@ -6,12 +6,14 @@ const bcrypt = require("bcryptjs");
 // REGISTER USER
 // ============================
 
+// ================= REGISTER USER =================
+
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, role, service, location, experience } =
       req.body;
 
-    // CHECK USER
+    // CHECK EXISTING USER
 
     const existingUser = await User.findOne({ email });
 
@@ -24,7 +26,9 @@ const registerUser = async (req, res) => {
 
     // HASH PASSWORD
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const salt = await bcrypt.genSalt(10);
+
+    const hashedPassword = await bcrypt.hash(password, salt);
 
     // CREATE USER
 
@@ -33,6 +37,8 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+
+      // PROVIDER DATA
       service: role === "provider" ? service : "",
       location: role === "provider" ? location : "",
       experience: role === "provider" ? experience : "",
