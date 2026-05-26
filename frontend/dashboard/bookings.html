@@ -180,98 +180,116 @@
       </main>
     </section>
 
-    <!-- BOOKING DRAWER -->
+<!-- BOOKING DRAWER -->
 
-    <div class="booking-drawer" id="bookingDrawer">
-      <div class="drawer-content">
-        <!-- DRAWER HEADER -->
+<div class="booking-drawer" id="bookingDrawer">
+  <div class="drawer-content">
+    <!-- MODERN HEADER -->
 
-        <div class="drawer-top">
-          <div>
-            <span class="drawer-badge"> Quick Booking </span>
+    <div class="drawer-top modern-drawer-top">
+      <div class="drawer-glow"></div>
 
-            <h2>Book Service</h2>
-          </div>
-
-          <button id="closeDrawer">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
+      <div class="drawer-header-content">
+        <div class="drawer-mini-icon">
+          <i class="fa-solid fa-bolt"></i>
         </div>
 
-        <!-- SELECTED PROVIDER -->
+        <div>
+          <span class="drawer-subtitle">
+            NexServe Instant Booking
+          </span>
 
-        <div class="selected-provider" id="selectedProvider">
-          <!-- DYNAMIC -->
+          <h2>Reserve Your Professional</h2>
+
+          <p>
+            Secure your booking in seconds with realtime confirmation.
+          </p>
         </div>
-
-        <!-- FORM -->
-
-        <form id="bookingForm">
-          <div class="drawer-grid">
-            <!-- DATE -->
-
-            <div class="drawer-input">
-              <label> Preferred Date </label>
-
-              <div class="input-wrapper">
-                <i class="fa-solid fa-calendar-days"></i>
-
-                <input type="date" id="bookingDate" required />
-              </div>
-            </div>
-
-            <!-- TIME -->
-
-            <div class="drawer-input">
-              <label> Preferred Time </label>
-
-              <div class="input-wrapper">
-                <i class="fa-solid fa-clock"></i>
-
-                <input type="time" id="bookingTime" required />
-              </div>
-            </div>
-          </div>
-
-          <!-- ADDRESS -->
-
-          <div class="drawer-input">
-            <label> Service Address </label>
-
-            <div class="input-wrapper">
-              <i class="fa-solid fa-location-dot"></i>
-
-              <input
-                type="text"
-                id="bookingAddress"
-                placeholder="Enter your complete address"
-                required
-              />
-            </div>
-          </div>
-
-          <!-- DESCRIPTION -->
-
-          <div class="drawer-input">
-            <label> Service Description </label>
-
-            <div class="textarea-wrapper">
-              <textarea
-                id="bookingDescription"
-                placeholder="Describe what service you need..."
-              ></textarea>
-            </div>
-          </div>
-
-          <!-- BUTTON -->
-
-          <button type="submit" class="confirm-booking-btn">
-            <i class="fa-solid fa-paper-plane"></i>
-
-            Confirm Booking
-          </button>
-        </form>
       </div>
+
+      <button id="closeDrawer" class="close-modern-btn">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- SELECTED PROVIDER -->
+
+    <div
+      class="selected-provider premium-provider-card"
+      id="selectedProvider"
+    >
+      <!-- DYNAMIC -->
+    </div>
+
+    <!-- FORM -->
+
+    <form id="bookingForm">
+      <div class="drawer-grid">
+        <!-- DATE -->
+
+        <div class="drawer-input">
+          <label> Preferred Date </label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-calendar-days"></i>
+
+            <input type="date" id="bookingDate" required />
+          </div>
+        </div>
+
+        <!-- TIME -->
+
+        <div class="drawer-input">
+          <label> Preferred Time </label>
+
+          <div class="input-wrapper">
+            <i class="fa-solid fa-clock"></i>
+
+            <input type="time" id="bookingTime" required />
+          </div>
+        </div>
+      </div>
+
+      <!-- ADDRESS -->
+
+      <div class="drawer-input">
+        <label> Service Address </label>
+
+        <div class="input-wrapper">
+          <i class="fa-solid fa-location-dot"></i>
+
+          <input
+            type="text"
+            id="bookingAddress"
+            placeholder="Enter your complete address"
+            required
+          />
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+
+      <div class="drawer-input">
+        <label> Service Description </label>
+
+        <div class="textarea-wrapper">
+          <textarea
+            id="bookingDescription"
+            placeholder="Describe what service you need..."
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- BUTTON -->
+
+      <button type="submit" class="confirm-booking-btn">
+        <i class="fa-solid fa-paper-plane"></i>
+
+        Confirm Booking
+      </button>
+    </form>
+  </div>
+</div>
     </div>
 
     <!-- SCRIPT -->
