@@ -90,5 +90,28 @@ router.put("/availability/:id", async (req, res) => {
     });
   }
 });
+// ============================
+// GET BOOKINGS FOR PROVIDER
+// ============================
+
+router.get("/provider/:providerId", async (req, res) => {
+  try {
+    const bookings = await Booking.find({
+      providerId: req.params.providerId,
+    }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      bookings,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 module.exports = router;

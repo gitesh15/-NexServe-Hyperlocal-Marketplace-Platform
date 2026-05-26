@@ -10,11 +10,36 @@ const Booking = require("../models/Booking");
 
 router.post("/create", async (req, res) => {
   try {
-    const booking = await Booking.create(req.body);
+    const {
+      customerId,
+      providerId,
+      customerName,
+      providerName,
+      service,
+      address,
+      date,
+      time,
+      description,
+    } = req.body;
+
+    const newBooking = new Booking({
+      customerId,
+      providerId,
+      customerName,
+      providerName,
+      service,
+      address,
+      date,
+      time,
+      description,
+    });
+
+    await newBooking.save();
 
     res.status(201).json({
       success: true,
-      booking,
+      message: "Booking Created",
+      booking: newBooking,
     });
   } catch (error) {
     console.log(error);

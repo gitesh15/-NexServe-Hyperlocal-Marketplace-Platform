@@ -172,3 +172,97 @@ if (logoutBtn) {
     window.location.href = "../index.html";
   });
 }
+const provider = JSON.parse(localStorage.getItem("user"));
+
+const fetchBookings = async () => {
+  try {
+    const response = await fetch(
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/provider/${provider._id}`,
+    );
+
+    const data = await response.json();
+
+    bookingRequests.innerHTML = "";
+
+    if (!data.bookings.length) {
+      bookingRequests.innerHTML = `
+      
+      <div class="empty-bookings">
+        <h3>No Booking Requests Yet</h3>
+      </div>
+      
+      `;
+
+      return;
+    }
+
+    data.bookings.forEach((booking) => {
+      bookingRequests.innerHTML += `
+
+      <div class="booking-card">
+
+        <div class="booking-user">
+
+          <div class="booking-avatar">
+            ${booking.customerName.charAt(0)}
+          </div>
+
+          <div>
+            <h3>${booking.customerName}</h3>
+
+            <p>${booking.service}</p>
+          </div>
+
+        </div>
+
+        <div class="booking-details">
+
+          <span>
+            <i class="fa-solid fa-location-dot"></i>
+            ${booking.address}
+          </span>
+
+          <span>
+            <i class="fa-solid fa-calendar"></i>
+            ${booking.date}
+          </span>
+
+          <span>
+            <i class="fa-solid fa-clock"></i>
+            ${booking.time}
+          </span>
+
+        </div>
+
+        <div class="booking-bottom">
+
+          <div class="booking-status ${booking.status}">
+            ${booking.status}
+          </div>
+
+          ${
+            booking.status === "pending"
+              ? `
+              <button onclick="acceptBooking('${booking._id}')">
+                Accept Task
+              </button>
+            `
+              : `
+              <button disabled>
+                Accepted
+              </button>
+            `
+          }
+
+        </div>
+
+      </div>
+
+      `;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+fetchBookings();
