@@ -1,18 +1,91 @@
+// ============================
+// USER CHECK
+// ============================
+
 const user = JSON.parse(localStorage.getItem("user"));
 
 if (!user) {
   window.location.href = "../Pages/html/login.html";
 }
 
+// ============================
 // LOGOUT
+// ============================
 
 const logoutBtn = document.getElementById("logoutBtn");
 
-logoutBtn.addEventListener("click", () => {
-  localStorage.removeItem("user");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
 
-  window.location.href = "../index.html";
-});
+    window.location.href = "../index.html";
+  });
+}
+
+// ============================
+// BOOKING FORM
+// ============================
+
+const bookingForm = document.getElementById("bookingForm");
+
+// IMPORTANT FIX
+
+if (bookingForm) {
+  bookingForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const service = document.getElementById("service").value;
+
+    const address = document.getElementById("address").value;
+
+    const date = document.getElementById("date").value;
+
+    const time = document.getElementById("time").value;
+
+    const description = document.getElementById("description").value;
+
+    const providerId = localStorage.getItem("selectedProvider");
+
+    try {
+      const response = await fetch(
+        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/create",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            customerId: user._id,
+            providerId,
+            service,
+            address,
+            date,
+            time,
+            description,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(data.message);
+
+        return;
+      }
+
+      alert("Booking Created Successfully");
+
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+
+      alert("Server Error");
+    }
+  });
+}
 
 // ELEMENTS
 
