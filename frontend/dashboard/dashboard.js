@@ -1,135 +1,330 @@
-// // dashboard/dashboard.js
+// ====================================
+// LOGIN CHECK
+// ====================================
 
-// console.log("NexServe Dashboard Loaded");
-// const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
+const user = JSON.parse(localStorage.getItem("user"));
 
-// const userName = document.getElementById("userName");
+if (!user) {
+  window.location.href = "../Pages/html/login.html";
+}
 
-// if (storedUser && userName) {
-//   userName.innerText = storedUser.name;
-// }
-
-// GET STORED USER
-
-const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
-
-// USER NAME
+// ====================================
+// USER DATA
+// ====================================
 
 const userName = document.getElementById("userName");
 
-if (storedUser && userName) {
-  userName.innerText = storedUser.name;
+if (userName) {
+  userName.innerText = user.name;
 }
-// CREATE BOOKING
 
-const bookingForm = document.getElementById("bookingForm");
-
-if (bookingForm) {
-  bookingForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
-
-    const service = document.getElementById("service").value;
-
-    const address = document.getElementById("address").value;
-
-    try {
-      const response = await fetch(
-        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/create",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            customerName: storedUser.name,
-
-            service,
-
-            address,
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      console.log(data);
-
-      alert("Booking Request Sent");
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}
-// FETCH CUSTOMER BOOKINGS
-
-const customerBookings = document.getElementById("customerBookings");
-
-const fetchCustomerBookings = async () => {
-  try {
-    const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
-
-    const response = await fetch(
-      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/all",
-    );
-
-    const data = await response.json();
-
-    customerBookings.innerHTML = "";
-
-    // FILTER CURRENT USER BOOKINGS
-
-    const myBookings = data.bookings.filter(
-      (booking) => booking.customerName === storedUser.name,
-    );
-
-    myBookings.forEach((booking) => {
-      customerBookings.innerHTML += `
-
-          <div class="booking-card">
-
-            <h3>
-              ${booking.service}
-            </h3>
-
-            <p>
-              Address:
-              ${booking.address}
-            </p>
-
-            <p>
-              Status:
-              <strong>
-                ${booking.status}
-              </strong>
-            </p>
-
-          </div>
-
-        `;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-fetchCustomerBookings();
-
+// ====================================
 // LOGOUT
+// ====================================
 
 const logoutBtn = document.getElementById("logoutBtn");
 
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
-    // REMOVE USER DATA
-
-    localStorage.removeItem("nexserveUser");
-
-    // REDIRECT
+    localStorage.removeItem("user");
 
     window.location.href = "../index.html";
   });
+}
+
+// ====================================
+// SEARCH PROVIDERS
+// ====================================
+
+const dashboardSearchBtn = document.getElementById("dashboardSearchBtn");
+
+const dashboardSearchInput = document.getElementById("dashboardSearchInput");
+
+const providersGrid = document.getElementById("providersGrid");
+
+// SEARCH BUTTON
+
+if (dashboardSearchBtn) {
+  dashboardSearchBtn.addEventListener("click", async () => {
+    const service = dashboardSearchInput.value.trim();
+
+    if (!service) {
+      alert("Please enter service");
+
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers/search/${service}`,
+      );
+
+      const data = await response.json();
+
+      providersGrid.innerHTML = "";
+
+      // NO PROVIDERS
+
+      if (!data.providers || data.providers.length === 0) {
+        providersGrid.innerHTML = `
+        
+          <h2 class="no-results">
+            No providers found
+          </h2>
+        
+        `;
+
+        return;
+      }
+
+      // SHOW PROVIDERS
+
+      data.providers.forEach((provider) => {
+        providersGrid.innerHTML += `
+        
+        <div class="provider-card">
+
+          <div class="provider-top">
+
+            <img
+              src="https://i.pravatar.cc/150?u=${provider.email}"
+            />
+
+            <div>
+              <h3>${provider.name}</h3>
+
+              <p>${provider.service}</p>
+            </div>
+
+          </div>
+
+          <div class="provider-details">
+
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+              ${provider.location}
+            </span>
+
+            <span>
+              <i class="fa-solid fa-briefcase"></i>
+              ${provider.experience}
+            </span>
+
+          </div>
+
+          <button class="book-provider-btn">
+            Book Now
+          </button>
+
+        </div>
+        
+        `;
+      });
+    } catch (error) {
+      console.log(error);
+
+      alert("Server Error");
+    }
+  });
+}
+
+// ====================================
+// BOOKING SYSTEM
+// ====================================
+
+const bookingForm = document.getElementById("bookingForm");
+
+const customerBookings = document.getElementById("customerBookings");
+
+// LOAD BOOKINGS
+
+let bookings = JSON.parse(localStorage.getItem("customerBookings")) || [];
+
+// SHOW BOOKINGS
+
+function renderBookings() {
+  if (!customerBookings) return;
+
+  customerBookings.innerHTML = "";
+
+  if (bookings.length === 0) {
+    customerBookings.innerHTML = `
+    
+      <p class="empty-booking">
+        No bookings yet
+      </p>
+    
+    `;
+
+    return;
+  }
+
+  bookings.forEach((booking) => {
+    customerBookings.innerHTML += `
+    
+    <div class="booking-card">
+
+      <div class="booking-left">
+
+        <img
+          src="https://i.pravatar.cc/120?u=${booking.service}"
+        />
+
+        <div>
+
+          <h3>${booking.service}</h3>
+
+          <p>${booking.address}</p>
+
+          <span>
+            ${booking.date} • ${booking.time}
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="booking-status pending">
+        Pending
+      </div>
+
+    </div>
+    
+    `;
+  });
+}
+
+// INITIAL RENDER
+
+renderBookings();
+
+// BOOK FORM
+
+if (bookingForm) {
+  bookingForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const service = document.getElementById("service").value;
+
+    const address = document.getElementById("address").value;
+
+    const date = document.getElementById("date").value;
+
+    const time = document.getElementById("time").value;
+
+    const description = document.getElementById("description").value;
+
+    const bookingData = {
+      service,
+      address,
+      date,
+      time,
+      description,
+    };
+
+    bookings.push(bookingData);
+
+    localStorage.setItem("customerBookings", JSON.stringify(bookings));
+
+    renderBookings();
+
+    bookingForm.reset();
+
+    alert("Booking Created Successfully");
+  });
+  // ====================================
+  // SEARCH PROVIDERS
+  // ====================================
+
+  const dashboardSearchBtn = document.getElementById("dashboardSearchBtn");
+
+  const dashboardSearchInput = document.getElementById("dashboardSearchInput");
+
+  const providersGrid = document.getElementById("providersGrid");
+
+  // SEARCH BUTTON
+
+  if (dashboardSearchBtn) {
+    dashboardSearchBtn.addEventListener("click", async () => {
+      const service = dashboardSearchInput.value.trim();
+
+      if (!service) {
+        alert("Please enter service");
+
+        return;
+      }
+
+      try {
+        const response = await fetch(
+          `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers/search/${service}`,
+        );
+
+        const data = await response.json();
+
+        providersGrid.innerHTML = "";
+
+        // NO PROVIDERS
+
+        if (!data.providers || data.providers.length === 0) {
+          providersGrid.innerHTML = `
+        
+          <h2 class="no-results">
+            No providers found
+          </h2>
+        
+        `;
+
+          return;
+        }
+
+        // SHOW PROVIDERS
+
+        data.providers.forEach((provider) => {
+          providersGrid.innerHTML += `
+        
+        <div class="provider-card">
+
+          <div class="provider-top">
+
+            <img
+              src="https://i.pravatar.cc/150?u=${provider.email}"
+            />
+
+            <div>
+              <h3>${provider.name}</h3>
+
+              <p>${provider.service}</p>
+            </div>
+
+          </div>
+
+          <div class="provider-details">
+
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+              ${provider.location}
+            </span>
+
+            <span>
+              <i class="fa-solid fa-briefcase"></i>
+              ${provider.experience}
+            </span>
+
+          </div>
+
+          <button class="book-provider-btn">
+            Book Now
+          </button>
+
+        </div>
+        
+        `;
+        });
+      } catch (error) {
+        console.log(error);
+
+        alert("Server Error");
+      }
+    });
+  }
 }
