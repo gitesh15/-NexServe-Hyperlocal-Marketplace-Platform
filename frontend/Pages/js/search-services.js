@@ -1,147 +1,229 @@
-// ============================
+// ====================================
 // LOGIN CHECK
-// ============================
+// ====================================
 
-const user = JSON.parse(localStorage.getItem("user"));
+const loggedInUser = JSON.parse(localStorage.getItem("user"));
 
-// ONLY CUSTOMER
-
-if (!user) {
-  alert("Please login first");
-
+if (!loggedInUser) {
   window.location.href = "./login.html";
 }
 
-if (user.role !== "customer") {
-  alert("Only customers can search services");
-
-  window.location.href = "../../home/home.html";
-}
-
-// ============================
+// ====================================
 // ELEMENTS
-// ============================
-
-const searchBtn = document.getElementById("searchBtn");
-
-const searchInput = document.getElementById("searchInput");
+// ====================================
 
 const servicesGrid = document.getElementById("servicesGrid");
 
+const searchInput = document.getElementById("searchInput");
+
+const searchBtn = document.getElementById("searchBtn");
+
+const filterButtons = document.querySelectorAll(".filter-btn");
+
 const resultsCount = document.getElementById("resultsCount");
 
-// ============================
-// SEARCH FUNCTION
-// ============================
+const modal = document.getElementById("serviceModal");
 
-searchBtn.addEventListener("click", async () => {
-  const service = searchInput.value.trim();
+const closeModal = document.getElementById("closeModal");
 
-  // VALIDATION
+// ====================================
+// FETCH PROVIDERS
+// ====================================
 
-  if (!service) {
-    alert("Enter service name");
-
-    return;
-  }
-
+async function fetchProviders(service = "") {
   try {
-    // LOADING
+    let url = "";
 
-    servicesGrid.innerHTML = `
-      <h2 class="loading-text">
-        Searching providers...
-      </h2>
-    `;
+    // SEARCH PROVIDERS
 
-    // API CALL
+    if (service && service !== "all") {
+      url = `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers/search/${service}`;
+    }
 
-    const response = await fetch(
-      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers/search/${service}`,
-    );
+    // ALL PROVIDERS
+    else {
+      url =
+        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers";
+    }
+
+    const response = await fetch(url);
 
     const data = await response.json();
 
-    // CLEAR GRID
-
-    servicesGrid.innerHTML = "";
-
-    // RESULTS COUNT
-
-    resultsCount.innerText = `${data.providers.length} providers found`;
-
-    // NO PROVIDERS
-
-    if (data.providers.length === 0) {
-      servicesGrid.innerHTML = `
-        <div class="no-results">
-          <h2>No providers found</h2>
-          <p>Try searching another service</p>
-        </div>
-      `;
-
-      return;
-    }
-
-    // SHOW PROVIDERS
-
-    data.providers.forEach((provider) => {
-      servicesGrid.innerHTML += `
-      
-      <div class="provider-card">
-
-        <div class="provider-top">
-
-          <img
-            src="https://i.pravatar.cc/150?u=${provider.email}"
-            class="provider-image"
-          />
-
-          <div>
-
-            <h3>${provider.name}</h3>
-
-            <p class="provider-service">
-              ${provider.service}
-            </p>
-
-          </div>
-
-        </div>
-
-        <div class="provider-details">
-
-          <span>
-            <i class="fa-solid fa-location-dot"></i>
-            ${provider.location}
-          </span>
-
-          <span>
-            <i class="fa-solid fa-briefcase"></i>
-            ${provider.experience}
-          </span>
-
-        </div>
-
-        <div class="provider-distance">
-
-          <i class="fa-solid fa-route"></i>
-
-          2.4 KM Away
-
-        </div>
-
-        <button class="book-provider-btn">
-          Book Now
-        </button>
-
-      </div>
-      
-      `;
-    });
+    renderProviders(data.providers);
   } catch (error) {
     console.log(error);
 
     alert("Server Error");
   }
+}
+
+// ====================================
+// RENDER PROVIDERS
+// ====================================
+
+function renderProviders(providers) {
+  servicesGrid.innerHTML = "";
+
+  resultsCount.innerText = `${providers.length} providers found`;
+
+  // NO PROVIDERS
+
+  if (providers.length === 0) {
+    servicesGrid.innerHTML = `
+    
+      <h2 class="no-results">
+        No providers found
+      </h2>
+    
+    `;
+
+    return;
+  }
+
+  // LOOP
+
+  providers.forEach((provider) => {
+    servicesGrid.innerHTML += `
+    
+    <div class="provider-card">
+
+      <div class="provider-top">
+
+        <img
+          src="https://i.pravatar.cc/150?u=${provider.email}"
+          class="provider-img"
+        />
+
+        <div>
+
+          <h3>${provider.name}</h3>
+
+          <p>${provider.service}</p>
+
+        </div>
+
+      </div>
+
+      <div class="provider-details">
+
+        <span>
+          <i class="fa-solid fa-location-dot"></i>
+          ${provider.location}
+        </span>
+
+        <span>
+          <i class="fa-solid fa-briefcase"></i>
+          ${provider.experience}
+        </span>
+
+      </div>
+
+      <button class="explore-btn">
+        View Details
+      </button>
+
+    </div>
+    
+    `;
+  });
+
+  // ====================================
+  // MODAL
+  // ====================================
+
+  const exploreButtons = document.querySelectorAll(".explore-btn");
+
+  exploreButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      const provider = providers[index];
+
+      document.getElementById("modalTitle").innerText = provider.name;
+
+      document.getElementById("modalDescription").innerText =
+        `${provider.service} expert available in ${provider.location}`;
+
+      document.getElementById("modalProviders").innerText = provider.experience;
+
+      document.getElementById("modalRating").innerText = "Verified";
+
+      modal.classList.add("show-modal");
+    });
+  });
+}
+
+// ====================================
+// INITIAL LOAD
+// ====================================
+
+fetchProviders();
+
+// ====================================
+// SEARCH BUTTON
+// ====================================
+
+searchBtn.addEventListener("click", () => {
+  const service = searchInput.value.trim();
+
+  fetchProviders(service);
 });
+
+// ====================================
+// ENTER KEY SEARCH
+// ====================================
+
+searchInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    fetchProviders(searchInput.value.trim());
+  }
+});
+
+// ====================================
+// FILTER BUTTONS
+// ====================================
+
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("active-filter");
+    });
+
+    button.classList.add("active-filter");
+
+    const category = button.dataset.category;
+
+    fetchProviders(category);
+  });
+});
+
+// ====================================
+// CLOSE MODAL
+// ====================================
+
+closeModal.addEventListener("click", () => {
+  modal.classList.remove("show-modal");
+});
+
+// ====================================
+// OUTSIDE CLICK CLOSE
+// ====================================
+
+window.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.remove("show-modal");
+  }
+});
+
+// ====================================
+// AUTO SEARCH FROM HOME PAGE
+// ====================================
+
+const searchedService = localStorage.getItem("searchedService");
+
+if (searchedService) {
+  searchInput.value = searchedService;
+
+  fetchProviders(searchedService);
+
+  localStorage.removeItem("searchedService");
+}
