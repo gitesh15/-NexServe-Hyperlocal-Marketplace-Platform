@@ -2,23 +2,71 @@ const User = require("../models/User");
 
 const bcrypt = require("bcryptjs");
 
-// ============================
-// REGISTER USER
-// ============================
+// ================= REGISTER USER =================
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, password, role, service, location, experience } =
-      req.body;
+    const {
+      name,
+      email,
+      mobile,
+      password,
+      role,
+      service,
+      location,
+      experience,
+    } = req.body;
 
-    // CHECK USER EXISTS
+    // VALIDATION
 
-    const existingUser = await User.findOne({ email });
+    if (!name || !email || !mobile || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all fields",
+      });
+    }
+
+    // EMAIL VALIDATION
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email format",
+      });
+    }
+
+    // MOBILE VALIDATION
+
+    const mobileRegex = /^[6-9]\d{9}$/;
+
+    if (!mobileRegex.test(mobile)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid mobile number",
+      });
+    }
+
+    // PASSWORD LENGTH
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters",
+      });
+    }
+
+    // CHECK EXISTING USER
+
+    const existingUser = await User.findOne({
+      $or: [{ email }, { mobile }],
+    });
 
     if (existingUser) {
       return res.status(400).json({
         success: false,
-        message: "User already exists",
+        message: "Email or mobile already registered",
       });
     }
 
@@ -33,32 +81,19 @@ const registerUser = async (req, res) => {
     const user = await User.create({
       name,
       email,
+      mobile,
       password: hashedPassword,
       role,
-
-      // PROVIDER DATA
 
       service: role === "provider" ? service : "",
       location: role === "provider" ? location : "",
       experience: role === "provider" ? experience : "",
     });
 
-    // REMOVE PASSWORD FROM RESPONSE
-
-    const userWithoutPassword = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      service: user.service,
-      location: user.location,
-      experience: user.experience,
-    };
-
     res.status(201).json({
       success: true,
       message: "Signup successful",
-      user: userWithoutPassword,
+      user,
     });
   } catch (error) {
     console.log(error);
@@ -70,28 +105,22 @@ const registerUser = async (req, res) => {
   }
 };
 
-// ============================
-// LOGIN USER
-// ============================
+// ================= LOGIN USER =================
 
 const loginUser = async (req, res) => {
   try {
     const { email, password, role } = req.body;
 
-    // FIND USER
-
     const user = await User.findOne({ email });
-
-    // USER NOT FOUND
 
     if (!user) {
       return res.status(404).json({
         success: false,
-        message: "User not found. Please signup first",
+        message: "User not found",
       });
     }
 
-    // CHECK ROLE
+    // ROLE CHECK
 
     if (user.role !== role) {
       return res.status(400).json({
@@ -100,7 +129,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // CHECK PASSWORD
+    // PASSWORD CHECK
 
     const isMatch = await bcrypt.compare(password, user.password);
 
@@ -111,22 +140,10 @@ const loginUser = async (req, res) => {
       });
     }
 
-    // REMOVE PASSWORD
-
-    const userWithoutPassword = {
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      service: user.service,
-      location: user.location,
-      experience: user.experience,
-    };
-
     res.status(200).json({
       success: true,
       message: "Login successful",
-      user: userWithoutPassword,
+      user,
     });
   } catch (error) {
     console.log(error);

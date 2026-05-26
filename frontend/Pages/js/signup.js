@@ -90,14 +90,44 @@ authForm.addEventListener("submit", async (e) => {
 
   const name = document.getElementById("name").value;
 
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
 
-  const password = document.getElementById("password").value;
+  const mobile = document.getElementById("mobile").value.trim();
+
+  const password = document.getElementById("password").value.trim();
 
   // VALIDATION
 
-  if (!name || !email || !password) {
+  if (!name || !email || !mobile || !password) {
     alert("Please fill all fields");
+
+    return;
+  }
+
+  // EMAIL VALIDATION
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Enter valid email");
+
+    return;
+  }
+
+  // MOBILE VALIDATION
+
+  const mobileRegex = /^[6-9]\d{9}$/;
+
+  if (!mobileRegex.test(mobile)) {
+    alert("Enter valid Indian mobile number");
+
+    return;
+  }
+
+  // PASSWORD LENGTH
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters");
 
     return;
   }
@@ -107,6 +137,7 @@ authForm.addEventListener("submit", async (e) => {
   let userData = {
     name,
     email,
+    mobile,
     password,
     role: selectedRole,
   };
