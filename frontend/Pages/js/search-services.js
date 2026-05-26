@@ -78,7 +78,7 @@ function renderProviders(providers) {
 
   providers.forEach((provider) => {
     servicesGrid.innerHTML += `
-
+      
 <div class="provider-card">
 
   <div class="provider-top">
@@ -98,24 +98,33 @@ function renderProviders(providers) {
 
   </div>
 
-  <div class="online-badge">
-    Available Now
+  <!-- AVAILABILITY -->
+
+  <div class="${provider.availability ? "online-badge" : "offline-badge"}">
+
+    ${provider.availability ? "Available Now" : "Unavailable"}
+
   </div>
+
+  <!-- DETAILS -->
 
   <div class="provider-details">
 
     <span>
       <i class="fa-solid fa-location-dot"></i>
+
       ${provider.location}
     </span>
 
     <span>
       <i class="fa-solid fa-briefcase"></i>
+
       ${provider.experience}
     </span>
 
     <span>
       <i class="fa-solid fa-shield-halved"></i>
+
       Verified Professional
     </span>
 

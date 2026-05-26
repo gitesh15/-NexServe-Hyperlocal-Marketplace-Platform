@@ -12,6 +12,8 @@ const providerRoutes = require("./routes/providerRoutes");
 
 const authRoutes = require("./routes/authRoutes");
 
+const providerAvailabilityRoutes = require("./routes/providerAvailabilityRoutes");
+
 dotenv.config();
 
 connectDB();
@@ -29,6 +31,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/providers", providerRoutes);
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api/provider", providerAvailabilityRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Running");

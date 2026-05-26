@@ -5,15 +5,12 @@ const userSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true,
     },
 
     email: {
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
-      trim: true,
     },
 
     mobile: {
@@ -48,6 +45,11 @@ const userSchema = new mongoose.Schema(
     experience: {
       type: String,
       default: "",
+    },
+
+    availability: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true },

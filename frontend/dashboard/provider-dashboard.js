@@ -100,6 +100,50 @@ const acceptBooking = async (id) => {
     console.log(error);
   }
 };
+const provider = JSON.parse(localStorage.getItem("user"));
+
+const availabilityToggle = document.getElementById("availabilityToggle");
+
+// INITIAL STATE
+
+availabilityToggle.checked = provider.availability;
+
+// CHANGE
+
+availabilityToggle.addEventListener("change", async () => {
+  try {
+    const response = await fetch(
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/provider/availability/${provider._id}`,
+      {
+        method: "PUT",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          availability: availabilityToggle.checked,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    // UPDATE LOCAL STORAGE
+
+    localStorage.setItem("user", JSON.stringify(data.provider));
+
+    alert(
+      availabilityToggle.checked
+        ? "You are now available"
+        : "You are unavailable",
+    );
+  } catch (error) {
+    console.log(error);
+
+    alert("Server Error");
+  }
+});
 
 // LOGOUT BUTTON
 
