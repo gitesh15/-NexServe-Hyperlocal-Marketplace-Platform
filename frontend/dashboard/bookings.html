@@ -179,115 +179,160 @@
         </section>
       </main>
     </section>
+<!-- FULLSCREEN BOOKING MODAL -->
 
-<!-- BOOKING DRAWER -->
+<div class="booking-overlay" id="bookingDrawer">
+  <div class="booking-modal">
+    <!-- LEFT SIDE -->
 
-<div class="booking-drawer" id="bookingDrawer">
-  <div class="drawer-content">
-    <!-- MODERN HEADER -->
+    <div class="booking-visual">
+      <div class="visual-overlay"></div>
 
-    <div class="drawer-top modern-drawer-top">
-      <div class="drawer-glow"></div>
+      <div class="visual-content">
+        <span class="booking-tag">
+          NexServe Smart Booking
+        </span>
 
-      <div class="drawer-header-content">
-        <div class="drawer-mini-icon">
-          <i class="fa-solid fa-bolt"></i>
+        <h1>
+          Book Trusted Experts
+          <br />
+          In Seconds
+        </h1>
+
+        <p>
+          Secure realtime appointments with verified professionals
+          near your location.
+        </p>
+
+        <div class="booking-highlights">
+          <div class="highlight-card">
+            <i class="fa-solid fa-shield-heart"></i>
+
+            <span>Verified Providers</span>
+          </div>
+
+          <div class="highlight-card">
+            <i class="fa-solid fa-bolt"></i>
+
+            <span>Instant Booking</span>
+          </div>
+
+          <div class="highlight-card">
+            <i class="fa-solid fa-star"></i>
+
+            <span>Top Rated Experts</span>
+          </div>
         </div>
+      </div>
+    </div>
 
+    <!-- RIGHT SIDE -->
+
+    <div class="booking-form-side">
+      <!-- TOP -->
+
+      <div class="form-top">
         <div>
-          <span class="drawer-subtitle">
-            NexServe Instant Booking
+          <span class="tiny-text">
+            PROFESSIONAL BOOKING
           </span>
 
-          <h2>Reserve Your Professional</h2>
-
-          <p>
-            Secure your booking in seconds with realtime confirmation.
-          </p>
+          <h2>Complete Your Booking</h2>
         </div>
+
+        <button id="closeDrawer" class="close-btn-modern">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
-      <button id="closeDrawer" class="close-modern-btn">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
+      <!-- PROVIDER -->
 
-    <!-- SELECTED PROVIDER -->
+      <div
+        class="selected-provider-modern"
+        id="selectedProvider"
+      >
+        <!-- DYNAMIC -->
+      </div>
 
-    <div
-      class="selected-provider premium-provider-card"
-      id="selectedProvider"
-    >
-      <!-- DYNAMIC -->
-    </div>
+      <!-- FORM -->
 
-    <!-- FORM -->
+      <form id="bookingForm" class="modern-booking-form">
+        <div class="modern-grid">
+          <!-- DATE -->
 
-    <form id="bookingForm">
-      <div class="drawer-grid">
-        <!-- DATE -->
+          <div class="modern-input">
+            <label>Date</label>
 
-        <div class="drawer-input">
-          <label> Preferred Date </label>
+            <div class="modern-input-box">
+              <i class="fa-solid fa-calendar-days"></i>
 
-          <div class="input-wrapper">
-            <i class="fa-solid fa-calendar-days"></i>
+              <input
+                type="date"
+                id="bookingDate"
+                required
+              />
+            </div>
+          </div>
 
-            <input type="date" id="bookingDate" required />
+          <!-- TIME -->
+
+          <div class="modern-input">
+            <label>Time</label>
+
+            <div class="modern-input-box">
+              <i class="fa-solid fa-clock"></i>
+
+              <input
+                type="time"
+                id="bookingTime"
+                required
+              />
+            </div>
           </div>
         </div>
 
-        <!-- TIME -->
+        <!-- ADDRESS -->
 
-        <div class="drawer-input">
-          <label> Preferred Time </label>
+        <div class="modern-input">
+          <label>Address</label>
 
-          <div class="input-wrapper">
-            <i class="fa-solid fa-clock"></i>
+          <div class="modern-input-box">
+            <i class="fa-solid fa-location-dot"></i>
 
-            <input type="time" id="bookingTime" required />
+            <input
+              type="text"
+              id="bookingAddress"
+              placeholder="Enter service address"
+              required
+            />
           </div>
         </div>
-      </div>
 
-      <!-- ADDRESS -->
+        <!-- DESCRIPTION -->
 
-      <div class="drawer-input">
-        <label> Service Address </label>
+        <div class="modern-input">
+          <label>Description</label>
 
-        <div class="input-wrapper">
-          <i class="fa-solid fa-location-dot"></i>
-
-          <input
-            type="text"
-            id="bookingAddress"
-            placeholder="Enter your complete address"
-            required
-          />
+          <div class="modern-textarea">
+            <textarea
+              id="bookingDescription"
+              placeholder="Describe your issue..."
+            ></textarea>
+          </div>
         </div>
-      </div>
 
-      <!-- DESCRIPTION -->
+        <!-- BUTTON -->
 
-      <div class="drawer-input">
-        <label> Service Description </label>
+        <button
+          type="submit"
+          class="modern-book-btn"
+        >
+          <i class="fa-solid fa-paper-plane"></i>
 
-        <div class="textarea-wrapper">
-          <textarea
-            id="bookingDescription"
-            placeholder="Describe what service you need..."
-          ></textarea>
-        </div>
-      </div>
-
-      <!-- BUTTON -->
-
-      <button type="submit" class="confirm-booking-btn">
-        <i class="fa-solid fa-paper-plane"></i>
-
-        Confirm Booking
-      </button>
-    </form>
+          Confirm Booking
+        </button>
+      </form>
+    </div>
   </div>
 </div>
     </div>
