@@ -94,7 +94,7 @@
           </div>
         </div>
 
-        <!-- HERO GLASS CARD -->
+        <!-- HERO CARD -->
 
         <section class="hero-card">
           <div class="hero-left">
@@ -103,7 +103,10 @@
               Professionals Near You
             </h2>
 
-            <p>Compare ratings, availability and experience before booking.</p>
+            <p>
+              Compare ratings, realtime availability and experience before
+              booking.
+            </p>
 
             <div class="hero-stats">
               <div>
@@ -157,7 +160,7 @@
           </div>
 
           <div class="providers-grid" id="providersGrid">
-            <!-- DYNAMIC -->
+            <!-- DYNAMIC PROVIDERS -->
           </div>
         </section>
 
@@ -171,63 +174,108 @@
           </div>
 
           <div id="bookingsContainer" class="bookings-container">
-            <!-- DYNAMIC -->
+            <!-- DYNAMIC BOOKINGS -->
           </div>
         </section>
       </main>
     </section>
 
-    <script src="./bookings.js"></script>
+    <!-- BOOKING DRAWER -->
+
     <div class="booking-drawer" id="bookingDrawer">
       <div class="drawer-content">
+        <!-- DRAWER HEADER -->
+
         <div class="drawer-top">
-          <h2>Book Service</h2>
+          <div>
+            <span class="drawer-badge"> Quick Booking </span>
+
+            <h2>Book Service</h2>
+          </div>
 
           <button id="closeDrawer">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div class="selected-provider" id="selectedProvider"></div>
+        <!-- SELECTED PROVIDER -->
+
+        <div class="selected-provider" id="selectedProvider">
+          <!-- DYNAMIC -->
+        </div>
+
+        <!-- FORM -->
 
         <form id="bookingForm">
-          <div class="drawer-input">
-            <label>Date</label>
+          <div class="drawer-grid">
+            <!-- DATE -->
 
-            <input type="date" id="bookingDate" required />
+            <div class="drawer-input">
+              <label> Preferred Date </label>
+
+              <div class="input-wrapper">
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <input type="date" id="bookingDate" required />
+              </div>
+            </div>
+
+            <!-- TIME -->
+
+            <div class="drawer-input">
+              <label> Preferred Time </label>
+
+              <div class="input-wrapper">
+                <i class="fa-solid fa-clock"></i>
+
+                <input type="time" id="bookingTime" required />
+              </div>
+            </div>
           </div>
 
-          <div class="drawer-input">
-            <label>Time</label>
-
-            <input type="time" id="bookingTime" required />
-          </div>
+          <!-- ADDRESS -->
 
           <div class="drawer-input">
-            <label>Address</label>
+            <label> Service Address </label>
 
-            <input
-              type="text"
-              id="bookingAddress"
-              placeholder="Enter your address"
-              required
-            />
+            <div class="input-wrapper">
+              <i class="fa-solid fa-location-dot"></i>
+
+              <input
+                type="text"
+                id="bookingAddress"
+                placeholder="Enter your complete address"
+                required
+              />
+            </div>
           </div>
+
+          <!-- DESCRIPTION -->
 
           <div class="drawer-input">
-            <label>Description</label>
+            <label> Service Description </label>
 
-            <textarea
-              id="bookingDescription"
-              placeholder="Describe your issue..."
-            ></textarea>
+            <div class="textarea-wrapper">
+              <textarea
+                id="bookingDescription"
+                placeholder="Describe what service you need..."
+              ></textarea>
+            </div>
           </div>
+
+          <!-- BUTTON -->
 
           <button type="submit" class="confirm-booking-btn">
+            <i class="fa-solid fa-paper-plane"></i>
+
             Confirm Booking
           </button>
         </form>
       </div>
     </div>
+
+    <!-- SCRIPT -->
+
+    <script src="./bookings.js"></script>
   </body>
 </html>
