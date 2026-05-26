@@ -26,403 +26,282 @@
   </head>
 
   <body>
-    <!-- BACKGROUND -->
+    <!-- MESH BACKGROUND -->
 
-    <div class="bg-blur blur-1"></div>
+    <div class="mesh-bg"></div>
 
-    <div class="bg-blur blur-2"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
 
-    <!-- DASHBOARD -->
+    <!-- FLOATING NAVBAR -->
 
-    <section class="dashboard">
-      <!-- SIDEBAR -->
-
-      <aside class="sidebar">
-        <div class="logo">
-          <div class="logo-icon">
-            <i class="fa-solid fa-location-dot"></i>
+    <nav class="floating-nav">
+      <div class="nav-left">
+        <div class="nav-logo">
+          <div class="logo-circle">
+            <i class="fa-solid fa-bolt"></i>
           </div>
 
           <div>
             <h2>NexServe</h2>
-            <span>Customer Panel</span>
+            <span>AI Service Platform</span>
           </div>
         </div>
+      </div>
 
-        <!-- MENU -->
+      <div class="nav-center">
+        <a class="nav-link active">Overview</a>
+        <a class="nav-link">Services</a>
+        <a class="nav-link">Bookings</a>
+        <a class="nav-link">Activity</a>
+        <a class="nav-link">AI Assist</a>
+      </div>
 
-        <div class="menu">
-          <div class="menu-item active">
-            <i class="fa-solid fa-house"></i>
-            <span>Dashboard</span>
-          </div>
+      <div class="nav-right">
+        <button class="ai-btn">
+          <i class="fa-solid fa-sparkles"></i>
+          AI Search
+        </button>
 
-          <div class="menu-item" id="bookingMenu">
-            <i class="fa-solid fa-calendar-check"></i>
-            <span>Bookings</span>
-          </div>
-
-          <div class="menu-item">
-            <i class="fa-solid fa-comments"></i>
-            <span>Messages</span>
-          </div>
-
-          <div class="menu-item">
-            <i class="fa-solid fa-heart"></i>
-            <span>Favorites</span>
-          </div>
-
-          <div class="menu-item">
-            <i class="fa-solid fa-bell"></i>
-            <span>Notifications</span>
-          </div>
-
-          <div class="menu-item">
-            <i class="fa-solid fa-user"></i>
-            <span>Profile</span>
-          </div>
+        <div class="profile-mini">
+          <img src="https://i.pravatar.cc/150?img=12" alt="" />
         </div>
+      </div>
+    </nav>
 
-        <!-- BOTTOM -->
+    <!-- MAIN -->
 
-        <div class="sidebar-bottom">
-          <button class="logout-btn" id="logoutBtn">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-          </button>
-        </div>
-      </aside>
+    <main class="main-wrapper">
+      <!-- HERO -->
 
-      <!-- MAIN CONTENT -->
-
-      <main class="main-content">
-        <!-- TOPBAR -->
-
-        <div class="topbar">
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-
-            <input
-              type="text"
-              placeholder="Search providers..."
-              id="dashboardSearchInput"
-            />
-
-            <button id="dashboardSearchBtn">Search</button>
+      <section class="hero-2026">
+        <div class="hero-left">
+          <div class="live-badge">
+            <span class="pulse"></span>
+            AI Powered Marketplace
           </div>
 
-          <div class="topbar-right">
-            <div class="location-box">
-              <i class="fa-solid fa-location-dot"></i>
-              India
+          <h1>
+            Book Trusted
+            <span>Professionals</span>
+            Instantly.
+          </h1>
+
+          <p>
+            Experience next-generation home services with AI-powered booking,
+            real-time provider tracking, smart recommendations, and premium user
+            experience.
+          </p>
+
+          <div class="hero-actions">
+            <button class="primary-btn">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              Explore Services
+            </button>
+
+            <button class="secondary-btn">
+              <i class="fa-solid fa-play"></i>
+              Watch Demo
+            </button>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="mini-stat">
+              <h3>12K+</h3>
+              <p>Active Users</p>
             </div>
 
-            <div class="notification">
-              <i class="fa-regular fa-bell"></i>
+            <div class="mini-stat">
+              <h3>4.9★</h3>
+              <p>Service Rating</p>
             </div>
 
-            <div class="profile-box">
-              <img src="https://i.pravatar.cc/100" alt="" />
+            <div class="mini-stat">
+              <h3>850+</h3>
+              <p>Verified Workers</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-glass-card booking-preview">
+            <div class="card-top">
+              <div>
+                <span>Live Booking</span>
+                <h3>Electrician Assigned</h3>
+              </div>
+
+              <div class="status-dot"></div>
+            </div>
+
+            <div class="worker-profile">
+              <img src="https://i.pravatar.cc/150?img=33" alt="" />
 
               <div>
-                <h4 id="userName">User</h4>
-                <p>Customer</p>
+                <h4>Rahul Sharma</h4>
+                <p>Arriving in 12 mins</p>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- HERO -->
-
-        <section class="hero">
-          <div class="hero-content">
-            <span class="tag"> Welcome Back 👋 </span>
-
-            <h1>What service do you need today?</h1>
-
-            <p>
-              Book trusted professionals for your home and daily needs
-              instantly.
-            </p>
-
-            <button>Explore Services</button>
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
           </div>
 
-          <div class="hero-image">
+          <div class="hero-glass-card floating-card analytics-card">
+            <h4>AI Match Score</h4>
+
+            <div class="circle-score">
+              <span>98%</span>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
             <img src="../assets/hero-worker.png" alt="" />
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- STATS -->
+      <!-- SMART SEARCH -->
 
-        <section class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon blue">
-              <i class="fa-solid fa-calendar-check"></i>
-            </div>
+      <section class="smart-search-section">
+        <div class="smart-search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
 
+          <input
+            type="text"
+            placeholder="Ask AI anything... Find plumber near me, AC repair, cleaning service..."
+          />
+
+          <button>
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- BENTO GRID -->
+
+      <section class="bento-grid">
+        <div class="bento-card large-card analytics-main">
+          <div class="card-header">
             <div>
-              <h2>12</h2>
-              <p>Total Bookings</p>
+              <span class="card-label">Analytics</span>
+              <h3>Service Activity</h3>
             </div>
+
+            <button class="glass-chip">Live</button>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-icon green">
-              <i class="fa-solid fa-clock"></i>
-            </div>
+          <div class="graph-placeholder"></div>
+        </div>
 
+        <div class="bento-card ai-card">
+          <div class="ai-orb"></div>
+
+          <span class="card-label">AI Assistant</span>
+
+          <h3>Need urgent service?</h3>
+
+          <p>
+            AI can instantly find top-rated nearby providers based on your
+            history.
+          </p>
+
+          <button class="ai-action-btn">Ask AI</button>
+        </div>
+
+        <div class="bento-card stat-widget">
+          <i class="fa-solid fa-calendar-check"></i>
+
+          <h2>128</h2>
+
+          <p>Total Bookings</p>
+        </div>
+
+        <div class="bento-card stat-widget purple-widget">
+          <i class="fa-solid fa-star"></i>
+
+          <h2>4.9</h2>
+
+          <p>Average Rating</p>
+        </div>
+
+        <div class="bento-card live-feed-card">
+          <div class="card-header">
             <div>
-              <h2>03</h2>
-              <p>Pending Services</p>
+              <span class="card-label">Realtime</span>
+              <h3>Live Activity</h3>
             </div>
           </div>
 
-          <div class="stat-card">
-            <div class="stat-icon purple">
-              <i class="fa-solid fa-star"></i>
-            </div>
-
-            <div>
-              <h2>4.9</h2>
-              <p>Average Ratings</p>
-            </div>
+          <div class="activity-item">
+            <span class="activity-dot"></span>
+            New booking created in Bhopal
           </div>
 
-          <div class="stat-card">
-            <div class="stat-icon orange">
-              <i class="fa-solid fa-heart"></i>
-            </div>
-
-            <div>
-              <h2>08</h2>
-              <p>Saved Providers</p>
-            </div>
-          </div>
-        </section>
-
-
-        </section>
-
-<!-- SEARCH RESULTS -->
-
-<section class="providers-section">
-  <div class="section-title">
-    <h2>Available Providers</h2>
-
-    <a href="#">Realtime Results</a>
-  </div>
-
-  <div class="providers-grid" id="providersGrid">
-    <!-- DYNAMIC PROVIDERS -->
-  </div>
-</section>
-
-<!-- CREATE BOOKING SECTION -->
-        <!-- CREATE BOOKING SECTION -->
-
-        <section class="booking-section">
-          <div class="booking-header">
-            <div>
-              <span class="section-badge"> Quick Booking </span>
-
-              <h2>Create New Booking</h2>
-
-              <p>
-                Book trusted professionals instantly with real-time
-                availability.
-              </p>
-            </div>
-
-            <div class="booking-header-icon">
-              <i class="fa-solid fa-calendar-check"></i>
-            </div>
+          <div class="activity-item">
+            <span class="activity-dot"></span>
+            Electrician accepted request
           </div>
 
-          <form id="bookingForm" class="booking-form">
-            <!-- SERVICE -->
+          <div class="activity-item">
+            <span class="activity-dot"></span>
+            Cleaning service completed
+          </div>
+        </div>
+      </section>
 
-            <div class="form-group">
-              <label>Service Category</label>
+      <!-- SERVICES -->
 
-              <div class="input-field">
-                <i class="fa-solid fa-briefcase"></i>
-
-                <select id="service" required>
-                  <option value="">Select Service</option>
-
-                  <option>Plumbing</option>
-
-                  <option>Electrician</option>
-
-                  <option>Cleaning</option>
-
-                  <option>Carpentry</option>
-
-                  <option>Tutoring</option>
-
-                  <option>Appliance Repair</option>
-                </select>
-              </div>
-            </div>
-
-            <!-- ADDRESS -->
-
-            <div class="form-group">
-              <label>Service Address</label>
-
-              <div class="input-field">
-                <i class="fa-solid fa-location-dot"></i>
-
-                <input
-                  type="text"
-                  id="address"
-                  placeholder="Enter your address"
-                  required
-                />
-              </div>
-            </div>
-
-            <!-- DATE -->
-
-            <div class="form-group">
-              <label>Preferred Date</label>
-
-              <div class="input-field">
-                <i class="fa-solid fa-calendar-days"></i>
-
-                <input type="date" id="date" required />
-              </div>
-            </div>
-
-            <!-- TIME -->
-
-            <div class="form-group">
-              <label>Preferred Time</label>
-
-              <div class="input-field">
-                <i class="fa-solid fa-clock"></i>
-
-                <input type="time" id="time" required />
-              </div>
-            </div>
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group full-width">
-              <label>Describe Your Issue</label>
-
-              <div class="textarea-field">
-                <textarea
-                  id="description"
-                  placeholder="Explain what service you need..."
-                ></textarea>
-              </div>
-            </div>
-
-            <!-- BUTTON -->
-
-            <button type="submit" class="booking-btn">
-              <i class="fa-solid fa-paper-plane"></i>
-
-              Book Service
-            </button>
-          </form>
-        </section>
-
-        <!-- CATEGORIES -->
-
-        <section class="categories">
-          <div class="section-title">
-            <h2>Popular Categories</h2>
-
-            <a href="#">View All</a>
+      <section class="service-section">
+        <div class="section-heading">
+          <div>
+            <span class="card-label">Explore</span>
+            <h2>Popular Services</h2>
           </div>
 
-          <div class="categories-grid">
-            <div class="category-card">
+          <button class="glass-chip">View All</button>
+        </div>
+
+        <div class="service-grid">
+          <div class="service-card">
+            <div class="service-icon blue-gradient">
               <i class="fa-solid fa-faucet-drip"></i>
-
-              <h3>Plumbing</h3>
-
-              <p>120+ Professionals</p>
             </div>
 
-            <div class="category-card">
+            <h3>Plumbing</h3>
+            <p>120+ verified professionals available</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon purple-gradient">
               <i class="fa-solid fa-bolt"></i>
-
-              <h3>Electrician</h3>
-
-              <p>95+ Professionals</p>
             </div>
 
-            <div class="category-card">
+            <h3>Electrician</h3>
+            <p>Instant emergency support available</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon cyan-gradient">
               <i class="fa-solid fa-broom"></i>
-
-              <h3>Cleaning</h3>
-
-              <p>210+ Professionals</p>
             </div>
 
-            <div class="category-card">
-              <i class="fa-solid fa-book"></i>
-
-              <h3>Tutors</h3>
-
-              <p>340+ Professionals</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- BOOKINGS -->
-
-        <section class="bookings">
-          <div class="section-title">
-            <h2>Recent Bookings</h2>
-
-            <a href="#">See All</a>
+            <h3>Cleaning</h3>
+            <p>Professional home deep cleaning</p>
           </div>
 
-          <div class="booking-card">
-            <div class="booking-left">
-              <img src="https://i.pravatar.cc/120?img=12" alt="" />
-
-              <div>
-                <h3>Rahul Sharma</h3>
-
-                <p>Electrician Service</p>
-
-                <span>Today • 4:30 PM</span>
-              </div>
+          <div class="service-card">
+            <div class="service-icon orange-gradient">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
             </div>
 
-            <div class="booking-status completed">Completed</div>
+            <h3>Repair</h3>
+            <p>Appliance and electronic repairs</p>
           </div>
-
-          <div class="booking-card">
-            <div class="booking-left">
-              <img src="https://i.pravatar.cc/120?img=32" alt="" />
-
-              <div>
-                <h3>Priya Verma</h3>
-
-                <p>Home Cleaning</p>
-
-                <span>Tomorrow • 11:00 AM</span>
-              </div>
-            </div>
-
-            <div class="booking-status pending">Pending</div>
-          </div>
-        </section>
-        <section class="customer-bookings">
-          <h2>Your Bookings</h2>
-
-          <div id="customerBookings"></div>
-        </section>
-      </main>
-    </section>
-
-    <script src="dashboard.js"></script>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
