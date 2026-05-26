@@ -641,6 +641,182 @@ QUICK BOOK STACK
 .stack-book-btn:hover {
   transform: scale(1.03);
 }
+/* =========================
+   HIDDEN SECTION
+========================= */
+
+.hidden-section {
+  display: none;
+}
+
+/* =========================
+   STACK OPEN ANIMATION
+========================= */
+
+.results-section {
+  animation: fadeStack 0.5s ease;
+}
+
+@keyframes fadeStack {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   STACK PROVIDERS UI
+========================= */
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
+  margin-top: 30px;
+}
+
+.provider-card {
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  backdrop-filter: blur(20px);
+
+  border-radius: 30px;
+
+  padding: 28px;
+
+  transition: 0.4s;
+}
+
+.provider-card:hover {
+  transform: translateY(-8px);
+
+  border-color: #8b5cf6;
+
+  box-shadow: 0 25px 60px rgba(139, 92, 246, 0.25);
+}
+
+.provider-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -100px;
+  right: -100px;
+
+  width: 220px;
+  height: 220px;
+
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent);
+}
+
+.provider-top {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 24px;
+}
+
+.provider-top img {
+  width: 78px;
+  height: 78px;
+
+  border-radius: 22px;
+
+  object-fit: cover;
+
+  border: 3px solid rgba(255, 255, 255, 0.15);
+}
+
+.provider-top h3 {
+  color: white;
+
+  font-size: 22px;
+
+  margin-bottom: 4px;
+}
+
+.provider-top p {
+  color: #b6b6d9;
+}
+
+.provider-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  margin-bottom: 25px;
+}
+
+.provider-meta span {
+  color: #d9d9f2;
+
+  font-size: 15px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.provider-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.provider-status {
+  padding: 10px 18px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.online {
+  background: rgba(16, 185, 129, 0.18);
+
+  color: #10b981;
+}
+
+.offline {
+  background: rgba(239, 68, 68, 0.15);
+
+  color: #ef4444;
+}
+
+.book-service-btn {
+  border: none;
+
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+
+  color: white;
+
+  padding: 13px 22px;
+
+  border-radius: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.book-service-btn:hover {
+  transform: scale(1.05);
+}
 
 /* RESPONSIVE */
 
