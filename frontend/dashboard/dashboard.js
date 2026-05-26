@@ -32,36 +32,6 @@ if (logoutBtn) {
   });
 }
 
-// ============================
-// SIDEBAR NAVIGATION
-// ============================
-
-const bookingMenu = document.getElementById("bookingMenu");
-
-if (bookingMenu) {
-  bookingMenu.addEventListener("click", () => {
-    window.location.href = "./bookings.html";
-  });
-}
-
-// ============================
-// MY BOOKINGS
-// ============================
-
-const myBookingsMenu = document.getElementById("myBookingsMenu");
-
-if (myBookingsMenu) {
-  myBookingsMenu.addEventListener("click", () => {
-    // SCROLL TO BOOKINGS
-
-    const bookingsSection = document.querySelector(".customer-bookings");
-
-    bookingsSection.scrollIntoView({
-      behavior: "smooth",
-    });
-  });
-}
-
 // ====================================
 // SEARCH PROVIDERS
 // ====================================

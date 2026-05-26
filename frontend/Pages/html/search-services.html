@@ -9,10 +9,14 @@
 
     <link rel="stylesheet" href="../css/search-services.css" />
 
+    <!-- ICONS -->
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+
+    <!-- FONT -->
 
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
@@ -27,89 +31,224 @@
 
     <div class="bg-blur blur2"></div>
 
-    <!-- NAVBAR -->
+    <!-- MAIN LAYOUT -->
 
-    <header class="navbar">
-      <div class="logo">
-        <h2>NEXSERVE</h2>
+    <section class="main-layout">
+      <!-- SIDEBAR -->
 
-        <span>Trusted. Local. Reliable.</span>
-      </div>
+      <aside class="sidebar">
+        <!-- LOGO -->
 
-      <div class="nav-right">
-        <button class="location-btn">
-          <i class="fa-solid fa-location-dot"></i>
+        <div class="sidebar-logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
 
-          India
-        </button>
+          <div>
+            <h2>NexServe</h2>
 
-        <button class="back-btn" onclick="history.back()">
-          <i class="fa-solid fa-arrow-left"></i>
-
-          Back
-        </button>
-      </div>
-    </header>
-
-    <!-- HERO -->
-
-    <section class="hero-section">
-      <span class="tag"> Smart Service Discovery </span>
-
-      <h1>Find Trusted Local Experts</h1>
-
-      <p>
-        Search verified professionals, compare profiles and instantly connect
-        with trusted service providers near you.
-      </p>
-
-      <!-- SEARCH -->
-
-      <div class="search-box">
-        <div class="search-input">
-          <i class="fa-solid fa-magnifying-glass"></i>
-
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="Search electricians, plumbers, tutors..."
-          />
+            <span>Customer Panel</span>
+          </div>
         </div>
 
-        <button id="searchBtn">
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </div>
+        <!-- MENU -->
 
-      <!-- TRENDING SEARCHES -->
+        <div class="sidebar-menu">
+          <button
+            onclick="
+              window.location.href = '../dashboard/customer-dashboard.html'
+            "
+          >
+            <i class="fa-solid fa-house"></i>
 
-      <div class="trending-searches">
-        <button class="trend-btn">Electrician</button>
+            Dashboard
+          </button>
 
-        <button class="trend-btn">Plumber</button>
+          <button class="active-menu">
+            <i class="fa-solid fa-calendar-check"></i>
 
-        <button class="trend-btn">Cleaning</button>
+            Book Services
+          </button>
 
-        <button class="trend-btn">Tutor</button>
+          <button
+            onclick="
+              document.querySelector('.my-bookings-section').scrollIntoView({
+                behavior: 'smooth',
+              })
+            "
+          >
+            <i class="fa-solid fa-clipboard-list"></i>
 
-        <button class="trend-btn">AC Repair</button>
+            My Bookings
+          </button>
 
-        <button class="trend-btn">Carpenter</button>
-      </div>
-    </section>
+          <button>
+            <i class="fa-solid fa-comments"></i>
 
-    <!-- RESULTS -->
+            Messages
+          </button>
 
-    <section class="results-section">
-      <div class="results-header">
-        <h2>Available Providers</h2>
+          <button>
+            <i class="fa-solid fa-heart"></i>
 
-        <p id="resultsCount">0 providers found</p>
-      </div>
+            Favorites
+          </button>
+        </div>
 
-      <!-- SERVICES GRID -->
+        <!-- BOTTOM -->
 
-      <div class="services-grid" id="servicesGrid"></div>
+        <div class="sidebar-bottom">
+          <button class="logout-btn" id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+
+      <main class="main-content">
+        <!-- NAVBAR -->
+
+        <header class="navbar">
+          <div class="logo">
+            <h2>NEXSERVE</h2>
+
+            <span> Trusted. Local. Reliable. </span>
+          </div>
+
+          <div class="nav-right">
+            <button class="location-btn">
+              <i class="fa-solid fa-location-dot"></i>
+
+              India
+            </button>
+
+            <div class="profile-box">
+              <img src="https://i.pravatar.cc/100" alt="" />
+
+              <div>
+                <h4 id="userName">Customer</h4>
+
+                <p>Verified User</p>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- HERO -->
+
+        <section class="hero-section">
+          <div class="hero-left">
+            <span class="tag"> AI Powered Marketplace </span>
+
+            <h1>Find Trusted Local Experts</h1>
+
+            <p>
+              Search verified professionals, compare realtime availability and
+              instantly connect with top rated providers nearby.
+            </p>
+
+            <!-- SEARCH -->
+
+            <div class="search-box">
+              <div class="search-input">
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search electricians, plumbers, tutors..."
+                />
+              </div>
+
+              <button id="searchBtn">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+
+            <!-- TRENDING -->
+
+            <div class="trending-searches">
+              <button class="trend-btn">Electrician</button>
+
+              <button class="trend-btn">Plumber</button>
+
+              <button class="trend-btn">Cleaning</button>
+
+              <button class="trend-btn">Tutor</button>
+
+              <button class="trend-btn">AC Repair</button>
+
+              <button class="trend-btn">Carpenter</button>
+            </div>
+          </div>
+
+          <!-- RIGHT SIDE -->
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="pulse-ring"></div>
+
+              <div class="hero-card-content">
+                <i class="fa-solid fa-user-check"></i>
+
+                <h2>Realtime Availability</h2>
+
+                <p>
+                  Instantly book providers who are currently online and
+                  accepting jobs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RESULTS -->
+
+        <section class="results-section">
+          <div class="results-header">
+            <div>
+              <h2>Available Providers</h2>
+
+              <p id="resultsCount">0 providers found</p>
+            </div>
+
+            <div class="live-status">
+              <span class="live-dot"></span>
+
+              Live Marketplace
+            </div>
+          </div>
+
+          <!-- PROVIDERS -->
+
+          <div class="services-grid" id="servicesGrid"></div>
+        </section>
+
+        <!-- MY BOOKINGS -->
+
+        <section class="my-bookings-section">
+          <div class="results-header">
+            <div>
+              <h2>My Bookings</h2>
+
+              <p>Track all your booking requests</p>
+            </div>
+
+            <div class="live-status">
+              <span class="live-dot"></span>
+
+              Realtime Updates
+            </div>
+          </div>
+
+          <div id="bookingsContainer">
+            <!-- DYNAMIC BOOKINGS -->
+          </div>
+        </section>
+      </main>
     </section>
 
     <!-- MODAL -->
@@ -147,6 +286,8 @@
         </button>
       </div>
     </div>
+
+    <!-- SCRIPT -->
 
     <script src="../js/search-services.js"></script>
   </body>
