@@ -326,5 +326,10 @@ if (bookingForm) {
         alert("Server Error");
       }
     });
+    const bookingMenu = document.getElementById("bookingMenu");
+
+    bookingMenu.addEventListener("click", () => {
+      window.location.href = "./bookings.html";
+    });
   }
 }

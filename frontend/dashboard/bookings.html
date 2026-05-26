@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>NexServe Bookings</title>
+
+    <link rel="stylesheet" href="./bookings.css" />
+
+    <!-- ICONS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <!-- FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- BACKGROUND -->
+
+    <div class="bg-gradient"></div>
+
+    <!-- MAIN -->
+
+    <section class="booking-page">
+      <!-- SIDEBAR -->
+
+      <aside class="sidebar">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+
+          <div>
+            <h2>NexServe</h2>
+            <span>Bookings Hub</span>
+          </div>
+        </div>
+
+        <div class="sidebar-menu">
+          <button onclick="window.location.href = './customer-dashboard.html'">
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+          </button>
+
+          <button class="active-menu">
+            <i class="fa-solid fa-calendar-check"></i>
+
+            Bookings
+          </button>
+
+          <button id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+
+      <main class="main-content">
+        <!-- TOP -->
+
+        <div class="top-section">
+          <div>
+            <span class="mini-tag"> AI Powered Marketplace </span>
+
+            <h1>Book Trusted Professionals</h1>
+
+            <p>Find verified experts nearby with realtime availability.</p>
+          </div>
+
+          <div class="top-right">
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass"></i>
+
+              <input
+                type="text"
+                placeholder="Search electricians, plumbers..."
+                id="searchInput"
+              />
+            </div>
+
+            <button id="searchBtn">Search</button>
+          </div>
+        </div>
+
+        <!-- HERO GLASS CARD -->
+
+        <section class="hero-card">
+          <div class="hero-left">
+            <h2>
+              Discover <span>Top Rated</span>
+              Professionals Near You
+            </h2>
+
+            <p>Compare ratings, availability and experience before booking.</p>
+
+            <div class="hero-stats">
+              <div>
+                <h3>25K+</h3>
+
+                <span>Providers</span>
+              </div>
+
+              <div>
+                <h3>4.9★</h3>
+
+                <span>Average Rating</span>
+              </div>
+
+              <div>
+                <h3>120+</h3>
+
+                <span>Cities</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="floating-card">
+              <i class="fa-solid fa-bolt"></i>
+
+              Electrician Available
+            </div>
+
+            <div class="floating-card">
+              <i class="fa-solid fa-faucet-drip"></i>
+
+              Plumbing Experts Nearby
+            </div>
+
+            <div class="floating-card">
+              <i class="fa-solid fa-broom"></i>
+
+              Home Cleaning Ready
+            </div>
+          </div>
+        </section>
+
+        <!-- PROVIDERS -->
+
+        <section class="providers-section">
+          <div class="section-header">
+            <h2>Available Providers</h2>
+
+            <span>Realtime Availability</span>
+          </div>
+
+          <div class="providers-grid" id="providersGrid">
+            <!-- DYNAMIC -->
+          </div>
+        </section>
+
+        <!-- BOOKINGS -->
+
+        <section class="bookings-section">
+          <div class="section-header">
+            <h2>My Bookings</h2>
+
+            <span>Realtime Status</span>
+          </div>
+
+          <div id="bookingsContainer" class="bookings-container">
+            <!-- DYNAMIC -->
+          </div>
+        </section>
+      </main>
+    </section>
+
+    <script src="./bookings.js"></script>
+  </body>
+</html>
