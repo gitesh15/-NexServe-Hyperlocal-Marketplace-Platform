@@ -1138,3 +1138,41 @@ FORM
 
   box-shadow: 0 20px 40px rgba(79, 70, 229, 0.35);
 }
+/* =========================
+BOOKING STATUS
+========================= */
+
+.booking-status {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.booking-status.pending {
+  background: rgba(255, 184, 0, 0.18);
+  color: #ffb800;
+}
+
+.booking-status.accepted {
+  background: rgba(0, 255, 157, 0.14);
+  color: #00ff9d;
+}
+
+.accepted-info,
+.pending-info {
+  margin-top: 12px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.accepted-info {
+  color: #00ff9d;
+}
+
+.pending-info {
+  color: #ffb800;
+}

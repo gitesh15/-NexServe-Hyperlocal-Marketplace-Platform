@@ -138,9 +138,7 @@ const fetchBookings = async () => {
 
 fetchBookings();
 
-// ============================
 // ACCEPT BOOKING
-// ============================
 
 const acceptBooking = async (id) => {
   try {
@@ -151,11 +149,21 @@ const acceptBooking = async (id) => {
       },
     );
 
-    await response.json();
+    const data = await response.json();
+
+    if (!response.ok) {
+      alert(data.message);
+
+      return;
+    }
+
+    alert("Booking Accepted");
 
     fetchBookings();
   } catch (error) {
     console.log(error);
+
+    alert("Server Error");
   }
 };
 

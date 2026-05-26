@@ -50,7 +50,35 @@ router.post("/create", async (req, res) => {
     });
   }
 });
+// ============================
+// ACCEPT BOOKING
+// ============================
 
+router.put("/accept/:bookingId", async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.bookingId,
+      {
+        status: "accepted",
+
+        acceptedAt: new Date(),
+      },
+      { new: true },
+    );
+
+    res.status(200).json({
+      success: true,
+      booking,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 // ============================
 // CUSTOMER BOOKINGS
 // ============================

@@ -84,7 +84,9 @@ async function loadProviders(service = "") {
       
       <div class="empty-state">
         <i class="fa-solid fa-user-xmark"></i>
+
         <h2>No Providers Found</h2>
+
         <p>Try searching another service.</p>
       </div>
 
@@ -100,9 +102,7 @@ async function loadProviders(service = "") {
 
       card.classList.add("provider-card");
 
-      // IMPORTANT FIX
-      // YOUR DATABASE FIELD IS "availability"
-      // NOT "isAvailable"
+      // DATABASE FIELD
 
       const isAvailable = provider.availability;
 
@@ -117,6 +117,7 @@ async function loadProviders(service = "") {
 
         <div>
           <h3>${provider.name}</h3>
+
           <p>${provider.service}</p>
         </div>
 
@@ -126,11 +127,13 @@ async function loadProviders(service = "") {
 
         <span>
           <i class="fa-solid fa-location-dot"></i>
+
           ${provider.location || "India"}
         </span>
 
         <span>
           <i class="fa-solid fa-briefcase"></i>
+
           ${provider.experience || "1+ Years"}
         </span>
 
@@ -146,7 +149,10 @@ async function loadProviders(service = "") {
 
         </div>
 
-        <button class="book-btn" ${!isAvailable ? "disabled" : ""}>
+        <button 
+          class="book-btn" 
+          ${!isAvailable ? "disabled" : ""}
+        >
           ${isAvailable ? "Book Service" : "Unavailable"}
         </button>
 
@@ -173,14 +179,17 @@ async function loadProviders(service = "") {
             />
 
             <div>
+
               <h3>${provider.name}</h3>
 
               <p>${provider.service}</p>
 
               <span>
                 <i class="fa-solid fa-location-dot"></i>
+
                 ${provider.location || "India"}
               </span>
+
             </div>
 
           </div>
@@ -199,7 +208,9 @@ async function loadProviders(service = "") {
     providersGrid.innerHTML = `
     
     <div class="empty-state">
+
       <h2>Server Error</h2>
+
     </div>
 
     `;
@@ -207,7 +218,7 @@ async function loadProviders(service = "") {
 }
 
 // ============================
-// SEARCH
+// SEARCH BUTTON
 // ============================
 
 if (searchBtn) {
@@ -319,14 +330,17 @@ async function loadBookings() {
 
     bookingsContainer.innerHTML = "";
 
-    // EMPTY
+    // EMPTY STATE
 
     if (!data.bookings || data.bookings.length === 0) {
       bookingsContainer.innerHTML = `
       
       <div class="empty-state">
+
         <i class="fa-solid fa-calendar-xmark"></i>
+
         <h3>No Bookings Yet</h3>
+
       </div>
 
       `;
@@ -338,8 +352,8 @@ async function loadBookings() {
 
     data.bookings.forEach((booking) => {
       bookingsContainer.innerHTML += `
-      
-      <div class="booking-card">
+
+      <div class="booking-card modern-booking-card">
 
         <div class="booking-left">
 
@@ -348,23 +362,59 @@ async function loadBookings() {
           </div>
 
           <div>
+
             <h3>${booking.providerName}</h3>
 
             <p>${booking.service}</p>
 
             <span>
-              ${booking.date} • ${booking.time}
+              <i class="fa-solid fa-calendar"></i>
+
+              ${booking.date}
             </span>
+
+            <span>
+              <i class="fa-solid fa-clock"></i>
+
+              ${booking.time}
+            </span>
+
           </div>
 
         </div>
 
-        <div class="booking-status ${booking.status}">
-          ${booking.status}
+        <div class="booking-right">
+
+          <div class="booking-status ${booking.status}">
+            ${booking.status}
+          </div>
+
+          ${
+            booking.status === "accepted"
+              ? `
+            <div class="accepted-info">
+
+              <i class="fa-solid fa-circle-check"></i>
+
+              Provider accepted your booking
+
+            </div>
+          `
+              : `
+            <div class="pending-info">
+
+              <i class="fa-solid fa-hourglass-half"></i>
+
+              Waiting for provider response
+
+            </div>
+          `
+          }
+
         </div>
 
       </div>
-      
+
       `;
     });
   } catch (error) {
