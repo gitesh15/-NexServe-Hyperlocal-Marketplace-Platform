@@ -5,31 +5,90 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Provider Dashboard</title>
+    <title>NexServe Provider Dashboard</title>
 
     <link rel="stylesheet" href="./provider-dashboard.css" />
+
+    <!-- FONT -->
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ICONS -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
   </head>
 
   <body>
-    <div class="dashboard">
+    <div class="bg-blur blur1"></div>
+
+    <div class="bg-blur blur2"></div>
+
+    <section class="dashboard">
       <!-- SIDEBAR -->
 
       <aside class="sidebar">
-        <h2>NexServe</h2>
-
-        <div class="menu">
-          <div class="menu-item active">Dashboard</div>
-
-          <div class="menu-item">Booking Requests</div>
-
-          <div class="menu-item">
-            <div class="card">
-              <h2>12</h2>
-              <p>Pending Tasks</p>
-            </div>
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-location-dot"></i>
           </div>
-          <div class="availability-card">
-            <h3>Provider Availability</h3>
+
+          <div>
+            <h2>NexServe</h2>
+
+            <span>Provider Panel</span>
+          </div>
+        </div>
+
+        <div class="sidebar-menu">
+          <button class="active-menu">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+          </button>
+
+          <button>
+            <i class="fa-solid fa-calendar-check"></i>
+            Requests
+          </button>
+
+          <button>
+            <i class="fa-solid fa-wallet"></i>
+            Earnings
+          </button>
+
+          <button>
+            <i class="fa-solid fa-star"></i>
+            Reviews
+          </button>
+
+          <button id="logoutBtn">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+
+      <main class="main-content">
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+          <div>
+            <span class="welcome-tag"> Provider Workspace </span>
+
+            <h1 id="providerName">Welcome Back</h1>
+          </div>
+
+          <!-- AVAILABILITY -->
+
+          <div class="availability-box">
+            <span>Availability</span>
 
             <label class="switch">
               <input type="checkbox" id="availabilityToggle" />
@@ -37,44 +96,51 @@
               <span class="slider"></span>
             </label>
           </div>
-
-          <div class="menu-item">Reviews</div>
         </div>
 
-        <button id="logoutBtn">Logout</button>
-      </aside>
+        <!-- STATS -->
 
-      <!-- MAIN -->
+        <section class="stats-grid">
+          <div class="stat-card">
+            <h2 id="totalRequests">0</h2>
 
-      <main class="main-content">
-        <h1>
-          Welcome,
-          <span id="providerName"> Provider </span>
-        </h1>
-
-        <div class="stats-grid">
-          <div class="card">
-            <h2>45</h2>
-            <p>Total Bookings</p>
-          </div>
-          <section class="requests-section">
-            <h2>Booking Requests</h2>
-
-            <div id="bookingRequests"></div>
-          </section>
-
-          <div class="card">
-            <h2>₹25,000</h2>
-            <p>Earnings</p>
+            <p>Total Requests</p>
           </div>
 
-          <div class="card">
+          <div class="stat-card">
+            <h2 id="acceptedJobs">0</h2>
+
+            <p>Accepted Jobs</p>
+          </div>
+
+          <div class="stat-card">
             <h2>4.9★</h2>
-            <p>Ratings</p>
+
+            <p>Rating</p>
           </div>
-        </div>
+
+          <div class="stat-card">
+            <h2>₹12K</h2>
+
+            <p>This Month</p>
+          </div>
+        </section>
+
+        <!-- REQUESTS -->
+
+        <section class="requests-section">
+          <div class="section-title">
+            <h2>Incoming Requests</h2>
+
+            <span>Realtime Updates</span>
+          </div>
+
+          <div class="requests-grid" id="bookingRequests">
+            <!-- DYNAMIC -->
+          </div>
+        </section>
       </main>
-    </div>
+    </section>
 
     <script src="./provider-dashboard.js"></script>
   </body>

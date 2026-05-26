@@ -2,40 +2,46 @@
 // USER CHECK
 // ============================
 
-const storedUser = JSON.parse(localStorage.getItem("nexserveUser"));
+const provider = JSON.parse(localStorage.getItem("user"));
 
-if (!storedUser) {
-  window.location.href = "../index.html";
+if (!provider) {
+  window.location.href = "../Pages/html/login.html";
 }
 
 // ============================
-// SHOW PROVIDER NAME
+// ELEMENTS
 // ============================
 
 const providerName = document.getElementById("providerName");
 
-if (providerName) {
-  providerName.innerText = storedUser.name;
-}
-
-// ============================
-// AVAILABILITY TOGGLE
-// ============================
+const bookingRequests = document.getElementById("bookingRequests");
 
 const availabilityToggle = document.getElementById("availabilityToggle");
 
-// INITIAL STATE
+const totalRequests = document.getElementById("totalRequests");
 
-if (availabilityToggle) {
-  availabilityToggle.checked = storedUser.availability || false;
-}
+const acceptedJobs = document.getElementById("acceptedJobs");
 
-// CHANGE AVAILABILITY
+// ============================
+// SHOW NAME
+// ============================
+
+providerName.innerText = `Welcome Back, ${provider.name}`;
+
+// ============================
+// INITIAL AVAILABILITY
+// ============================
+
+availabilityToggle.checked = provider.availability;
+
+// ============================
+// AVAILABILITY CHANGE
+// ============================
 
 availabilityToggle.addEventListener("change", async () => {
   try {
     const response = await fetch(
-      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/provider/availability/${storedUser._id}`,
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/provider/availability/${provider._id}`,
       {
         method: "PUT",
 
@@ -51,96 +57,115 @@ availabilityToggle.addEventListener("change", async () => {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      alert(data.message);
-
-      return;
-    }
-
-    // UPDATE LOCAL STORAGE
-
-    localStorage.setItem("nexserveUser", JSON.stringify(data.provider));
-
-    alert(
-      availabilityToggle.checked
-        ? "You are now available"
-        : "You are now unavailable",
-    );
+    localStorage.setItem("user", JSON.stringify(data.provider));
   } catch (error) {
     console.log(error);
-
-    alert("Server Error");
   }
 });
 
 // ============================
-// FETCH BOOKINGS
+// LOAD BOOKINGS
 // ============================
 
-const bookingRequests = document.getElementById("bookingRequests");
-
-const fetchBookings = async () => {
+async function loadRequests() {
   try {
     const response = await fetch(
-      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/all",
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/provider/${provider._id}`,
     );
 
     const data = await response.json();
 
     bookingRequests.innerHTML = "";
 
+    totalRequests.innerText = data.bookings.length;
+
+    let accepted = 0;
+
     data.bookings.forEach((booking) => {
+      if (booking.status === "accepted") {
+        accepted++;
+      }
+
       bookingRequests.innerHTML += `
-      
-      <div class="booking-card">
 
-        <h3>${booking.customerName}</h3>
+      <div class="request-card">
+
+        <div class="request-top">
+
+          <img
+            src="https://i.pravatar.cc/150?u=${booking.customerName}"
+          />
+
+          <div>
+
+            <h3>
+              ${booking.customerName}
+            </h3>
+
+            <span>
+              ${booking.service}
+            </span>
+
+          </div>
+
+        </div>
 
         <p>
-          Service:
-          ${booking.service}
-        </p>
-
-        <p>
-          Address:
+          <i class="fa-solid fa-location-dot"></i>
           ${booking.address}
         </p>
 
         <p>
-          Status:
-          ${booking.status}
+          <i class="fa-solid fa-calendar"></i>
+          ${booking.date}
+        </p>
+
+        <p>
+          <i class="fa-solid fa-clock"></i>
+          ${booking.time}
+        </p>
+
+        <p>
+          ${booking.description}
         </p>
 
         ${
           booking.status === "pending"
             ? `
-          <button
-            onclick="acceptBooking('${booking._id}')"
-          >
-            Accept Task
-          </button>
-          `
+          <div class="request-actions">
+
+            <button
+              class="accept-btn"
+              onclick="acceptBooking('${booking._id}')"
+            >
+              Accept Request
+            </button>
+
+          </div>
+        `
             : `
-          <button disabled>
+          <div class="status-badge">
             Accepted
-          </button>
-          `
+          </div>
+        `
         }
 
       </div>
-      
+
       `;
     });
+
+    acceptedJobs.innerText = accepted;
   } catch (error) {
     console.log(error);
   }
-};
+}
 
-fetchBookings();
-
+// ============================
 // ACCEPT BOOKING
+// ============================
 
-const acceptBooking = async (id) => {
+async function acceptBooking(id) {
   try {
     const response = await fetch(
       `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/accept/${id}`,
@@ -151,21 +176,13 @@ const acceptBooking = async (id) => {
 
     const data = await response.json();
 
-    if (!response.ok) {
-      alert(data.message);
+    alert(data.message);
 
-      return;
-    }
-
-    alert("Booking Accepted");
-
-    fetchBookings();
+    loadRequests();
   } catch (error) {
     console.log(error);
-
-    alert("Server Error");
   }
-};
+}
 
 // ============================
 // LOGOUT
@@ -173,104 +190,14 @@ const acceptBooking = async (id) => {
 
 const logoutBtn = document.getElementById("logoutBtn");
 
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("nexserveUser");
+logoutBtn.addEventListener("click", () => {
+  localStorage.removeItem("user");
 
-    window.location.href = "../index.html";
-  });
-}
-const provider = JSON.parse(localStorage.getItem("user"));
+  window.location.href = "../index.html";
+});
 
-const fetchBookings = async () => {
-  try {
-    const response = await fetch(
-      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/provider/${provider._id}`,
-    );
+// ============================
+// INITIAL
+// ============================
 
-    const data = await response.json();
-
-    bookingRequests.innerHTML = "";
-
-    if (!data.bookings.length) {
-      bookingRequests.innerHTML = `
-      
-      <div class="empty-bookings">
-        <h3>No Booking Requests Yet</h3>
-      </div>
-      
-      `;
-
-      return;
-    }
-
-    data.bookings.forEach((booking) => {
-      bookingRequests.innerHTML += `
-
-      <div class="booking-card">
-
-        <div class="booking-user">
-
-          <div class="booking-avatar">
-            ${booking.customerName.charAt(0)}
-          </div>
-
-          <div>
-            <h3>${booking.customerName}</h3>
-
-            <p>${booking.service}</p>
-          </div>
-
-        </div>
-
-        <div class="booking-details">
-
-          <span>
-            <i class="fa-solid fa-location-dot"></i>
-            ${booking.address}
-          </span>
-
-          <span>
-            <i class="fa-solid fa-calendar"></i>
-            ${booking.date}
-          </span>
-
-          <span>
-            <i class="fa-solid fa-clock"></i>
-            ${booking.time}
-          </span>
-
-        </div>
-
-        <div class="booking-bottom">
-
-          <div class="booking-status ${booking.status}">
-            ${booking.status}
-          </div>
-
-          ${
-            booking.status === "pending"
-              ? `
-              <button onclick="acceptBooking('${booking._id}')">
-                Accept Task
-              </button>
-            `
-              : `
-              <button disabled>
-                Accepted
-              </button>
-            `
-          }
-
-        </div>
-
-      </div>
-
-      `;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-fetchBookings();
+loadRequests();
