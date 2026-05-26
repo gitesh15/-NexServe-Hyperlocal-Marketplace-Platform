@@ -78,47 +78,56 @@ function renderProviders(providers) {
 
   providers.forEach((provider) => {
     servicesGrid.innerHTML += `
-    
-    <div class="provider-card">
 
-      <div class="provider-top">
+<div class="provider-card">
 
-        <img
-          src="https://i.pravatar.cc/150?u=${provider.email}"
-          class="provider-img"
-        />
+  <div class="provider-top">
 
-        <div>
+    <img
+      src="https://i.pravatar.cc/150?u=${provider.email}"
+      class="provider-img"
+    />
 
-          <h3>${provider.name}</h3>
+    <div>
 
-          <p>${provider.service}</p>
+      <h3>${provider.name}</h3>
 
-        </div>
-
-      </div>
-
-      <div class="provider-details">
-
-        <span>
-          <i class="fa-solid fa-location-dot"></i>
-          ${provider.location}
-        </span>
-
-        <span>
-          <i class="fa-solid fa-briefcase"></i>
-          ${provider.experience}
-        </span>
-
-      </div>
-
-      <button class="explore-btn">
-        View Details
-      </button>
+      <p>${provider.service}</p>
 
     </div>
-    
-    `;
+
+  </div>
+
+  <div class="online-badge">
+    Available Now
+  </div>
+
+  <div class="provider-details">
+
+    <span>
+      <i class="fa-solid fa-location-dot"></i>
+      ${provider.location}
+    </span>
+
+    <span>
+      <i class="fa-solid fa-briefcase"></i>
+      ${provider.experience}
+    </span>
+
+    <span>
+      <i class="fa-solid fa-shield-halved"></i>
+      Verified Professional
+    </span>
+
+  </div>
+
+  <button class="explore-btn">
+    View Details
+  </button>
+
+</div>
+
+`;
   });
 
   // MODAL
