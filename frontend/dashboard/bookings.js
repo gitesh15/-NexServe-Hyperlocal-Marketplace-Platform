@@ -103,7 +103,7 @@ const closeDrawer = document.getElementById("closeDrawer");
 
 const selectedProvider = document.getElementById("selectedProvider");
 
-const bookingForm = document.getElementById("bookingForm");
+// const bookingForm = document.getElementById("bookingForm");
 
 // CURRENT PROVIDER
 
