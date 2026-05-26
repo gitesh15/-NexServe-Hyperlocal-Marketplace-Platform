@@ -468,6 +468,179 @@ body {
 
   border-radius: 50%;
 }
+/* =========================
+QUICK BOOK STACK
+========================= */
+
+.quick-book-stack {
+  margin-top: 50px;
+
+  padding: 30px;
+
+  border-radius: 32px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  backdrop-filter: blur(20px);
+}
+
+.stack-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.stack-tag {
+  display: inline-block;
+
+  padding: 8px 16px;
+
+  border-radius: 50px;
+
+  background: rgba(139, 92, 246, 0.15);
+
+  color: #a78bfa;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  margin-bottom: 14px;
+}
+
+.stack-header h2 {
+  font-size: 32px;
+
+  color: white;
+
+  margin-bottom: 10px;
+}
+
+.stack-header p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.view-all-btn {
+  border: none;
+
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+
+  color: white;
+
+  padding: 14px 24px;
+
+  border-radius: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.provider-stack {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  gap: 22px;
+}
+
+.stack-card {
+  background: rgba(255, 255, 255, 0.06);
+
+  border-radius: 28px;
+
+  padding: 22px;
+
+  transition: 0.3s ease;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stack-card:hover {
+  transform: translateY(-8px);
+
+  border-color: #8b5cf6;
+}
+
+.stack-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 20px;
+}
+
+.stack-top img {
+  width: 64px;
+
+  height: 64px;
+
+  border-radius: 20px;
+
+  object-fit: cover;
+}
+
+.stack-top h3 {
+  color: white;
+
+  margin-bottom: 6px;
+}
+
+.stack-top p {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.stack-meta {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  font-size: 14px;
+
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.online-badge {
+  color: #4ade80;
+
+  font-weight: 600;
+}
+
+.stack-book-btn {
+  width: 100%;
+
+  border: none;
+
+  padding: 14px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.stack-book-btn:hover {
+  transform: scale(1.03);
+}
 
 /* RESPONSIVE */
 

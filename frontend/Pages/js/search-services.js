@@ -234,3 +234,105 @@ if (searchedService) {
 
   localStorage.removeItem("searchedService");
 }
+
+const providerStack = document.getElementById("providerStack");
+
+const openProvidersBtn = document.getElementById("openProvidersBtn");
+// ============================
+// LOAD STACK PROVIDERS
+// ============================
+
+async function loadProviderStack() {
+  try {
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers",
+    );
+
+    const data = await response.json();
+
+    providerStack.innerHTML = "";
+
+    // ONLY AVAILABLE PROVIDERS
+
+    const availableProviders = data.providers.filter(
+      (provider) => provider.availability === true,
+    );
+
+    availableProviders.slice(0, 6).forEach((provider) => {
+      providerStack.innerHTML += `
+
+        <div class="stack-card">
+
+          <div class="stack-top">
+
+            <img
+              src="https://i.pravatar.cc/150?u=${provider.email}"
+            />
+
+            <div>
+
+              <h3>
+                ${provider.name}
+              </h3>
+
+              <p>
+                ${provider.service}
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="stack-meta">
+
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+
+              ${provider.location || "India"}
+            </span>
+
+            <span class="online-badge">
+
+              <i class="fa-solid fa-circle"></i>
+
+              Available
+
+            </span>
+
+          </div>
+
+          <button
+            class="stack-book-btn"
+            onclick="scrollToProviders()"
+          >
+            Book Now
+          </button>
+
+        </div>
+
+      `;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+// ============================
+// SCROLL TO PROVIDERS
+// ============================
+
+function scrollToProviders() {
+  document.querySelector(".results-section").scrollIntoView({
+    behavior: "smooth",
+  });
+}
+
+// ============================
+// VIEW ALL BUTTON
+// ============================
+
+if (openProvidersBtn) {
+  openProvidersBtn.addEventListener("click", () => {
+    scrollToProviders();
+  });
+}
+loadProviderStack();
