@@ -18,8 +18,6 @@ const searchInput = document.getElementById("searchInput");
 
 const searchBtn = document.getElementById("searchBtn");
 
-const filterButtons = document.querySelectorAll(".filter-btn");
-
 const resultsCount = document.getElementById("resultsCount");
 
 const modal = document.getElementById("serviceModal");
@@ -34,14 +32,9 @@ async function fetchProviders(service = "") {
   try {
     let url = "";
 
-    // SEARCH PROVIDERS
-
-    if (service && service !== "all") {
+    if (service) {
       url = `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers/search/${service}`;
-    }
-
-    // ALL PROVIDERS
-    else {
+    } else {
       url =
         "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers";
     }
@@ -128,9 +121,7 @@ function renderProviders(providers) {
     `;
   });
 
-  // ====================================
   // MODAL
-  // ====================================
 
   const exploreButtons = document.querySelectorAll(".explore-btn");
 
@@ -141,7 +132,7 @@ function renderProviders(providers) {
       document.getElementById("modalTitle").innerText = provider.name;
 
       document.getElementById("modalDescription").innerText =
-        `${provider.service} expert available in ${provider.location}`;
+        `${provider.service} professional available in ${provider.location}`;
 
       document.getElementById("modalProviders").innerText = provider.experience;
 
@@ -169,7 +160,7 @@ searchBtn.addEventListener("click", () => {
 });
 
 // ====================================
-// ENTER KEY SEARCH
+// ENTER SEARCH
 // ====================================
 
 searchInput.addEventListener("keypress", (e) => {
@@ -179,20 +170,18 @@ searchInput.addEventListener("keypress", (e) => {
 });
 
 // ====================================
-// FILTER BUTTONS
+// TRENDING BUTTONS
 // ====================================
 
-filterButtons.forEach((button) => {
+const trendButtons = document.querySelectorAll(".trend-btn");
+
+trendButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    filterButtons.forEach((btn) => {
-      btn.classList.remove("active-filter");
-    });
+    const service = button.innerText;
 
-    button.classList.add("active-filter");
+    searchInput.value = service;
 
-    const category = button.dataset.category;
-
-    fetchProviders(category);
+    fetchProviders(service);
   });
 });
 
@@ -205,7 +194,7 @@ closeModal.addEventListener("click", () => {
 });
 
 // ====================================
-// OUTSIDE CLICK CLOSE
+// OUTSIDE CLICK
 // ====================================
 
 window.addEventListener("click", (e) => {
@@ -215,7 +204,7 @@ window.addEventListener("click", (e) => {
 });
 
 // ====================================
-// AUTO SEARCH FROM HOME PAGE
+// AUTO SEARCH
 // ====================================
 
 const searchedService = localStorage.getItem("searchedService");

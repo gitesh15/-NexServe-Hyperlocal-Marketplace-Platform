@@ -21,6 +21,8 @@
   </head>
 
   <body>
+    <!-- BACKGROUND -->
+
     <div class="bg-blur blur1"></div>
 
     <div class="bg-blur blur2"></div>
@@ -38,7 +40,7 @@
         <button class="location-btn">
           <i class="fa-solid fa-location-dot"></i>
 
-          Mumbai
+          India
         </button>
 
         <button class="back-btn" onclick="history.back()">
@@ -57,8 +59,8 @@
       <h1>Find Trusted Local Experts</h1>
 
       <p>
-        Browse verified professionals, compare ratings and instantly book
-        services near your location.
+        Search verified professionals, compare profiles and instantly connect
+        with trusted service providers near you.
       </p>
 
       <!-- SEARCH -->
@@ -79,24 +81,20 @@
         </button>
       </div>
 
-      <!-- FILTERS -->
+      <!-- TRENDING SEARCHES -->
 
-      <div class="filter-buttons">
-        <button class="filter-btn active-filter" data-category="all">
-          All
-        </button>
+      <div class="trending-searches">
+        <button class="trend-btn">Electrician</button>
 
-        <button class="filter-btn" data-category="electrician">
-          Electrician
-        </button>
+        <button class="trend-btn">Plumber</button>
 
-        <button class="filter-btn" data-category="plumbing">Plumbing</button>
+        <button class="trend-btn">Cleaning</button>
 
-        <button class="filter-btn" data-category="cleaning">Cleaning</button>
+        <button class="trend-btn">Tutor</button>
 
-        <button class="filter-btn" data-category="tutoring">Tutoring</button>
+        <button class="trend-btn">AC Repair</button>
 
-        <button class="filter-btn" data-category="repair">Repairs</button>
+        <button class="trend-btn">Carpenter</button>
       </div>
     </section>
 
@@ -104,9 +102,9 @@
 
     <section class="results-section">
       <div class="results-header">
-        <h2>Available Services</h2>
+        <h2>Available Providers</h2>
 
-        <p id="resultsCount">12 services found</p>
+        <p id="resultsCount">0 providers found</p>
       </div>
 
       <!-- SERVICES GRID -->
@@ -114,12 +112,12 @@
       <div class="services-grid" id="servicesGrid"></div>
     </section>
 
-    <!-- SERVICE MODAL -->
+    <!-- MODAL -->
 
     <div class="service-modal" id="serviceModal">
       <div class="modal-content">
         <div class="modal-top">
-          <h2 id="modalTitle">Service</h2>
+          <h2 id="modalTitle">Provider</h2>
 
           <button id="closeModal">
             <i class="fa-solid fa-xmark"></i>
@@ -130,15 +128,15 @@
 
         <div class="modal-stats">
           <div>
-            <h3 id="modalProviders">120+</h3>
+            <h3 id="modalProviders">5 Years</h3>
 
-            <span>Providers</span>
+            <span>Experience</span>
           </div>
 
           <div>
-            <h3 id="modalRating">4.9★</h3>
+            <h3 id="modalRating">Verified</h3>
 
-            <span>Rating</span>
+            <span>Status</span>
           </div>
         </div>
 
