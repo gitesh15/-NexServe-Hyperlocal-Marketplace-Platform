@@ -2,18 +2,108 @@ const express = require("express");
 
 const router = express.Router();
 
-const {
-  createBooking,
-  getBookings,
-  acceptBooking,
-} = require("../controllers/bookingController");
-// CREATE
+const Booking = require("../models/Booking");
 
-router.post("/create", createBooking);
+// ============================
+// CREATE BOOKING
+// ============================
 
-// GET
+router.post("/create", async (req, res) => {
+  try {
+    const booking = await Booking.create(req.body);
 
-router.get("/all", getBookings);
-router.put("/accept/:id", acceptBooking);
+    res.status(201).json({
+      success: true,
+      booking,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// ============================
+// CUSTOMER BOOKINGS
+// ============================
+
+router.get("/customer/:id", async (req, res) => {
+  try {
+    const bookings = await Booking.find({
+      customerId: req.params.id,
+    }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      success: true,
+      bookings,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// ============================
+// PROVIDER BOOKINGS
+// ============================
+
+router.get("/provider/:id", async (req, res) => {
+  try {
+    const bookings = await Booking.find({
+      providerId: req.params.id,
+    }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      success: true,
+      bookings,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
+// ============================
+// UPDATE STATUS
+// ============================
+
+router.put("/status/:id", async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: req.body.status,
+      },
+      { new: true },
+    );
+
+    res.status(200).json({
+      success: true,
+      booking,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
 
 module.exports = router;
