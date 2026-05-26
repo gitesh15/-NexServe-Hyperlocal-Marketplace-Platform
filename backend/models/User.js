@@ -47,6 +47,8 @@ const userSchema = new mongoose.Schema(
       default: "",
     },
 
+    // PROVIDER AVAILABILITY
+
     availability: {
       type: Boolean,
       default: true,

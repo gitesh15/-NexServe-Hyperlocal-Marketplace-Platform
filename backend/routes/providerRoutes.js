@@ -59,4 +59,36 @@ router.get("/search/:service", async (req, res) => {
   }
 });
 
+// ============================
+// UPDATE AVAILABILITY
+// ============================
+
+router.put("/availability/:id", async (req, res) => {
+  try {
+    const { availability } = req.body;
+
+    const provider = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        availability,
+      },
+      {
+        new: true,
+      },
+    ).select("-password");
+
+    res.status(200).json({
+      success: true,
+      provider,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+});
+
 module.exports = router;

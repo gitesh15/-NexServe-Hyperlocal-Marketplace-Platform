@@ -100,6 +100,12 @@ async function loadProviders(service = "") {
 
       card.classList.add("provider-card");
 
+      // IMPORTANT FIX
+      // YOUR DATABASE FIELD IS "availability"
+      // NOT "isAvailable"
+
+      const isAvailable = provider.availability;
+
       card.innerHTML = `
       
       <div class="provider-top">
@@ -132,18 +138,16 @@ async function loadProviders(service = "") {
 
       <div class="provider-bottom">
 
-        <div class="${
-          provider.isAvailable ? "status-online" : "status-offline"
-        }">
+        <div class="${isAvailable ? "status-online" : "status-offline"}">
 
           <i class="fa-solid fa-circle"></i>
 
-          ${provider.isAvailable ? "Available Now" : "Currently Unavailable"}
+          ${isAvailable ? "Available Now" : "Currently Unavailable"}
 
         </div>
 
-        <button class="book-btn" ${!provider.isAvailable ? "disabled" : ""}>
-          ${provider.isAvailable ? "Book Service" : "Unavailable"}
+        <button class="book-btn" ${!isAvailable ? "disabled" : ""}>
+          ${isAvailable ? "Book Service" : "Unavailable"}
         </button>
 
       </div>
@@ -156,7 +160,7 @@ async function loadProviders(service = "") {
 
       const bookBtn = card.querySelector(".book-btn");
 
-      if (provider.isAvailable) {
+      if (isAvailable) {
         bookBtn.addEventListener("click", () => {
           currentProvider = provider;
 
@@ -175,7 +179,7 @@ async function loadProviders(service = "") {
 
               <span>
                 <i class="fa-solid fa-location-dot"></i>
-                ${provider.location}
+                ${provider.location || "India"}
               </span>
             </div>
 
