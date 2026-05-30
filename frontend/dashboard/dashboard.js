@@ -287,6 +287,11 @@ function scrollBookings() {
 loadProviders();
 
 loadBookings();
+
+// ====================================
+// MOBILE SIDEBAR
+// ====================================
+
 const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 
 const sidebar = document.querySelector(".sidebar");
