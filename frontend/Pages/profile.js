@@ -1,5 +1,5 @@
 // ====================================
-// USER
+// USER AUTH
 // ====================================
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -13,19 +13,28 @@ if (!user) {
 // ====================================
 
 const profileName = document.getElementById("profileName");
+
 const profileEmail = document.getElementById("profileEmail");
+
 const totalBookings = document.getElementById("totalBookings");
+
 const savedCount = document.getElementById("savedCount");
+
 const activityList = document.getElementById("activityList");
+
 const logoutBtn = document.getElementById("logoutBtn");
 
 // ====================================
-// USER DATA
+// PROFILE DATA
 // ====================================
 
-profileName.innerText = user.name || "Customer";
+if (profileName) {
+  profileName.innerText = user.name || "Customer";
+}
 
-profileEmail.innerText = user.email || "user@nexserve.com";
+if (profileEmail) {
+  profileEmail.innerText = user.email || "user@nexserve.com";
+}
 
 // ====================================
 // BOOKINGS
@@ -38,7 +47,7 @@ if (totalBookings) {
 }
 
 // ====================================
-// SAVED
+// SAVED PROVIDERS
 // ====================================
 
 const savedProviders = JSON.parse(localStorage.getItem("savedProviders")) || [];
@@ -48,20 +57,35 @@ if (savedCount) {
 }
 
 // ====================================
-// ACTIVITY
+// ACTIVITY LIST
 // ====================================
 
 if (activityList) {
+  activityList.innerHTML = "";
+
+  // EMPTY
+
   if (bookings.length === 0) {
     activityList.innerHTML = `
     
     <div class="activity-card">
-      <h3>No recent activity</h3>
-      <p>Your latest bookings and activity will appear here.</p>
+
+      <h3>
+        No recent activity
+      </h3>
+
+      <p>
+        Your latest bookings and activity
+        will appear here.
+      </p>
+
     </div>
 
     `;
-  } else {
+  }
+
+  // BOOKINGS
+  else {
     bookings
       .slice()
       .reverse()
@@ -71,11 +95,31 @@ if (activityList) {
         
         <div class="activity-card">
 
-          <h3>${booking.service}</h3>
+          <div class="activity-top">
 
-          <p>
-            Booking scheduled for ${booking.date} at ${booking.time}
-          </p>
+            <div class="activity-icon">
+
+              <i class="fa-solid fa-calendar-check"></i>
+
+            </div>
+
+            <div>
+
+              <h3>
+                ${booking.service}
+              </h3>
+
+              <p>
+                ${booking.address}
+              </p>
+
+            </div>
+
+          </div>
+
+          <span class="activity-time">
+            ${booking.date} • ${booking.time}
+          </span>
 
         </div>
 
@@ -88,16 +132,21 @@ if (activityList) {
 // LOGOUT
 // ====================================
 
-logoutBtn.addEventListener("click", () => {
-  localStorage.removeItem("user");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
 
-  window.location.href = "../index.html";
-});
-// =========================
-// ELEMENTS
-// =========================
+    window.location.href = "../index.html";
+  });
+}
+
+// ====================================
+// EDIT PROFILE PANEL
+// ====================================
 
 const openEditProfile = document.getElementById("openEditProfile");
+
+const openEditProfile2 = document.getElementById("openEditProfile2");
 
 const closeEditProfile = document.getElementById("closeEditProfile");
 
@@ -105,26 +154,44 @@ const editProfilePanel = document.getElementById("editProfilePanel");
 
 const profileOverlay = document.getElementById("profileOverlay");
 
-// =========================
+// ====================================
 // OPEN PANEL
-// =========================
+// ====================================
 
-if (openEditProfile) {
-  openEditProfile.addEventListener("click", () => {
-    editProfilePanel.classList.add("active-panel");
+function openProfilePanel() {
+  if (editProfilePanel) {
+    editProfilePanel.classList.add("show-edit-panel");
+  }
 
-    profileOverlay.classList.add("active-overlay");
-  });
+  if (profileOverlay) {
+    profileOverlay.classList.add("show-overlay");
+  }
 }
 
-// =========================
+// ====================================
 // CLOSE PANEL
-// =========================
+// ====================================
 
 function closeProfilePanel() {
-  editProfilePanel.classList.remove("active-panel");
+  if (editProfilePanel) {
+    editProfilePanel.classList.remove("show-edit-panel");
+  }
 
-  profileOverlay.classList.remove("active-overlay");
+  if (profileOverlay) {
+    profileOverlay.classList.remove("show-overlay");
+  }
+}
+
+// ====================================
+// BUTTON EVENTS
+// ====================================
+
+if (openEditProfile) {
+  openEditProfile.addEventListener("click", openProfilePanel);
+}
+
+if (openEditProfile2) {
+  openEditProfile2.addEventListener("click", openProfilePanel);
 }
 
 if (closeEditProfile) {
@@ -135,38 +202,72 @@ if (profileOverlay) {
   profileOverlay.addEventListener("click", closeProfilePanel);
 }
 
-// =========================
-// LOAD USER DATA
-// =========================
-
-const currentUser = JSON.parse(localStorage.getItem("user"));
-
-if (currentUser) {
-  document.getElementById("editName").value = currentUser.name || "";
-
-  document.getElementById("editEmail").value = currentUser.email || "";
-}
-
-// =========================
-// SAVE PROFILE
-// =========================
+// ====================================
+// EDIT FORM
+// ====================================
 
 const editProfileForm = document.getElementById("editProfileForm");
+
+const editName = document.getElementById("editName");
+
+const editEmail = document.getElementById("editEmail");
+
+const editAddress = document.getElementById("editAddress");
+
+// ====================================
+// LOAD USER INTO FORM
+// ====================================
+
+if (user) {
+  if (editName) {
+    editName.value = user.name || "";
+  }
+
+  if (editEmail) {
+    editEmail.value = user.email || "";
+  }
+
+  if (editAddress) {
+    editAddress.value = user.address || "";
+  }
+}
+
+// ====================================
+// SAVE PROFILE
+// ====================================
 
 if (editProfileForm) {
   editProfileForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    currentUser.name = document.getElementById("editName").value;
+    // UPDATE USER
 
-    currentUser.email = document.getElementById("editEmail").value;
+    user.name = editName.value;
 
-    localStorage.setItem("user", JSON.stringify(currentUser));
+    user.email = editEmail.value;
 
-    alert("Profile Updated");
+    user.address = editAddress.value;
+
+    // SAVE
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    // UPDATE UI
+
+    if (profileName) {
+      profileName.innerText = user.name;
+    }
+
+    if (profileEmail) {
+      profileEmail.innerText = user.email;
+    }
+
+    // CLOSE
 
     closeProfilePanel();
 
-    location.reload();
+    // ALERT
+
+    alert("Profile Updated Successfully");
   });
 }
