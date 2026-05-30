@@ -46,7 +46,7 @@ const bookingMenu = document.getElementById("bookingMenu");
 
 if (bookingMenu) {
   bookingMenu.addEventListener("click", () => {
-    window.location.href = "../pages/search-services.html";
+    window.location.href = "./bookings.html";
   });
 }
 
