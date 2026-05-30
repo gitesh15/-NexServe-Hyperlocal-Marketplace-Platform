@@ -218,96 +218,148 @@
   </div>
 </section>
 
+<!-- REPLACE EVERYTHING BELOW stats-grid WITH THIS -->
+
+<div class="dashboard-grid">
+
+  <!-- LEFT SIDE -->
+
+  <div class="dashboard-left">
+
+```
 <!-- LIVE PROVIDERS -->
 
-<section class="live-providers-section">
-  <div class="section-title">
+<section class="modern-section">
+  <div class="modern-header">
     <div>
-      <span class="section-tag"> LIVE MARKETPLACE </span>
-
-      <h2>Available Professionals</h2>
-
-      <p>Providers currently online and accepting bookings</p>
+      <span class="mini-label">LIVE MARKETPLACE</span>
+      <h2>Available Providers</h2>
     </div>
 
-    <div class="live-indicator">
-      <span class="live-dot"></span>
-
-      Live
-    </div>
+    <button
+      class="modern-action-btn"
+      onclick="window.location.href='../pages/search-services.html'"
+    >
+      Explore All
+    </button>
   </div>
 
-  <div class="providers-grid" id="providersGrid">
+  <div id="providersGrid" class="modern-provider-grid">
     <!-- DYNAMIC -->
   </div>
 </section>
+
 <!-- ACTIVE BOOKINGS -->
 
-<section class="active-bookings-section">
-  <div class="section-title">
+<section class="modern-section">
+  <div class="modern-header">
     <div>
-      <span class="section-tag"> REALTIME BOOKINGS </span>
-
-      <h2>Your Active Bookings</h2>
-
-      <p>Track booking status in realtime</p>
+      <span class="mini-label">REALTIME BOOKINGS</span>
+      <h2>My Bookings</h2>
     </div>
   </div>
 
-  <div id="customerBookings" class="customer-bookings-grid">
+  <div id="customerBookings" class="modern-bookings-list">
     <!-- DYNAMIC -->
   </div>
 </section>
-<!-- MARKETPLACE ACTIVITY -->
+```
 
-<section class="marketplace-section">
-  <div class="section-title">
+  </div>
+
+  <!-- RIGHT SIDE -->
+
+  <div class="dashboard-right">
+
+```
+<!-- PROFILE CARD -->
+
+<div class="glass-card profile-card-modern">
+
+  <div class="profile-top">
+
+    <img
+      src="https://i.pravatar.cc/150"
+      class="profile-avatar"
+    />
+
     <div>
-      <span class="section-tag"> PLATFORM STATUS </span>
+      <h3 id="dashboardUserName">Customer</h3>
 
-      <h2>Marketplace Activity</h2>
-
-      <p>Realtime platform insights</p>
-    </div>
-  </div>
-
-  <div class="marketplace-grid">
-
-    <div class="market-card">
-      <div class="market-icon blue">
-        <i class="fa-solid fa-user-check"></i>
-      </div>
-
-      <div>
-        <h3 id="onlineProvidersCount">0</h3>
-        <p>Providers Online</p>
-      </div>
-    </div>
-
-    <div class="market-card">
-      <div class="market-icon green">
-        <i class="fa-solid fa-calendar-check"></i>
-      </div>
-
-      <div>
-        <h3 id="activeBookingsCount">0</h3>
-        <p>Active Bookings</p>
-      </div>
-    </div>
-
-    <div class="market-card">
-      <div class="market-icon purple">
-        <i class="fa-solid fa-bolt"></i>
-      </div>
-
-      <div>
-        <h3>Realtime</h3>
-        <p>Booking Updates</p>
-      </div>
+      <p>Verified NexServe User</p>
     </div>
 
   </div>
-</section>
+
+  <div class="profile-stats">
+
+    <div>
+      <h2 id="totalBookings">0</h2>
+      <span>Bookings</span>
+    </div>
+
+    <div>
+      <h2 id="acceptedBookings">0</h2>
+      <span>Accepted</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+
+<div class="glass-card quick-actions-card">
+
+  <div class="card-header">
+    <h3>Quick Actions</h3>
+  </div>
+
+  <div class="quick-actions-grid">
+
+    <button
+      class="quick-btn"
+      onclick="window.location.href='../pages/search-services.html'"
+    >
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Find Services
+    </button>
+
+    <button
+      class="quick-btn"
+      onclick="scrollBookings()"
+    >
+      <i class="fa-solid fa-calendar-check"></i>
+      My Bookings
+    </button>
+
+  </div>
+
+</div>
+
+<!-- LIVE STATUS -->
+
+<div class="glass-card live-card">
+
+  <div class="live-top">
+    <div class="live-dot"></div>
+
+    <span>Realtime Marketplace</span>
+  </div>
+
+  <h2>Providers Currently Online</h2>
+
+  <div class="live-count" id="onlineProviders">
+    0
+  </div>
+
+</div>
+```
+
+  </div>
+
+</div>
+
 
     <script src="dashboard.js"></script>
   </body>
