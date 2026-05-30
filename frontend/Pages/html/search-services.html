@@ -1,5 +1,3 @@
-<!-- pages/search-services.html -->
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -7,362 +5,101 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Search Services | NexServe</title>
+    <title>Find Services • NexServe</title>
 
-    <link rel="stylesheet" href="../css/search-services.css" />
+    <link rel="stylesheet" href="../css//search-services.css" />
 
-    <!-- ICONS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-
-    <!-- FONT -->
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
     />
   </head>
 
   <body>
     <!-- BACKGROUND -->
 
-    <div class="bg-blur blur1"></div>
+    <div class="bg-blur blur-1"></div>
 
-    <div class="bg-blur blur2"></div>
+    <div class="bg-blur blur-2"></div>
 
-    <!-- MAIN LAYOUT -->
+    <!-- PAGE -->
 
-    <section class="main-layout">
-      <!-- SIDEBAR -->
+    <main class="services-page">
+      <!-- TOPBAR -->
 
-      <aside class="sidebar">
-        <!-- LOGO -->
+      <header class="services-topbar">
+        <button class="back-btn" onclick="window.history.back()">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
 
-        <div class="sidebar-logo">
-          <div class="logo-icon">
-            <i class="fa-solid fa-location-dot"></i>
-          </div>
+        <div>
+          <span class="top-label">NEXSERVE MARKETPLACE</span>
 
+          <h1>Find Trusted Professionals</h1>
+        </div>
+      </header>
+
+      <!-- SEARCH -->
+
+      <section class="search-section">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search plumber, electrician, cleaner..."
+          />
+
+          <button id="searchBtn">Search</button>
+        </div>
+
+        <!-- CATEGORIES -->
+
+        <div class="category-chips">
+          <button class="chip-btn">Plumbing</button>
+
+          <button class="chip-btn">Electrician</button>
+
+          <button class="chip-btn">Cleaning</button>
+
+          <button class="chip-btn">Carpentry</button>
+
+          <button class="chip-btn">Tutoring</button>
+
+          <button class="chip-btn">Appliance Repair</button>
+        </div>
+      </section>
+
+      <!-- RESULTS -->
+
+      <section class="results-section">
+        <div class="results-header">
           <div>
-            <h2>NexServe</h2>
+            <span class="results-label"> LIVE PROVIDERS </span>
 
-            <span>Customer Panel</span>
+            <h2>Available Professionals</h2>
+          </div>
+
+          <div class="live-status">
+            <span class="live-dot"></span>
+
+            Live
           </div>
         </div>
 
-        <!-- MENU -->
+        <div id="resultsCount" class="results-count">0 providers found</div>
 
-        <div class="sidebar-menu">
-          <!-- DASHBOARD -->
-
-          <button
-            onclick="
-              window.location.href = '../dashboard/customer-dashboard.html'
-            "
-          >
-            <i class="fa-solid fa-house"></i>
-
-            Dashboard
-          </button>
-
-          <!-- BOOK SERVICES -->
-
-          <button id="bookServicesBtn">
-            <i class="fa-solid fa-calendar-check"></i>
-
-            Book Services
-          </button>
-
-          <!-- MY BOOKINGS -->
-
-          <button id="myBookingsBtn">
-            <i class="fa-solid fa-clipboard-list"></i>
-
-            My Bookings
-          </button>
-
-          <!-- OTHER -->
-
-          <button>
-            <i class="fa-solid fa-comments"></i>
-
-            Messages
-          </button>
-
-          <button>
-            <i class="fa-solid fa-heart"></i>
-
-            Favorites
-          </button>
+        <div class="providers-grid" id="providersGrid">
+          <!-- DYNAMIC -->
         </div>
-
-        <!-- BOTTOM -->
-
-        <div class="sidebar-bottom">
-          <button class="logout-btn" id="logoutBtn">
-            <i class="fa-solid fa-right-from-bracket"></i>
-
-            Logout
-          </button>
-        </div>
-      </aside>
-
-      <!-- MAIN CONTENT -->
-
-      <main class="main-content">
-        <!-- NAVBAR -->
-
-        <header class="navbar">
-          <div class="logo">
-            <h2>NEXSERVE</h2>
-
-            <span>Trusted. Local. Reliable.</span>
-          </div>
-
-          <div class="nav-right">
-            <button class="location-btn">
-              <i class="fa-solid fa-location-dot"></i>
-
-              India
-            </button>
-
-            <div class="profile-box">
-              <img src="https://i.pravatar.cc/100" alt="" />
-
-              <div>
-                <h4 id="userName">Customer</h4>
-
-                <p>Verified User</p>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        <!-- HERO -->
-
-        <section class="hero-section">
-          <div class="hero-left">
-            <span class="tag"> AI Powered Marketplace </span>
-
-            <h1>Find Trusted Local Experts</h1>
-
-            <p>
-              Search verified professionals, compare realtime availability and
-              instantly connect with top rated providers nearby.
-            </p>
-
-            <!-- SEARCH -->
-
-            <div class="search-box">
-              <div class="search-input">
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                  type="text"
-                  id="searchInput"
-                  placeholder="Search electricians, plumbers, tutors..."
-                />
-              </div>
-
-              <button id="searchBtn">
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            </div>
-
-            <!-- TRENDING -->
-
-            <div class="trending-searches">
-              <button class="trend-btn">Electrician</button>
-
-              <button class="trend-btn">Plumber</button>
-
-              <button class="trend-btn">Cleaning</button>
-
-              <button class="trend-btn">Tutor</button>
-
-              <button class="trend-btn">AC Repair</button>
-
-              <button class="trend-btn">Carpenter</button>
-            </div>
-          </div>
-
-          <!-- RIGHT -->
-
-          <div class="hero-right">
-            <div class="hero-card">
-              <div class="pulse-ring"></div>
-
-              <div class="hero-card-content">
-                <i class="fa-solid fa-user-check"></i>
-
-                <h2>Realtime Availability</h2>
-
-                <p>
-                  Instantly book providers who are currently online and
-                  accepting jobs.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- PROVIDERS SECTION -->
-
-        <!-- HIDDEN INITIALLY -->
-
-        <section class="results-section hidden-section" id="providersSection">
-          <div class="results-header">
-            <div>
-              <h2>Available Providers</h2>
-
-              <p id="resultsCount">0 providers found</p>
-            </div>
-
-            <div class="live-status">
-              <span class="live-dot"></span>
-
-              Live Marketplace
-            </div>
-          </div>
-
-          <!-- STACK -->
-
-          <div class="provider-stack" id="providerStack">
-            <!-- DYNAMIC PROVIDERS -->
-          </div>
-
-          <!-- GRID -->
-
-          <div class="services-grid" id="servicesGrid">
-            <!-- DYNAMIC -->
-          </div>
-        </section>
-
-        <!-- MY BOOKINGS -->
-
-        <!-- HIDDEN INITIALLY -->
-
-        <section
-          class="my-bookings-section hidden-section"
-          id="myBookingsSection"
-        >
-          <div class="results-header">
-            <div>
-              <h2>My Bookings</h2>
-
-              <p>Track all your booking requests</p>
-            </div>
-
-            <div class="live-status">
-              <span class="live-dot"></span>
-
-              Realtime Updates
-            </div>
-          </div>
-
-          <div id="bookingsContainer">
-            <!-- DYNAMIC BOOKINGS -->
-          </div>
-        </section>
-      </main>
-    </section>
-
-    <!-- MODAL -->
-
-    <div class="service-modal" id="serviceModal">
-      <div class="modal-content">
-        <!-- TOP -->
-
-        <div class="modal-top">
-          <div>
-            <span class="modal-badge">Realtime Booking</span>
-
-            <h2 id="modalTitle">Provider</h2>
-          </div>
-
-          <button id="closeModal">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-
-        <!-- PROVIDER -->
-
-        <div class="provider-preview">
-          <img id="modalImage" src="" alt="" />
-
-          <div>
-            <h3 id="modalProviderName">Provider</h3>
-
-            <p id="modalDescription"></p>
-          </div>
-        </div>
-
-        <!-- STATS -->
-
-        <div class="modal-stats">
-          <div>
-            <h3 id="modalProviders">5 Years</h3>
-
-            <span>Experience</span>
-          </div>
-
-          <div>
-            <h3 id="modalRating">Verified</h3>
-
-            <span>Status</span>
-          </div>
-        </div>
-
-        <!-- FORM -->
-
-        <form id="bookingForm">
-          <div class="booking-grid">
-            <div class="booking-input">
-              <label>Date</label>
-
-              <input type="date" id="bookingDate" required />
-            </div>
-
-            <div class="booking-input">
-              <label>Time</label>
-
-              <input type="time" id="bookingTime" required />
-            </div>
-          </div>
-
-          <div class="booking-input">
-            <label>Address</label>
-
-            <input
-              type="text"
-              id="bookingAddress"
-              placeholder="Enter your address"
-              required
-            />
-          </div>
-
-          <div class="booking-input">
-            <label>Description</label>
-
-            <textarea
-              id="bookingDescription"
-              placeholder="Describe your service issue..."
-            ></textarea>
-          </div>
-
-          <button type="submit" class="book-btn">
-            <i class="fa-solid fa-calendar-check"></i>
-
-            Confirm Booking
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <!-- SCRIPT -->
+      </section>
+    </main>
 
     <script src="../js/search-services.js"></script>
   </body>
