@@ -26,8 +26,14 @@ const customerBookings = document.getElementById("customerBookings");
 
 const bookingMenu = document.getElementById("bookingMenu");
 
+const bookingSection = document.querySelector(".booking-section");
+
+const providersSection = document.querySelector(".providers-section");
+
+const bookingsSection = document.querySelector(".customer-bookings");
+
 // ====================================
-// USER DATA
+// USER NAME
 // ====================================
 
 if (userName) {
@@ -47,12 +53,48 @@ if (logoutBtn) {
 }
 
 // ====================================
-// BOOKING MENU
+// INITIAL SECTION STATE
 // ====================================
+
+// HIDE BOOKINGS SECTION INITIALLY
+
+if (providersSection) {
+  providersSection.style.display = "none";
+}
+
+if (bookingSection) {
+  bookingSection.style.display = "none";
+}
+
+// ====================================
+// SIDEBAR BOOKINGS BUTTON
+// ====================================
+
+// THIS OPENS PROVIDERS + BOOKING SECTION
 
 if (bookingMenu) {
   bookingMenu.addEventListener("click", () => {
-    window.location.href = "../pages/search-services.html";
+    // SHOW PROVIDERS
+
+    if (providersSection) {
+      providersSection.style.display = "block";
+    }
+
+    // SHOW BOOKING SECTION
+
+    if (bookingSection) {
+      bookingSection.style.display = "block";
+    }
+
+    // SCROLL TO PROVIDERS
+
+    providersSection.scrollIntoView({
+      behavior: "smooth",
+    });
+
+    // LOAD PROVIDERS
+
+    loadProviders();
   });
 }
 
@@ -60,7 +102,53 @@ if (bookingMenu) {
 // SEARCH PROVIDERS
 // ====================================
 
-async function searchProviders(service = "") {
+if (dashboardSearchBtn) {
+  dashboardSearchBtn.addEventListener("click", () => {
+    const service = dashboardSearchInput.value.trim();
+
+    loadProviders(service);
+
+    // SHOW PROVIDERS SECTION
+
+    if (providersSection) {
+      providersSection.style.display = "block";
+    }
+
+    providersSection.scrollIntoView({
+      behavior: "smooth",
+    });
+  });
+}
+
+// ====================================
+// ENTER SEARCH
+// ====================================
+
+if (dashboardSearchInput) {
+  dashboardSearchInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const service = dashboardSearchInput.value.trim();
+
+      loadProviders(service);
+
+      // SHOW SECTION
+
+      if (providersSection) {
+        providersSection.style.display = "block";
+      }
+
+      providersSection.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  });
+}
+
+// ====================================
+// LOAD PROVIDERS
+// ====================================
+
+async function loadProviders(service = "") {
   try {
     let url =
       "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers";
@@ -73,156 +161,238 @@ async function searchProviders(service = "") {
 
     const data = await response.json();
 
-    renderProviders(data.providers || []);
+    providersGrid.innerHTML = "";
+
+    // EMPTY
+
+    if (!data.providers || data.providers.length === 0) {
+      providersGrid.innerHTML = `
+      
+      <div class="empty-booking">
+
+        <i class="fa-solid fa-user-xmark"></i>
+
+        <h3>No Providers Found</h3>
+
+      </div>
+      
+      `;
+
+      return;
+    }
+
+    // FILTER AVAILABLE
+
+    const availableProviders = data.providers.filter(
+      (provider) => provider.availability === true,
+    );
+
+    // RENDER
+
+    availableProviders.forEach((provider) => {
+      providersGrid.innerHTML += `
+      
+      <div class="provider-card">
+
+        <div class="provider-top">
+
+          <img
+            src="https://i.pravatar.cc/150?u=${provider.email}"
+          />
+
+          <div>
+
+            <h3>${provider.name}</h3>
+
+            <p>${provider.service}</p>
+
+          </div>
+
+        </div>
+
+        <div class="provider-details">
+
+          <span>
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            ${provider.location || "India"}
+
+          </span>
+
+          <span>
+
+            <i class="fa-solid fa-briefcase"></i>
+
+            ${provider.experience || "1+ Years"}
+
+          </span>
+
+        </div>
+
+        <div class="provider-bottom">
+
+          <div class="online-badge">
+
+            <i class="fa-solid fa-circle"></i>
+
+            Available
+
+          </div>
+
+          <button
+            class="provider-book-btn"
+            onclick="selectProvider(
+              '${provider._id}',
+              '${provider.name}',
+              '${provider.service}'
+            )"
+          >
+            Book Service
+          </button>
+
+        </div>
+
+      </div>
+
+      `;
+    });
   } catch (error) {
     console.log(error);
 
     providersGrid.innerHTML = `
     
-      <div class="empty-state">
-        <h2>Server Error</h2>
-      </div>
-    
-    `;
-  }
-}
-
-// ====================================
-// RENDER PROVIDERS
-// ====================================
-
-function renderProviders(providers) {
-  if (!providersGrid) return;
-
-  providersGrid.innerHTML = "";
-
-  // FILTER AVAILABLE PROVIDERS
-
-  const availableProviders = providers.filter(
-    (provider) => provider.availability === true,
-  );
-
-  // COUNTS
-
-  const onlineProvidersCount = document.getElementById("onlineProvidersCount");
-
-  if (onlineProvidersCount) {
-    onlineProvidersCount.innerText = availableProviders.length;
-  }
-
-  // EMPTY
-
-  if (availableProviders.length === 0) {
-    providersGrid.innerHTML = `
-    
-      <div class="empty-state">
-
-        <i class="fa-solid fa-user-xmark"></i>
-
-        <h2>No Providers Available</h2>
-
-        <p>Try another service search.</p>
-
-      </div>
-    
-    `;
-
-    return;
-  }
-
-  // LOOP
-
-  availableProviders.forEach((provider) => {
-    providersGrid.innerHTML += `
-    
-    <div class="provider-card">
-
-      <div class="provider-top">
-
-        <img
-          src="https://i.pravatar.cc/150?u=${provider.email}"
-          alt="${provider.name}"
-        />
-
-        <div>
-
-          <h3>${provider.name}</h3>
-
-          <p>${provider.service}</p>
-
-        </div>
-
-      </div>
-
-      <div class="provider-meta">
-
-        <span>
-          <i class="fa-solid fa-location-dot"></i>
-          ${provider.location || "India"}
-        </span>
-
-        <span>
-          <i class="fa-solid fa-briefcase"></i>
-          ${provider.experience || "1+ Years"}
-        </span>
-
-      </div>
-
-      <div class="provider-bottom">
-
-        <div class="online-badge">
-
-          <i class="fa-solid fa-circle"></i>
-
-          Available
-
-        </div>
-
-        <button
-          class="provider-book-btn"
-          onclick="openBookingPage('${provider.service}')"
-        >
-          Book Service
-        </button>
-
-      </div>
-
+    <div class="empty-booking">
+      Server Error
     </div>
     
     `;
+  }
+}
+
+// ====================================
+// SELECTED PROVIDER
+// ====================================
+
+let selectedProvider = null;
+
+// ====================================
+// SELECT PROVIDER
+// ====================================
+
+function selectProvider(providerId, providerName, service) {
+  selectedProvider = {
+    providerId,
+    providerName,
+    service,
+  };
+
+  // AUTO FILL SERVICE
+
+  const serviceInput = document.getElementById("service");
+
+  if (serviceInput) {
+    serviceInput.value = service;
+  }
+
+  // SHOW BOOKING SECTION
+
+  if (bookingSection) {
+    bookingSection.style.display = "block";
+  }
+
+  // SCROLL TO FORM
+
+  bookingSection.scrollIntoView({
+    behavior: "smooth",
   });
+
+  // SUCCESS UI
+
+  alert(`${providerName} selected successfully`);
 }
 
 // ====================================
-// OPEN BOOKING PAGE
+// BOOKING FORM
 // ====================================
 
-function openBookingPage(service) {
-  localStorage.setItem("searchedService", service);
-
-  window.location.href = "../pages/search-services.html";
-}
+const bookingForm = document.getElementById("bookingForm");
 
 // ====================================
-// SEARCH BUTTON
+// CREATE BOOKING
 // ====================================
 
-if (dashboardSearchBtn) {
-  dashboardSearchBtn.addEventListener("click", () => {
-    const service = dashboardSearchInput.value.trim();
+if (bookingForm) {
+  bookingForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-    searchProviders(service);
-  });
-}
+    // NO PROVIDER
 
-// ====================================
-// ENTER SEARCH
-// ====================================
+    if (!selectedProvider) {
+      alert("Please select provider first");
 
-if (dashboardSearchInput) {
-  dashboardSearchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      searchProviders(dashboardSearchInput.value.trim());
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/create",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            customerId: user._id,
+
+            customerName: user.name,
+
+            providerId: selectedProvider.providerId,
+
+            providerName: selectedProvider.providerName,
+
+            service: selectedProvider.service,
+
+            address: document.getElementById("address").value,
+
+            date: document.getElementById("date").value,
+
+            time: document.getElementById("time").value,
+
+            description: document.getElementById("description").value,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      // ERROR
+
+      if (!response.ok) {
+        alert(data.message);
+
+        return;
+      }
+
+      // SUCCESS
+
+      alert("Booking Created Successfully");
+
+      bookingForm.reset();
+
+      loadBookings();
+
+      // OPEN BOOKINGS SECTION
+
+      bookingsSection.scrollIntoView({
+        behavior: "smooth",
+      });
+    } catch (error) {
+      console.log(error);
+
+      alert("Server Error");
     }
   });
 }
@@ -241,39 +411,7 @@ async function loadBookings() {
 
     const bookings = data.bookings || [];
 
-    // ACTIVE BOOKINGS COUNT
-
-    const activeBookingsCount = document.getElementById("activeBookingsCount");
-
-    if (activeBookingsCount) {
-      activeBookingsCount.innerText = bookings.length;
-    }
-
-    // TOTAL BOOKINGS COUNT
-
-    const totalBookingsCount = document.getElementById("totalBookingsCount");
-
-    if (totalBookingsCount) {
-      totalBookingsCount.innerText = bookings.length;
-    }
-
-    // PENDING BOOKINGS
-
-    const pendingBookings = bookings.filter(
-      (booking) => booking.status === "pending",
-    );
-
-    const pendingServicesCount = document.getElementById(
-      "pendingServicesCount",
-    );
-
-    if (pendingServicesCount) {
-      pendingServicesCount.innerText = pendingBookings.length;
-    }
-
     // EMPTY
-
-    if (!customerBookings) return;
 
     customerBookings.innerHTML = "";
 
@@ -286,8 +424,6 @@ async function loadBookings() {
 
         <h3>No Bookings Yet</h3>
 
-        <p>Your booking requests will appear here.</p>
-
       </div>
       
       `;
@@ -295,24 +431,28 @@ async function loadBookings() {
       return;
     }
 
-    // BOOKINGS
+    // RENDER BOOKINGS
 
     bookings.forEach((booking) => {
       customerBookings.innerHTML += `
       
-      <div class="booking-card modern-booking-card">
+      <div class="booking-card">
 
         <div class="booking-left">
 
-          <div class="booking-avatar">
-            ${booking.providerName.charAt(0).toUpperCase()}
-          </div>
+          <img
+            src="https://i.pravatar.cc/120?u=${booking.providerName}"
+          />
 
           <div>
 
-            <h3>${booking.providerName}</h3>
+            <h3>
+              ${booking.providerName}
+            </h3>
 
-            <p>${booking.service}</p>
+            <p>
+              ${booking.service}
+            </p>
 
             <span>
 
@@ -334,79 +474,23 @@ async function loadBookings() {
 
         </div>
 
-        <div class="booking-right">
-
-          <div class="booking-status ${booking.status}">
-
-            ${booking.status}
-
-          </div>
-
-          ${
-            booking.status === "accepted"
-              ? `
-              
-              <div class="accepted-info">
-
-                <i class="fa-solid fa-circle-check"></i>
-
-                Provider accepted your booking
-
-              </div>
-              
-              `
-              : `
-              
-              <div class="pending-info">
-
-                <i class="fa-solid fa-hourglass-half"></i>
-
-                Waiting for provider response
-
-              </div>
-              
-              `
-          }
-
+        <div
+          class="booking-status ${booking.status}"
+        >
+          ${booking.status}
         </div>
 
       </div>
-      
+
       `;
     });
   } catch (error) {
     console.log(error);
-
-    if (customerBookings) {
-      customerBookings.innerHTML = `
-      
-      <div class="empty-booking">
-
-        <h3>Failed to load bookings</h3>
-
-      </div>
-      
-      `;
-    }
   }
-}
-
-// ====================================
-// HERO BUTTON
-// ====================================
-
-const exploreBtn = document.querySelector(".hero-content button");
-
-if (exploreBtn) {
-  exploreBtn.addEventListener("click", () => {
-    window.location.href = "../pages/search-services.html";
-  });
 }
 
 // ====================================
 // INITIAL LOAD
 // ====================================
-
-searchProviders();
 
 loadBookings();
