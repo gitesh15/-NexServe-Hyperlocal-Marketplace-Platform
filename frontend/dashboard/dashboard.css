@@ -178,7 +178,7 @@ body {
   color: white;
 }
 
-.search-box button {
+.search-box button .provider-book-btn {
   height: 42px;
 
   padding: 0 18px;

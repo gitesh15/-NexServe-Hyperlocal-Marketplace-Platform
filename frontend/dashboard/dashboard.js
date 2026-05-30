@@ -169,12 +169,7 @@ async function loadProviders() {
 
   </span>
 
-  // <button
-  //   class="provider-book-btn"
-  //   onclick="window.location.href='../pages/search-services.html'"
-  // >
-  //   Explore
-  // </button>
+
 
 </div>
 
