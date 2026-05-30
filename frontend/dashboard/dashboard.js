@@ -161,13 +161,17 @@ async function loadProviders() {
 
           </div>
 
-      <div class="provider-bottom">
+     <div class="provider-bottom">
 
-  <span id="provider-book-btn" class="${provider.availability ? "online-badge" : "offline-badge"}">
+  <div class="provider-status ${
+    provider.availability ? "status-online" : "status-offline"
+  }">
 
-    ${provider.availability ? "Online" : "Offline"}
+    <span class="status-dot"></span>
 
-  </span>
+    ${provider.availability ? "Online Now" : "Offline"}
+
+  </div>
 
 
 
