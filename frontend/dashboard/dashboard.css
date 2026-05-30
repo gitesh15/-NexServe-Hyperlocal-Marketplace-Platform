@@ -537,185 +537,68 @@ body {
   box-shadow: 0 15px 30px rgba(59, 130, 246, 0.25);
 }
 /* =========================================
-MODERN DASHBOARD GRID
+LIVE PROVIDERS SECTION
 ========================================= */
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1.7fr 0.9fr;
-  gap: 28px;
-  margin-top: 35px;
-  align-items: start;
-}
-
-.dashboard-left,
-.dashboard-right {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-/* =========================================
-MODERN SECTIONS
-========================================= */
-
-.modern-section {
+.live-providers-section,
+.active-bookings-section,
+.marketplace-section,
+.providers-section {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
   padding: 28px;
   backdrop-filter: blur(20px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  margin-top: 30px;
 }
 
-.modern-header {
+/* =========================================
+SECTION HEADER
+========================================= */
+
+.section-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 28px;
+  gap: 20px;
 }
 
-.mini-label {
+.section-title h2 {
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.section-title p {
+  color: #9ca3af;
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.section-tag {
   color: #8b5cf6;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
-}
-
-.modern-header h2 {
-  color: white;
-  margin-top: 8px;
-  font-size: 28px;
-}
-
-.modern-action-btn {
-  border: none;
-  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-  color: white;
-  padding: 14px 22px;
-  border-radius: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  text-transform: uppercase;
 }
 
 /* =========================================
-PROVIDER GRID
+LIVE INDICATOR
 ========================================= */
 
-.modern-provider-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 22px;
-}
-
-.provider-card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 24px;
-  padding: 22px;
-  transition: 0.3s;
-}
-
-.provider-card:hover {
-  transform: translateY(-8px);
-  border-color: #8b5cf6;
-  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.25);
-}
-
-/* =========================================
-GLASS CARDS
-========================================= */
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
-  padding: 24px;
-  backdrop-filter: blur(20px);
-}
-
-.profile-top {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.profile-avatar {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-}
-
-.profile-top h3 {
-  color: white;
-  font-size: 22px;
-}
-
-.profile-top p {
-  color: #9ca3af;
-}
-
-.profile-stats {
-  margin-top: 25px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.profile-stats div {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 18px;
-  padding: 18px;
-  text-align: center;
-}
-
-.profile-stats h2 {
-  color: white;
-  font-size: 28px;
-}
-
-.profile-stats span {
-  color: #9ca3af;
-}
-
-/* =========================================
-QUICK ACTIONS
-========================================= */
-
-.quick-actions-grid {
-  display: grid;
-  gap: 15px;
-  margin-top: 18px;
-}
-
-.quick-btn {
-  border: none;
-  background: rgba(255, 255, 255, 0.06);
-  padding: 18px;
-  border-radius: 18px;
-  color: white;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.quick-btn:hover {
-  background: #8b5cf6;
-  transform: translateY(-4px);
-}
-
-/* =========================================
-LIVE CARD
-========================================= */
-
-.live-top {
+.live-indicator {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: #9ca3af;
+  color: #d1d5db;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px 18px;
+  border-radius: 14px;
 }
 
 .live-dot {
@@ -723,46 +606,304 @@ LIVE CARD
   height: 10px;
   border-radius: 50%;
   background: #22c55e;
-  box-shadow: 0 0 12px #22c55e;
+  box-shadow: 0 0 14px #22c55e;
 }
 
-.live-card h2 {
+/* =========================================
+PROVIDER GRID
+========================================= */
+
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 24px;
+}
+
+/* =========================================
+PROVIDER CARD
+========================================= */
+
+.provider-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 26px;
+  padding: 22px;
+  transition: 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.provider-card:hover {
+  transform: translateY(-8px);
+  border-color: #8b5cf6;
+  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.22);
+}
+
+.provider-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.provider-top img {
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.provider-top h3 {
   color: white;
-  margin-top: 20px;
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
-.live-count {
-  margin-top: 20px;
-  font-size: 60px;
-  font-weight: 800;
+.provider-top p {
+  color: #9ca3af;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+/* =========================================
+PROVIDER DETAILS
+========================================= */
+
+.provider-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.provider-details span {
+  color: #d1d5db;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.provider-details i {
   color: #8b5cf6;
 }
 
 /* =========================================
-BOOKINGS
+PROVIDER BOTTOM
 ========================================= */
 
-.modern-bookings-list {
+.provider-bottom {
+  margin-top: 24px;
   display: flex;
-  flex-direction: column;
-  gap: 18px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.booking-item {
+.online-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.provider-book-btn {
+  border: none;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: white;
+  padding: 13px 18px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.provider-book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+}
+
+/* =========================================
+ACTIVE BOOKINGS
+========================================= */
+
+.customer-bookings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 22px;
+  border-radius: 24px;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: 0.3s;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  border-color: #8b5cf6;
+}
+
+.booking-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.booking-left img {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+}
+
+.booking-left h3 {
+  color: white;
+  font-size: 18px;
+}
+
+.booking-left p {
+  color: #9ca3af;
+  margin-top: 4px;
+}
+
+.booking-left span {
+  color: #6b7280;
+  font-size: 14px;
+  display: block;
+  margin-top: 8px;
+}
+
+.booking-status {
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.booking-status.pending {
+  background: rgba(251, 191, 36, 0.15);
+  color: #facc15;
+}
+
+/* =========================================
+MARKETPLACE SECTION
+========================================= */
+
+.marketplace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.market-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  transition: 0.3s;
+}
+
+.market-card:hover {
+  transform: translateY(-6px);
+  border-color: #8b5cf6;
+}
+
+.market-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.market-icon.blue {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+.market-icon.green {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.market-icon.purple {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+}
+
+.market-card h3 {
+  color: white;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.market-card p {
+  color: #9ca3af;
+  margin-top: 6px;
+}
+
+/* =========================================
+EMPTY STATE
+========================================= */
+
+.empty-booking,
+.no-results {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #9ca3af;
+  font-size: 16px;
 }
 
 /* =========================================
 RESPONSIVE
 ========================================= */
 
-@media (max-width: 1100px) {
-  .dashboard-grid {
+@media (max-width: 900px) {
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .provider-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .booking-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+}
+
+@media (max-width: 650px) {
+  .providers-grid,
+  .marketplace-grid {
     grid-template-columns: 1fr;
+  }
+
+  .provider-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .booking-left {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
