@@ -333,13 +333,36 @@ if (bookingForm) {
     });
   }
 }
+// ====================================
+// MODERN DASHBOARD JS
+// ====================================
+
+// USER
+
+const user = JSON.parse(localStorage.getItem("user"));
+
+if (!user) {
+  window.location.href = "../Pages/html/login.html";
+}
 
 // ====================================
-// SAFE LIVE PROVIDERS
+// USER NAME
+// ====================================
+
+const dashboardUserName = document.getElementById("dashboardUserName");
+
+if (dashboardUserName) {
+  dashboardUserName.innerText = user.name;
+}
+
+// ====================================
+// LIVE PROVIDERS
 // ====================================
 
 async function loadLiveProvidersSection() {
   const providersGrid = document.getElementById("providersGrid");
+
+  const onlineProviders = document.getElementById("onlineProviders");
 
   if (!providersGrid) return;
 
@@ -350,34 +373,37 @@ async function loadLiveProvidersSection() {
 
     const data = await response.json();
 
-    const onlineProviders = data.providers.filter(
+    providersGrid.innerHTML = "";
+
+    // FILTER ONLINE PROVIDERS
+
+    const availableProviders = data.providers.filter(
       (provider) => provider.availability === true,
     );
 
-    providersGrid.innerHTML = "";
+    // LIVE COUNT
 
-    // ONLINE COUNT
-
-    const onlineProvidersCount = document.getElementById(
-      "onlineProvidersCount",
-    );
-
-    if (onlineProvidersCount) {
-      onlineProvidersCount.innerText = onlineProviders.length;
+    if (onlineProviders) {
+      onlineProviders.innerText = availableProviders.length;
     }
 
     // EMPTY
 
-    if (onlineProviders.length === 0) {
-      providersGrid.innerHTML =
-        "<div class='empty-booking'>No providers online</div>";
+    if (availableProviders.length === 0) {
+      providersGrid.innerHTML = `
+      
+      <div class="empty-booking">
+        No providers online right now
+      </div>
+
+      `;
 
       return;
     }
 
     // CARDS
 
-    onlineProviders.forEach((provider) => {
+    availableProviders.slice(0, 6).forEach((provider) => {
       providersGrid.innerHTML += `
       
       <div class="provider-card">
@@ -402,11 +428,13 @@ async function loadLiveProvidersSection() {
 
           <span>
             <i class="fa-solid fa-location-dot"></i>
+
             ${provider.location || "India"}
           </span>
 
           <span>
             <i class="fa-solid fa-briefcase"></i>
+
             ${provider.experience || "Experienced"}
           </span>
 
@@ -437,41 +465,58 @@ async function loadLiveProvidersSection() {
 }
 
 // ====================================
-// SAFE BOOKINGS SECTION
+// BOOKINGS
 // ====================================
 
 function loadActiveBookingsSection() {
   const customerBookings = document.getElementById("customerBookings");
 
+  const totalBookings = document.getElementById("totalBookings");
+
+  const acceptedBookings = document.getElementById("acceptedBookings");
+
   if (!customerBookings) return;
+
+  // STORAGE
 
   const bookings = JSON.parse(localStorage.getItem("customerBookings")) || [];
 
-  // ACTIVE BOOKINGS COUNT
+  // COUNTS
 
-  const activeBookingsCount = document.getElementById("activeBookingsCount");
+  if (totalBookings) {
+    totalBookings.innerText = bookings.length;
+  }
 
-  if (activeBookingsCount) {
-    activeBookingsCount.innerText = bookings.length;
+  const acceptedCount = bookings.filter(
+    (booking) => booking.status === "accepted",
+  ).length;
+
+  if (acceptedBookings) {
+    acceptedBookings.innerText = acceptedCount;
   }
 
   // EMPTY
 
   if (bookings.length === 0) {
-    customerBookings.innerHTML =
-      "<div class='empty-booking'>No bookings yet</div>";
+    customerBookings.innerHTML = `
+    
+    <div class="empty-booking">
+      No bookings yet
+    </div>
+
+    `;
 
     return;
   }
 
   customerBookings.innerHTML = "";
 
-  // BOOKINGS
+  // BOOKINGS UI
 
-  bookings.forEach((booking) => {
+  bookings.reverse().forEach((booking) => {
     customerBookings.innerHTML += `
     
-    <div class="booking-card">
+    <div class="booking-item">
 
       <div class="booking-left">
 
@@ -494,7 +539,7 @@ function loadActiveBookingsSection() {
       </div>
 
       <div class="booking-status pending">
-        Pending
+        ${booking.status || "Pending"}
       </div>
 
     </div>
@@ -504,14 +549,42 @@ function loadActiveBookingsSection() {
 }
 
 // ====================================
-// SAFE SIDEBAR BOOKING BUTTON
+// SCROLL BOOKINGS
+// ====================================
+
+function scrollBookings() {
+  const bookingSection = document.querySelector(".modern-bookings-list");
+
+  if (bookingSection) {
+    bookingSection.scrollIntoView({
+      behavior: "smooth",
+    });
+  }
+}
+
+// ====================================
+// SIDEBAR BOOKING BUTTON
 // ====================================
 
 const bookingMenu = document.getElementById("bookingMenu");
 
 if (bookingMenu) {
   bookingMenu.addEventListener("click", () => {
-    window.location.href = "./bookings.html";
+    window.location.href = "../pages/search-services.html";
+  });
+}
+
+// ====================================
+// LOGOUT
+// ====================================
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
+
+    window.location.href = "../index.html";
   });
 }
 
