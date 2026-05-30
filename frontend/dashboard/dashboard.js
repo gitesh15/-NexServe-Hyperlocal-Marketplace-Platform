@@ -161,20 +161,22 @@ async function loadProviders() {
 
           </div>
 
-          <div class="provider-bottom">
+      <div class="provider-bottom">
 
-            <span class="online-badge">
-              Available
-            </span>
+  <span class="${provider.availability ? "online-badge" : "offline-badge"}">
 
-            <button
-              class="provider-book-btn"
-              onclick="window.location.href='../pages/search-services.html'"
-            >
-              Explore All
-            </button>
+    ${provider.availability ? "Online" : "Offline"}
 
-          </div>
+  </span>
+
+  <button
+    class="provider-book-btn"
+    onclick="window.location.href='../pages/search-services.html'"
+  >
+    Explore
+  </button>
+
+</div>
 
         </div>
 
