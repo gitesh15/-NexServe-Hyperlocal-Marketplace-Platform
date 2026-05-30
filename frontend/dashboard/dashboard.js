@@ -287,7 +287,6 @@ function scrollBookings() {
 loadProviders();
 
 loadBookings();
-
 // ====================================
 // MOBILE SIDEBAR
 // ====================================
@@ -296,8 +295,18 @@ const mobileMenuBtn = document.getElementById("mobileMenuBtn");
 
 const sidebar = document.querySelector(".sidebar");
 
-if (mobileMenuBtn && sidebar) {
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+if (mobileMenuBtn && sidebar && sidebarOverlay) {
   mobileMenuBtn.addEventListener("click", () => {
     sidebar.classList.toggle("active-sidebar");
+
+    sidebarOverlay.classList.toggle("active-overlay");
+  });
+
+  sidebarOverlay.addEventListener("click", () => {
+    sidebar.classList.remove("active-sidebar");
+
+    sidebarOverlay.classList.remove("active-overlay");
   });
 }
