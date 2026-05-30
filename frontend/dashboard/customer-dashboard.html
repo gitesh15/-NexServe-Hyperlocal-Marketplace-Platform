@@ -218,148 +218,210 @@
   </div>
 </section>
 
-<!-- REPLACE EVERYTHING BELOW stats-grid WITH THIS -->
+<!-- CREATE BOOKING SECTION -->
+        <!-- CREATE BOOKING SECTION -->
 
-<div class="dashboard-grid">
+        <section class="booking-section">
+          <div class="booking-header">
+            <div>
+              <span class="section-badge"> Quick Booking </span>
 
-  <!-- LEFT SIDE -->
+              <h2>Create New Booking</h2>
 
-  <div class="dashboard-left">
+              <p>
+                Book trusted professionals instantly with real-time
+                availability.
+              </p>
+            </div>
 
-```
-<!-- LIVE PROVIDERS -->
+            <div class="booking-header-icon">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+          </div>
 
-<section class="modern-section">
-  <div class="modern-header">
-    <div>
-      <span class="mini-label">LIVE MARKETPLACE</span>
-      <h2>Available Providers</h2>
-    </div>
+          <form id="bookingForm" class="booking-form">
+            <!-- SERVICE -->
 
-    <button
-      class="modern-action-btn"
-      onclick="window.location.href='../pages/search-services.html'"
-    >
-      Explore All
-    </button>
-  </div>
+            <div class="form-group">
+              <label>Service Category</label>
 
-  <div id="providersGrid" class="modern-provider-grid">
-    <!-- DYNAMIC -->
-  </div>
-</section>
+              <div class="input-field">
+                <i class="fa-solid fa-briefcase"></i>
 
-<!-- ACTIVE BOOKINGS -->
+                <select id="service" required>
+                  <option value="">Select Service</option>
 
-<section class="modern-section">
-  <div class="modern-header">
-    <div>
-      <span class="mini-label">REALTIME BOOKINGS</span>
-      <h2>My Bookings</h2>
-    </div>
-  </div>
+                  <option>Plumbing</option>
 
-  <div id="customerBookings" class="modern-bookings-list">
-    <!-- DYNAMIC -->
-  </div>
-</section>
-```
+                  <option>Electrician</option>
 
-  </div>
+                  <option>Cleaning</option>
 
-  <!-- RIGHT SIDE -->
+                  <option>Carpentry</option>
 
-  <div class="dashboard-right">
+                  <option>Tutoring</option>
 
-```
-<!-- PROFILE CARD -->
+                  <option>Appliance Repair</option>
+                </select>
+              </div>
+            </div>
 
-<div class="glass-card profile-card-modern">
+            <!-- ADDRESS -->
 
-  <div class="profile-top">
+            <div class="form-group">
+              <label>Service Address</label>
 
-    <img
-      src="https://i.pravatar.cc/150"
-      class="profile-avatar"
-    />
+              <div class="input-field">
+                <i class="fa-solid fa-location-dot"></i>
 
-    <div>
-      <h3 id="dashboardUserName">Customer</h3>
+                <input
+                  type="text"
+                  id="address"
+                  placeholder="Enter your address"
+                  required
+                />
+              </div>
+            </div>
 
-      <p>Verified NexServe User</p>
-    </div>
+            <!-- DATE -->
 
-  </div>
+            <div class="form-group">
+              <label>Preferred Date</label>
 
-  <div class="profile-stats">
+              <div class="input-field">
+                <i class="fa-solid fa-calendar-days"></i>
 
-    <div>
-      <h2 id="totalBookings">0</h2>
-      <span>Bookings</span>
-    </div>
+                <input type="date" id="date" required />
+              </div>
+            </div>
 
-    <div>
-      <h2 id="acceptedBookings">0</h2>
-      <span>Accepted</span>
-    </div>
+            <!-- TIME -->
 
-  </div>
+            <div class="form-group">
+              <label>Preferred Time</label>
 
-</div>
+              <div class="input-field">
+                <i class="fa-solid fa-clock"></i>
 
-<!-- QUICK ACTIONS -->
+                <input type="time" id="time" required />
+              </div>
+            </div>
 
-<div class="glass-card quick-actions-card">
+            <!-- DESCRIPTION -->
 
-  <div class="card-header">
-    <h3>Quick Actions</h3>
-  </div>
+            <div class="form-group full-width">
+              <label>Describe Your Issue</label>
 
-  <div class="quick-actions-grid">
+              <div class="textarea-field">
+                <textarea
+                  id="description"
+                  placeholder="Explain what service you need..."
+                ></textarea>
+              </div>
+            </div>
 
-    <button
-      class="quick-btn"
-      onclick="window.location.href='../pages/search-services.html'"
-    >
-      <i class="fa-solid fa-magnifying-glass"></i>
-      Find Services
-    </button>
+            <!-- BUTTON -->
 
-    <button
-      class="quick-btn"
-      onclick="scrollBookings()"
-    >
-      <i class="fa-solid fa-calendar-check"></i>
-      My Bookings
-    </button>
+            <button type="submit" class="booking-btn">
+              <i class="fa-solid fa-paper-plane"></i>
 
-  </div>
+              Book Service
+            </button>
+          </form>
+        </section>
 
-</div>
+        <!-- CATEGORIES -->
 
-<!-- LIVE STATUS -->
+        <section class="categories">
+          <div class="section-title">
+            <h2>Popular Categories</h2>
 
-<div class="glass-card live-card">
+            <a href="#">View All</a>
+          </div>
 
-  <div class="live-top">
-    <div class="live-dot"></div>
+          <div class="categories-grid">
+            <div class="category-card">
+              <i class="fa-solid fa-faucet-drip"></i>
 
-    <span>Realtime Marketplace</span>
-  </div>
+              <h3>Plumbing</h3>
 
-  <h2>Providers Currently Online</h2>
+              <p>120+ Professionals</p>
+            </div>
 
-  <div class="live-count" id="onlineProviders">
-    0
-  </div>
+            <div class="category-card">
+              <i class="fa-solid fa-bolt"></i>
 
-</div>
-```
+              <h3>Electrician</h3>
 
-  </div>
+              <p>95+ Professionals</p>
+            </div>
 
-</div>
+            <div class="category-card">
+              <i class="fa-solid fa-broom"></i>
 
+              <h3>Cleaning</h3>
+
+              <p>210+ Professionals</p>
+            </div>
+
+            <div class="category-card">
+              <i class="fa-solid fa-book"></i>
+
+              <h3>Tutors</h3>
+
+              <p>340+ Professionals</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- BOOKINGS -->
+
+        <section class="bookings">
+          <div class="section-title">
+            <h2>Recent Bookings</h2>
+
+            <a href="#">See All</a>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-left">
+              <img src="https://i.pravatar.cc/120?img=12" alt="" />
+
+              <div>
+                <h3>Rahul Sharma</h3>
+
+                <p>Electrician Service</p>
+
+                <span>Today • 4:30 PM</span>
+              </div>
+            </div>
+
+            <div class="booking-status completed">Completed</div>
+          </div>
+
+          <div class="booking-card">
+            <div class="booking-left">
+              <img src="https://i.pravatar.cc/120?img=32" alt="" />
+
+              <div>
+                <h3>Priya Verma</h3>
+
+                <p>Home Cleaning</p>
+
+                <span>Tomorrow • 11:00 AM</span>
+              </div>
+            </div>
+
+            <div class="booking-status pending">Pending</div>
+          </div>
+        </section>
+        <section class="customer-bookings">
+          <h2>Your Bookings</h2>
+
+          <div id="customerBookings"></div>
+        </section>
+      </main>
+    </section>
 
     <script src="dashboard.js"></script>
   </body>
