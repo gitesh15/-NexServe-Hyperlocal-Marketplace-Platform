@@ -21,7 +21,10 @@
   </head>
 
   <body>
+    <!-- BACKGROUND -->
+
     <div class="bg-blur blur-1"></div>
+
     <div class="bg-blur blur-2"></div>
 
     <!-- TOPBAR -->
@@ -33,8 +36,10 @@
 
       <h2>NexServe Account</h2>
 
-      <button class="menu-btn">
-        <i class="fa-solid fa-gear"></i>
+      <button class="edit-profile-btn" id="openEditProfile">
+        <i class="fa-solid fa-pen"></i>
+
+        Edit
       </button>
     </header>
 
@@ -42,19 +47,24 @@
 
     <section class="profile-hero">
       <div class="profile-card">
+        <div class="profile-cover"></div>
+
         <img
           id="profileImage"
           src="https://i.pravatar.cc/300"
           class="profile-avatar"
         />
 
-        <h1 id="profileName">Customer</h1>
+        <div class="profile-content">
+          <h1 id="profileName">Customer</h1>
 
-        <p id="profileEmail">customer@nexserve.com</p>
+          <p id="profileEmail">customer@nexserve.com</p>
 
-        <div class="verified-badge">
-          <i class="fa-solid fa-shield"></i>
-          Verified Account
+          <div class="verified-badge">
+            <i class="fa-solid fa-shield-check"></i>
+
+            Verified Account
+          </div>
         </div>
       </div>
     </section>
@@ -63,18 +73,39 @@
 
     <section class="stats-grid">
       <div class="stat-card">
-        <h2 id="totalBookings">0</h2>
-        <p>Total Bookings</p>
+        <div class="stat-icon purple">
+          <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <div>
+          <h2 id="totalBookings">0</h2>
+
+          <p>Total Bookings</p>
+        </div>
       </div>
 
       <div class="stat-card">
-        <h2>Active</h2>
-        <p>Account Status</p>
+        <div class="stat-icon green">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <div>
+          <h2>Active</h2>
+
+          <p>Account Status</p>
+        </div>
       </div>
 
       <div class="stat-card">
-        <h2 id="savedCount">0</h2>
-        <p>Saved Services</p>
+        <div class="stat-icon orange">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+
+        <div>
+          <h2 id="savedCount">0</h2>
+
+          <p>Saved Services</p>
+        </div>
       </div>
     </section>
 
@@ -83,7 +114,8 @@
     <section class="glass-section">
       <div class="section-header">
         <div>
-          <span class="mini-label">QUICK ACTIONS</span>
+          <span class="mini-label"> QUICK ACTIONS </span>
+
           <h2>Manage Account</h2>
         </div>
       </div>
@@ -93,7 +125,10 @@
           class="quick-card"
           onclick="window.location.href = '../pages/search-services.html'"
         >
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <div class="quick-icon purple">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+
           <span>Find Services</span>
         </button>
 
@@ -101,17 +136,26 @@
           class="quick-card"
           onclick="window.location.href = '../dashboard/bookings.html'"
         >
-          <i class="fa-solid fa-calendar-check"></i>
+          <div class="quick-icon blue">
+            <i class="fa-solid fa-calendar-check"></i>
+          </div>
+
           <span>My Bookings</span>
         </button>
 
         <button class="quick-card">
-          <i class="fa-solid fa-heart"></i>
+          <div class="quick-icon red">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+
           <span>Saved Providers</span>
         </button>
 
-        <button class="quick-card">
-          <i class="fa-solid fa-user-pen"></i>
+        <button class="quick-card" id="openEditProfile2">
+          <div class="quick-icon green">
+            <i class="fa-solid fa-user-pen"></i>
+          </div>
+
           <span>Edit Profile</span>
         </button>
       </div>
@@ -122,12 +166,15 @@
     <section class="glass-section">
       <div class="section-header">
         <div>
-          <span class="mini-label">RECENT ACTIVITY</span>
+          <span class="mini-label"> RECENT ACTIVITY </span>
+
           <h2>Latest Actions</h2>
         </div>
       </div>
 
-      <div id="activityList" class="activity-list"></div>
+      <div id="activityList" class="activity-list">
+        <!-- DYNAMIC -->
+      </div>
     </section>
 
     <!-- LOGOUT -->
@@ -135,9 +182,56 @@
     <section class="logout-section">
       <button id="logoutBtn" class="logout-btn">
         <i class="fa-solid fa-right-from-bracket"></i>
+
         Logout Account
       </button>
     </section>
+
+    <!-- EDIT PROFILE PANEL -->
+
+    <div class="edit-profile-panel" id="editProfilePanel">
+      <div class="edit-profile-header">
+        <h2>Edit Profile</h2>
+
+        <button id="closeEditProfile">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="editProfileForm">
+        <div class="edit-avatar">
+          <img src="https://i.pravatar.cc/150" id="editProfileImage" />
+
+          <button type="button">Change Photo</button>
+        </div>
+
+        <div class="edit-grid">
+          <div class="edit-input">
+            <label>Full Name</label>
+
+            <input type="text" id="editName" placeholder="Your Name" />
+          </div>
+
+          <div class="edit-input">
+            <label>Email</label>
+
+            <input type="email" id="editEmail" placeholder="Email Address" />
+          </div>
+
+          <div class="edit-input full-width">
+            <label>Address</label>
+
+            <input type="text" id="editAddress" placeholder="Your Address" />
+          </div>
+        </div>
+
+        <button type="submit" class="save-profile-btn">Save Changes</button>
+      </form>
+    </div>
+
+    <!-- OVERLAY -->
+
+    <div class="profile-overlay" id="profileOverlay"></div>
 
     <script src="profile.js"></script>
   </body>

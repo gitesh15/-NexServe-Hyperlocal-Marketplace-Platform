@@ -93,3 +93,80 @@ logoutBtn.addEventListener("click", () => {
 
   window.location.href = "../index.html";
 });
+// =========================
+// ELEMENTS
+// =========================
+
+const openEditProfile = document.getElementById("openEditProfile");
+
+const closeEditProfile = document.getElementById("closeEditProfile");
+
+const editProfilePanel = document.getElementById("editProfilePanel");
+
+const profileOverlay = document.getElementById("profileOverlay");
+
+// =========================
+// OPEN PANEL
+// =========================
+
+if (openEditProfile) {
+  openEditProfile.addEventListener("click", () => {
+    editProfilePanel.classList.add("active-panel");
+
+    profileOverlay.classList.add("active-overlay");
+  });
+}
+
+// =========================
+// CLOSE PANEL
+// =========================
+
+function closeProfilePanel() {
+  editProfilePanel.classList.remove("active-panel");
+
+  profileOverlay.classList.remove("active-overlay");
+}
+
+if (closeEditProfile) {
+  closeEditProfile.addEventListener("click", closeProfilePanel);
+}
+
+if (profileOverlay) {
+  profileOverlay.addEventListener("click", closeProfilePanel);
+}
+
+// =========================
+// LOAD USER DATA
+// =========================
+
+const currentUser = JSON.parse(localStorage.getItem("user"));
+
+if (currentUser) {
+  document.getElementById("editName").value = currentUser.name || "";
+
+  document.getElementById("editEmail").value = currentUser.email || "";
+}
+
+// =========================
+// SAVE PROFILE
+// =========================
+
+const editProfileForm = document.getElementById("editProfileForm");
+
+if (editProfileForm) {
+  editProfileForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    currentUser.name = document.getElementById("editName").value;
+
+    currentUser.email = document.getElementById("editEmail").value;
+
+    localStorage.setItem("user", JSON.stringify(currentUser));
+
+    alert("Profile Updated");
+
+    closeProfilePanel();
+
+    location.reload();
+  });
+}
