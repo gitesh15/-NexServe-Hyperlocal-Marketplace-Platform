@@ -334,36 +334,10 @@ if (bookingForm) {
   }
 }
 // ====================================
-// MODERN DASHBOARD JS
-// ====================================
-
-// USER
-
-const user = JSON.parse(localStorage.getItem("user"));
-
-if (!user) {
-  window.location.href = "../Pages/html/login.html";
-}
-
-// ====================================
-// USER NAME
-// ====================================
-
-const dashboardUserName = document.getElementById("dashboardUserName");
-
-if (dashboardUserName) {
-  dashboardUserName.innerText = user.name;
-}
-
-// ====================================
-// LIVE PROVIDERS
+// LIVE PROVIDERS SECTION
 // ====================================
 
 async function loadLiveProvidersSection() {
-  const providersGrid = document.getElementById("providersGrid");
-
-  const onlineProviders = document.getElementById("onlineProviders");
-
   if (!providersGrid) return;
 
   try {
@@ -375,25 +349,35 @@ async function loadLiveProvidersSection() {
 
     providersGrid.innerHTML = "";
 
-    // FILTER ONLINE PROVIDERS
+    // FILTER ONLINE
 
-    const availableProviders = data.providers.filter(
+    const onlineProviders = data.providers.filter(
       (provider) => provider.availability === true,
     );
 
-    // LIVE COUNT
+    // ONLINE COUNTS
 
-    if (onlineProviders) {
-      onlineProviders.innerText = availableProviders.length;
+    const onlineProvidersCount = document.getElementById(
+      "onlineProvidersCount",
+    );
+
+    const onlineProvidersLive = document.getElementById("onlineProviders");
+
+    if (onlineProvidersCount) {
+      onlineProvidersCount.innerText = onlineProviders.length;
+    }
+
+    if (onlineProvidersLive) {
+      onlineProvidersLive.innerText = onlineProviders.length;
     }
 
     // EMPTY
 
-    if (availableProviders.length === 0) {
+    if (onlineProviders.length === 0) {
       providersGrid.innerHTML = `
       
       <div class="empty-booking">
-        No providers online right now
+        No providers online
       </div>
 
       `;
@@ -403,61 +387,61 @@ async function loadLiveProvidersSection() {
 
     // CARDS
 
-    availableProviders.slice(0, 6).forEach((provider) => {
+    onlineProviders.slice(0, 6).forEach((provider) => {
       providersGrid.innerHTML += `
-      
-      <div class="provider-card">
+        
+        <div class="provider-card">
 
-        <div class="provider-top">
+          <div class="provider-top">
 
-          <img
-            src="https://i.pravatar.cc/150?u=${provider.email}"
-          />
+            <img
+              src="https://i.pravatar.cc/150?u=${provider.email}"
+            />
 
-          <div>
+            <div>
 
-            <h3>${provider.name}</h3>
+              <h3>${provider.name}</h3>
 
-            <p>${provider.service}</p>
+              <p>${provider.service}</p>
+
+            </div>
+
+          </div>
+
+          <div class="provider-details">
+
+            <span>
+              <i class="fa-solid fa-location-dot"></i>
+
+              ${provider.location || "India"}
+            </span>
+
+            <span>
+              <i class="fa-solid fa-briefcase"></i>
+
+              ${provider.experience || "Experienced"}
+            </span>
+
+          </div>
+
+          <div class="provider-bottom">
+
+            <span class="online-badge">
+              Available
+            </span>
+
+            <button
+              class="provider-book-btn"
+              onclick="window.location.href='../pages/search-services.html'"
+            >
+              Explore All
+            </button>
 
           </div>
 
         </div>
 
-        <div class="provider-details">
-
-          <span>
-            <i class="fa-solid fa-location-dot"></i>
-
-            ${provider.location || "India"}
-          </span>
-
-          <span>
-            <i class="fa-solid fa-briefcase"></i>
-
-            ${provider.experience || "Experienced"}
-          </span>
-
-        </div>
-
-        <div class="provider-bottom">
-
-          <span class="online-badge">
-            Available
-          </span>
-
-          <button
-            class="provider-book-btn"
-            onclick="window.location.href='../pages/search-services.html'"
-          >
-            Explore All
-          </button>
-
-        </div>
-
-      </div>
-
-      `;
+        `;
     });
   } catch (error) {
     console.log(error);
@@ -465,15 +449,11 @@ async function loadLiveProvidersSection() {
 }
 
 // ====================================
-// BOOKINGS
+// BOOKINGS SECTION
 // ====================================
 
 function loadActiveBookingsSection() {
   const customerBookings = document.getElementById("customerBookings");
-
-  const totalBookings = document.getElementById("totalBookings");
-
-  const acceptedBookings = document.getElementById("acceptedBookings");
 
   if (!customerBookings) return;
 
@@ -483,8 +463,18 @@ function loadActiveBookingsSection() {
 
   // COUNTS
 
+  const totalBookings = document.getElementById("totalBookings");
+
+  const activeBookingsCount = document.getElementById("activeBookingsCount");
+
+  const acceptedBookings = document.getElementById("acceptedBookings");
+
   if (totalBookings) {
     totalBookings.innerText = bookings.length;
+  }
+
+  if (activeBookingsCount) {
+    activeBookingsCount.innerText = bookings.length;
   }
 
   const acceptedCount = bookings.filter(
@@ -511,81 +501,58 @@ function loadActiveBookingsSection() {
 
   customerBookings.innerHTML = "";
 
-  // BOOKINGS UI
+  // BOOKINGS
 
-  bookings.reverse().forEach((booking) => {
-    customerBookings.innerHTML += `
-    
-    <div class="booking-item">
+  bookings
+    .slice()
+    .reverse()
+    .forEach((booking) => {
+      customerBookings.innerHTML += `
+      
+      <div class="booking-item">
 
-      <div class="booking-left">
+        <div class="booking-left">
 
-        <img
-          src="https://i.pravatar.cc/120?u=${booking.service}"
-        />
+          <img
+            src="https://i.pravatar.cc/120?u=${booking.service}"
+          />
 
-        <div>
+          <div>
 
-          <h3>${booking.service}</h3>
+            <h3>${booking.service}</h3>
 
-          <p>${booking.address}</p>
+            <p>${booking.address}</p>
 
-          <span>
-            ${booking.date} • ${booking.time}
-          </span>
+            <span>
+              ${booking.date} • ${booking.time}
+            </span>
 
+          </div>
+
+        </div>
+
+        <div class="booking-status pending">
+          ${booking.status || "Pending"}
         </div>
 
       </div>
 
-      <div class="booking-status pending">
-        ${booking.status || "Pending"}
-      </div>
-
-    </div>
-
-    `;
-  });
+      `;
+    });
 }
 
 // ====================================
-// SCROLL BOOKINGS
+// MY BOOKINGS BUTTON
 // ====================================
 
 function scrollBookings() {
-  const bookingSection = document.querySelector(".modern-bookings-list");
+  const bookingSection = document.querySelector(".active-bookings-section");
 
   if (bookingSection) {
     bookingSection.scrollIntoView({
       behavior: "smooth",
     });
   }
-}
-
-// ====================================
-// SIDEBAR BOOKING BUTTON
-// ====================================
-
-const bookingMenu = document.getElementById("bookingMenu");
-
-if (bookingMenu) {
-  bookingMenu.addEventListener("click", () => {
-    window.location.href = "../pages/search-services.html";
-  });
-}
-
-// ====================================
-// LOGOUT
-// ====================================
-
-const logoutBtn = document.getElementById("logoutBtn");
-
-if (logoutBtn) {
-  logoutBtn.addEventListener("click", () => {
-    localStorage.removeItem("user");
-
-    window.location.href = "../index.html";
-  });
 }
 
 // ====================================
