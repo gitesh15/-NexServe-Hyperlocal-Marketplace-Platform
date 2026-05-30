@@ -335,12 +335,14 @@ if (bookingForm) {
 }
 
 // ====================================
-// LIVE PROVIDERS SECTION
+// SAFE LIVE PROVIDERS
 // ====================================
 
-const providersGrid = document.getElementById("providersGrid");
+async function loadLiveProvidersSection() {
+  const providersGrid = document.getElementById("providersGrid");
 
-async function loadProviders() {
+  if (!providersGrid) return;
+
   try {
     const response = await fetch(
       "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/providers",
@@ -348,17 +350,13 @@ async function loadProviders() {
 
     const data = await response.json();
 
-    if (!providersGrid) return;
-
-    providersGrid.innerHTML = "";
-
-    // FILTER ONLINE PROVIDERS
-
     const onlineProviders = data.providers.filter(
       (provider) => provider.availability === true,
     );
 
-    // UPDATE COUNT
+    providersGrid.innerHTML = "";
+
+    // ONLINE COUNT
 
     const onlineProvidersCount = document.getElementById(
       "onlineProvidersCount",
@@ -368,21 +366,16 @@ async function loadProviders() {
       onlineProvidersCount.innerText = onlineProviders.length;
     }
 
-    // EMPTY STATE
+    // EMPTY
 
     if (onlineProviders.length === 0) {
-      providersGrid.innerHTML = `
-      
-        <div class="empty-booking">
-          No providers online right now
-        </div>
-      
-      `;
+      providersGrid.innerHTML =
+        "<div class='empty-booking'>No providers online</div>";
 
       return;
     }
 
-    // RENDER PROVIDERS
+    // CARDS
 
     onlineProviders.forEach((provider) => {
       providersGrid.innerHTML += `
@@ -396,9 +389,11 @@ async function loadProviders() {
           />
 
           <div>
+
             <h3>${provider.name}</h3>
 
             <p>${provider.service}</p>
+
           </div>
 
         </div>
@@ -433,7 +428,7 @@ async function loadProviders() {
         </div>
 
       </div>
-      
+
       `;
     });
   } catch (error) {
@@ -442,17 +437,17 @@ async function loadProviders() {
 }
 
 // ====================================
-// ACTIVE BOOKINGS SECTION
+// SAFE BOOKINGS SECTION
 // ====================================
 
-const customerBookings = document.getElementById("customerBookings");
+function loadActiveBookingsSection() {
+  const customerBookings = document.getElementById("customerBookings");
 
-function loadLocalBookings() {
   if (!customerBookings) return;
 
   const bookings = JSON.parse(localStorage.getItem("customerBookings")) || [];
 
-  // UPDATE ACTIVE BOOKINGS COUNT
+  // ACTIVE BOOKINGS COUNT
 
   const activeBookingsCount = document.getElementById("activeBookingsCount");
 
@@ -460,23 +455,18 @@ function loadLocalBookings() {
     activeBookingsCount.innerText = bookings.length;
   }
 
-  // EMPTY STATE
+  // EMPTY
 
   if (bookings.length === 0) {
-    customerBookings.innerHTML = `
-    
-      <div class="empty-booking">
-        No active bookings yet
-      </div>
-    
-    `;
+    customerBookings.innerHTML =
+      "<div class='empty-booking'>No bookings yet</div>";
 
     return;
   }
 
   customerBookings.innerHTML = "";
 
-  // RENDER BOOKINGS
+  // BOOKINGS
 
   bookings.forEach((booking) => {
     customerBookings.innerHTML += `
@@ -508,13 +498,13 @@ function loadLocalBookings() {
       </div>
 
     </div>
-    
+
     `;
   });
 }
 
 // ====================================
-// SIDEBAR BOOKING BUTTON
+// SAFE SIDEBAR BOOKING BUTTON
 // ====================================
 
 const bookingMenu = document.getElementById("bookingMenu");
@@ -529,6 +519,6 @@ if (bookingMenu) {
 // INITIAL LOAD
 // ====================================
 
-loadProviders();
+loadLiveProvidersSection();
 
-loadLocalBookings();
+loadActiveBookingsSection();
