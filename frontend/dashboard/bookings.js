@@ -431,113 +431,110 @@ async function loadBookings() {
 loadProviders();
 
 loadBookings();
-// =========================================
-// FIREBASE CONFIG
-// =========================================
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCmpep20cvcJNJNPUpogL5EQJKtHL0iM10",
-
-  authDomain: "nexserve-ea119.firebaseapp.com",
-
-  projectId: "nexserve-ea119",
-
-  storageBucket: "nexserve-ea119.firebasestorage.app",
-
-  messagingSenderId: "880087687443",
-
-  appId: "1:880087687443:web:357f99e194cf1af844fae6",
-};
-
-// =========================================
-// INITIALIZE FIREBASE
-// =========================================
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-
-// =========================================
-// OTP ELEMENTS
-// =========================================
+/* =========================================
+OTP SYSTEM
+========================================= */
 
 const sendOtpBtn = document.getElementById("sendOtpBtn");
 
 const verifyOtpBtn = document.getElementById("verifyOtpBtn");
 
+const otpWrapper = document.getElementById("otpWrapper");
+
+const otpMessage = document.getElementById("otpMessage");
+
 const phoneInput = document.getElementById("bookingPhone");
 
 const otpInput = document.getElementById("otpInput");
 
+let generatedOtp = "";
+
 let phoneVerified = false;
 
-// =========================================
-// RECAPTCHA
-// =========================================
+/* SEND OTP */
 
-window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-  "recaptcha-container",
-  {
-    size: "normal",
-    callback: function () {
-      console.log("Recaptcha Verified");
-    },
-  },
-);
+sendOtpBtn.addEventListener("click", () => {
+  const phone = phoneInput.value.trim();
 
-// RENDER CAPTCHA
+  if (phone.length !== 10) {
+    otpMessage.innerText = "Enter valid 10 digit number";
 
-window.recaptchaVerifier.render();
+    otpMessage.className = "otp-message verified-error";
 
-// =========================================
-// SEND OTP
-// =========================================
-
-sendOtpBtn.addEventListener("click", async () => {
-  const mobile = phoneInput.value.trim();
-
-  // VALIDATION
-
-  if (mobile.length !== 10) {
-    alert("Enter valid mobile number");
+    otpWrapper.classList.add("active");
 
     return;
   }
 
-  const phoneNumber = "+91" + mobile;
+  /* GENERATE OTP */
 
-  try {
-    const confirmationResult = await auth.signInWithPhoneNumber(
-      phoneNumber,
-      window.recaptchaVerifier,
-    );
+  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    window.confirmationResult = confirmationResult;
+  console.log("OTP:", generatedOtp);
 
-    alert("OTP Sent Successfully");
-  } catch (error) {
-    console.log(error);
+  otpWrapper.classList.add("active");
 
-    alert(error.message);
+  otpMessage.innerText = "OTP sent successfully";
+
+  otpMessage.className = "otp-message verified-success";
+});
+
+/* VERIFY OTP */
+
+verifyOtpBtn.addEventListener("click", () => {
+  if (otpInput.value === generatedOtp) {
+    phoneVerified = true;
+
+    otpMessage.innerText = "Mobile verified successfully";
+
+    otpMessage.className = "otp-message verified-success";
+
+    verifyOtpBtn.innerText = "Verified";
+
+    verifyOtpBtn.style.background = "#22c55e";
+  } else {
+    phoneVerified = false;
+
+    otpMessage.innerText = "Invalid OTP";
+
+    otpMessage.className = "otp-message verified-error";
   }
 });
 
-// =========================================
-// VERIFY OTP
-// =========================================
+/* =========================================
+FORM SUBMIT
+========================================= */
 
-verifyOtpBtn.addEventListener("click", async () => {
-  const otp = otpInput.value.trim();
+bookingForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    await window.confirmationResult.confirm(otp);
+  if (!phoneVerified) {
+    otpMessage.innerText = "Please verify mobile number first";
 
-    phoneVerified = true;
+    otpMessage.className = "otp-message verified-error";
 
-    alert("Phone Verified Successfully");
-  } catch (error) {
-    console.log(error);
+    otpWrapper.classList.add("active");
 
-    alert("Invalid OTP");
+    return;
   }
+
+  const bookingData = {
+    provider: selectedProviderName,
+
+    date: document.getElementById("bookingDate").value,
+
+    time: document.getElementById("bookingTime").value,
+
+    phone: document.getElementById("bookingPhone").value,
+
+    address: document.getElementById("bookingAddress").value,
+
+    description: document.getElementById("bookingDescription").value,
+  };
+
+  console.log(bookingData);
+
+  /* SAVE TO DATABASE HERE */
+
+  alert("Booking Confirmed!");
 });
