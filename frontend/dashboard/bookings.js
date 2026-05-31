@@ -429,110 +429,65 @@ async function loadBookings() {
 loadProviders();
 
 loadBookings();
-/* =========================================
-OTP SYSTEM
-========================================= */
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCmpep20cvcJNJNPUpogL5EQJKtHL0iM10",
+  authDomain: "nexserve-ea119.firebaseapp.com",
+  projectId: "nexserve-ea119",
+  storageBucket: "nexserve-ea119.firebasestorage.app",
+  messagingSenderId: "880087687443",
+  appId: "1:880087687443:web:357f99e194cf1af844fae6",
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
 const sendOtpBtn = document.getElementById("sendOtpBtn");
 
 const verifyOtpBtn = document.getElementById("verifyOtpBtn");
-
-const otpWrapper = document.getElementById("otpWrapper");
-
-const otpMessage = document.getElementById("otpMessage");
 
 const phoneInput = document.getElementById("bookingPhone");
 
 const otpInput = document.getElementById("otpInput");
 
-let generatedOtp = "";
-
 let phoneVerified = false;
 
-/* SEND OTP */
+window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+  "recaptcha-container",
+  {
+    size: "normal",
+  },
+);
 
-sendOtpBtn.addEventListener("click", () => {
-  const phone = phoneInput.value.trim();
+sendOtpBtn.addEventListener("click", async () => {
+  const phone = "+91" + phoneInput.value;
 
-  if (phone.length !== 10) {
-    otpMessage.innerText = "Enter valid 10 digit number";
+  try {
+    const confirmationResult = await auth.signInWithPhoneNumber(
+      phone,
+      window.recaptchaVerifier,
+    );
 
-    otpMessage.className = "otp-message verified-error";
+    window.confirmationResult = confirmationResult;
 
-    otpWrapper.classList.add("active");
+    alert("OTP Sent Successfully");
+  } catch (error) {
+    console.log(error);
 
-    return;
+    alert(error.message);
   }
-
-  /* GENERATE OTP */
-
-  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
-
-  console.log("OTP:", generatedOtp);
-
-  otpWrapper.classList.add("active");
-
-  otpMessage.innerText = "OTP sent successfully";
-
-  otpMessage.className = "otp-message verified-success";
 });
 
-/* VERIFY OTP */
+verifyOtpBtn.addEventListener("click", async () => {
+  const code = otpInput.value;
 
-verifyOtpBtn.addEventListener("click", () => {
-  if (otpInput.value === generatedOtp) {
+  try {
+    await window.confirmationResult.confirm(code);
+
     phoneVerified = true;
 
-    otpMessage.innerText = "Mobile verified successfully";
-
-    otpMessage.className = "otp-message verified-success";
-
-    verifyOtpBtn.innerText = "Verified";
-
-    verifyOtpBtn.style.background = "#22c55e";
-  } else {
-    phoneVerified = false;
-
-    otpMessage.innerText = "Invalid OTP";
-
-    otpMessage.className = "otp-message verified-error";
+    alert("Phone Verified Successfully");
+  } catch (error) {
+    alert("Invalid OTP");
   }
-});
-
-/* =========================================
-FORM SUBMIT
-========================================= */
-
-bookingForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  if (!phoneVerified) {
-    otpMessage.innerText = "Please verify mobile number first";
-
-    otpMessage.className = "otp-message verified-error";
-
-    otpWrapper.classList.add("active");
-
-    return;
-  }
-
-  const bookingData = {
-    provider: selectedProviderName,
-
-    date: document.getElementById("bookingDate").value,
-
-    time: document.getElementById("bookingTime").value,
-
-    phone: document.getElementById("bookingPhone").value,
-
-    address: document.getElementById("bookingAddress").value,
-
-    description: document.getElementById("bookingDescription").value,
-  };
-
-  console.log(bookingData);
-
-  /* SAVE TO DATABASE HERE */
-
-  alert("Booking Confirmed!");
 });

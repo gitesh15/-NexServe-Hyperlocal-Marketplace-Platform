@@ -126,7 +126,7 @@ async function loadRequests() {
         </p>
 <p>
   <i class="fa-solid fa-phone"></i>
-  ${booking.phone}
+  ${booking.phone || "No Phone"}
 </p>
 <a
   href="tel:${booking.phone}"
