@@ -124,7 +124,11 @@ async function loadRequests() {
           <i class="fa-solid fa-clock"></i>
           ${booking.time}
         </p>
-<p>
+
+        <p>
+          ${booking.description}
+        </p>
+        <p>
   <i class="fa-solid fa-phone"></i>
   ${booking.phone || "No Phone"}
 </p>
@@ -135,9 +139,6 @@ async function loadRequests() {
   <i class="fa-solid fa-phone"></i>
   Call Customer
 </a>
-        <p>
-          ${booking.description}
-        </p>
 
         ${
           booking.status === "pending"

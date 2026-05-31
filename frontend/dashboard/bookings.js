@@ -282,6 +282,8 @@ if (bookingForm) {
 
             date: document.getElementById("bookingDate").value,
 
+            phone: document.getElementById("bookingPhone").value,
+
             time: document.getElementById("bookingTime").value,
 
             description: document.getElementById("bookingDescription").value,
@@ -429,19 +431,36 @@ async function loadBookings() {
 loadProviders();
 
 loadBookings();
+// =========================================
+// FIREBASE CONFIG
+// =========================================
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmpep20cvcJNJNPUpogL5EQJKtHL0iM10",
+
   authDomain: "nexserve-ea119.firebaseapp.com",
+
   projectId: "nexserve-ea119",
+
   storageBucket: "nexserve-ea119.firebasestorage.app",
+
   messagingSenderId: "880087687443",
+
   appId: "1:880087687443:web:357f99e194cf1af844fae6",
 };
+
+// =========================================
+// INITIALIZE FIREBASE
+// =========================================
 
 firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
+
+// =========================================
+// OTP ELEMENTS
+// =========================================
+
 const sendOtpBtn = document.getElementById("sendOtpBtn");
 
 const verifyOtpBtn = document.getElementById("verifyOtpBtn");
@@ -452,19 +471,44 @@ const otpInput = document.getElementById("otpInput");
 
 let phoneVerified = false;
 
+// =========================================
+// RECAPTCHA
+// =========================================
+
 window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
   "recaptcha-container",
   {
     size: "normal",
+    callback: function () {
+      console.log("Recaptcha Verified");
+    },
   },
 );
 
+// RENDER CAPTCHA
+
+window.recaptchaVerifier.render();
+
+// =========================================
+// SEND OTP
+// =========================================
+
 sendOtpBtn.addEventListener("click", async () => {
-  const phone = "+91" + phoneInput.value;
+  const mobile = phoneInput.value.trim();
+
+  // VALIDATION
+
+  if (mobile.length !== 10) {
+    alert("Enter valid mobile number");
+
+    return;
+  }
+
+  const phoneNumber = "+91" + mobile;
 
   try {
     const confirmationResult = await auth.signInWithPhoneNumber(
-      phone,
+      phoneNumber,
       window.recaptchaVerifier,
     );
 
@@ -478,16 +522,22 @@ sendOtpBtn.addEventListener("click", async () => {
   }
 });
 
+// =========================================
+// VERIFY OTP
+// =========================================
+
 verifyOtpBtn.addEventListener("click", async () => {
-  const code = otpInput.value;
+  const otp = otpInput.value.trim();
 
   try {
-    await window.confirmationResult.confirm(code);
+    await window.confirmationResult.confirm(otp);
 
     phoneVerified = true;
 
     alert("Phone Verified Successfully");
   } catch (error) {
+    console.log(error);
+
     alert("Invalid OTP");
   }
 });
