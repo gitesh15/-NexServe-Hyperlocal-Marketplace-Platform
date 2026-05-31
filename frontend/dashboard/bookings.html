@@ -290,7 +290,62 @@
             </div>
           </div>
         </div>
+<!-- MOBILE NUMBER -->
 
+<div class="modern-input">
+  <label>Mobile Number</label>
+
+  <div class="phone-row">
+    <div class="modern-input-box">
+      <i class="fa-solid fa-phone"></i>
+
+      <input
+        type="tel"
+        id="bookingPhone"
+        placeholder="Enter mobile number"
+        maxlength="10"
+        required
+      />
+    </div>
+
+    <button
+      type="button"
+      class="send-otp-btn"
+      id="sendOtpBtn"
+    >
+      Send OTP
+    </button>
+  </div>
+</div>
+
+<!-- OTP -->
+
+<div class="modern-input otp-wrapper" id="otpWrapper">
+  <label>Verify OTP</label>
+
+  <div class="phone-row">
+    <div class="modern-input-box">
+      <i class="fa-solid fa-shield-halved"></i>
+
+      <input
+        type="text"
+        id="otpInput"
+        placeholder="Enter OTP"
+        maxlength="6"
+      />
+    </div>
+
+    <button
+      type="button"
+      class="verify-otp-btn"
+      id="verifyOtpBtn"
+    >
+      Verify
+    </button>
+  </div>
+
+  <span class="otp-message" id="otpMessage"></span>
+</div>
         <!-- ADDRESS -->
 
         <div class="modern-input">

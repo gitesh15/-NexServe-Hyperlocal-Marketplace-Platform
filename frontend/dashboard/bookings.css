@@ -1176,3 +1176,93 @@ BOOKING STATUS
 .pending-info {
   color: #ffb800;
 }
+/* =========================================
+PHONE + OTP
+========================================= */
+
+.phone-row {
+  display: flex;
+  gap: 14px;
+}
+
+.phone-row .modern-input-box {
+  flex: 1;
+}
+
+/* SEND OTP BUTTON */
+
+.send-otp-btn,
+.verify-otp-btn {
+  min-width: 140px;
+
+  border: none;
+
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+
+  color: white;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.35s;
+}
+
+.send-otp-btn:hover,
+.verify-otp-btn:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 16px 40px rgba(139, 92, 246, 0.35);
+}
+
+/* OTP WRAPPER */
+
+.otp-wrapper {
+  margin-top: 18px;
+
+  display: none;
+}
+
+.otp-wrapper.active {
+  display: block;
+}
+
+/* OTP MESSAGE */
+
+.otp-message {
+  display: inline-block;
+
+  margin-top: 10px;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+/* VERIFIED */
+
+.verified-success {
+  color: #22c55e;
+}
+
+/* ERROR */
+
+.verified-error {
+  color: #ef4444;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .phone-row {
+    flex-direction: column;
+  }
+
+  .send-otp-btn,
+  .verify-otp-btn {
+    width: 100%;
+    height: 56px;
+  }
+}

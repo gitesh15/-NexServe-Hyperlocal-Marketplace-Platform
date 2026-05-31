@@ -429,3 +429,110 @@ async function loadBookings() {
 loadProviders();
 
 loadBookings();
+/* =========================================
+OTP SYSTEM
+========================================= */
+
+const sendOtpBtn = document.getElementById("sendOtpBtn");
+
+const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+
+const otpWrapper = document.getElementById("otpWrapper");
+
+const otpMessage = document.getElementById("otpMessage");
+
+const phoneInput = document.getElementById("bookingPhone");
+
+const otpInput = document.getElementById("otpInput");
+
+let generatedOtp = "";
+
+let phoneVerified = false;
+
+/* SEND OTP */
+
+sendOtpBtn.addEventListener("click", () => {
+  const phone = phoneInput.value.trim();
+
+  if (phone.length !== 10) {
+    otpMessage.innerText = "Enter valid 10 digit number";
+
+    otpMessage.className = "otp-message verified-error";
+
+    otpWrapper.classList.add("active");
+
+    return;
+  }
+
+  /* GENERATE OTP */
+
+  generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  console.log("OTP:", generatedOtp);
+
+  otpWrapper.classList.add("active");
+
+  otpMessage.innerText = "OTP sent successfully";
+
+  otpMessage.className = "otp-message verified-success";
+});
+
+/* VERIFY OTP */
+
+verifyOtpBtn.addEventListener("click", () => {
+  if (otpInput.value === generatedOtp) {
+    phoneVerified = true;
+
+    otpMessage.innerText = "Mobile verified successfully";
+
+    otpMessage.className = "otp-message verified-success";
+
+    verifyOtpBtn.innerText = "Verified";
+
+    verifyOtpBtn.style.background = "#22c55e";
+  } else {
+    phoneVerified = false;
+
+    otpMessage.innerText = "Invalid OTP";
+
+    otpMessage.className = "otp-message verified-error";
+  }
+});
+
+/* =========================================
+FORM SUBMIT
+========================================= */
+
+bookingForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (!phoneVerified) {
+    otpMessage.innerText = "Please verify mobile number first";
+
+    otpMessage.className = "otp-message verified-error";
+
+    otpWrapper.classList.add("active");
+
+    return;
+  }
+
+  const bookingData = {
+    provider: selectedProviderName,
+
+    date: document.getElementById("bookingDate").value,
+
+    time: document.getElementById("bookingTime").value,
+
+    phone: document.getElementById("bookingPhone").value,
+
+    address: document.getElementById("bookingAddress").value,
+
+    description: document.getElementById("bookingDescription").value,
+  };
+
+  console.log(bookingData);
+
+  /* SAVE TO DATABASE HERE */
+
+  alert("Booking Confirmed!");
+});
