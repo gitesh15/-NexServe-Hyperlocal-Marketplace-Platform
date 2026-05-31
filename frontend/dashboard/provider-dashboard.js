@@ -124,7 +124,17 @@ async function loadRequests() {
           <i class="fa-solid fa-clock"></i>
           ${booking.time}
         </p>
-
+<p>
+  <i class="fa-solid fa-phone"></i>
+  ${booking.phone}
+</p>
+<a
+  href="tel:${booking.phone}"
+  class="call-btn"
+>
+  <i class="fa-solid fa-phone"></i>
+  Call Customer
+</a>
         <p>
           ${booking.description}
         </p>

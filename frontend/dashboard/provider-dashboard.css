@@ -238,3 +238,23 @@ body {
   background: rgba(0, 210, 106, 0.15);
   color: #00d26a;
 }
+.call-btn {
+  margin-top: 14px;
+
+  height: 48px;
+
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  text-decoration: none;
+
+  font-weight: 700;
+}

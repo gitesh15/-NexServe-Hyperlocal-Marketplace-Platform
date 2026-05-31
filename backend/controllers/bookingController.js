@@ -10,6 +10,7 @@ const createBooking = async (req, res) => {
       customerName,
       service,
       address,
+      phone,
     });
 
     res.status(201).json({
