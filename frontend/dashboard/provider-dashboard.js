@@ -128,7 +128,7 @@ async function loadRequests() {
         <p>
           ${booking.description}
         </p>
-        <p>
+<p>
   <i class="fa-solid fa-phone"></i>
   ${booking.phone}
 </p>
