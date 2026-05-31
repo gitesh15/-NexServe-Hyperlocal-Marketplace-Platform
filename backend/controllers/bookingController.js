@@ -4,18 +4,35 @@ const Booking = require("../models/Booking");
 
 const createBooking = async (req, res) => {
   try {
-    const { customerName, service, address, phone } = req.body;
-
-    const booking = await Booking.create({
+    const {
+      customerId,
+      providerId,
       customerName,
+      providerName,
       service,
       address,
       phone,
+      date,
+      time,
+      description,
+    } = req.body;
+
+    const booking = await Booking.create({
+      customerId,
+      providerId,
+      customerName,
+      providerName,
+      service,
+      address,
+      phone,
+      date,
+      time,
+      description,
+      status: "pending",
     });
 
     res.status(201).json({
       success: true,
-
       booking,
     });
   } catch (error) {
