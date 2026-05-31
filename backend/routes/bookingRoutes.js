@@ -8,6 +8,10 @@ const Booking = require("../models/Booking");
 // CREATE BOOKING
 // ============================
 
+// ============================
+// CREATE BOOKING
+// ============================
+
 router.post("/create", async (req, res) => {
   try {
     const {
@@ -17,6 +21,7 @@ router.post("/create", async (req, res) => {
       providerName,
       service,
       address,
+      phone, // ADD THIS
       date,
       time,
       description,
@@ -29,6 +34,7 @@ router.post("/create", async (req, res) => {
       providerName,
       service,
       address,
+      phone, // ADD THIS
       date,
       time,
       description,
