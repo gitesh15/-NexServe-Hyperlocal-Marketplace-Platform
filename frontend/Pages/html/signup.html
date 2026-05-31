@@ -227,6 +227,29 @@
                 <i class="fa-regular fa-eye-slash eye" id="togglePassword"></i>
               </div>
             </div>
+            <!-- PASSWORD STRENGTH -->
+
+            <p id="passwordStrength" class="password-strength">
+              Password Strength: Weak
+            </p>
+
+            <!-- OTP SECTION -->
+
+            <div class="otp-section" id="otpSection" style="display: none">
+              <div class="input-group">
+                <label>Email OTP</label>
+
+                <div class="input-box">
+                  <i class="fa-solid fa-shield-halved"></i>
+
+                  <input type="text" placeholder="Enter OTP" id="otp" />
+                </div>
+              </div>
+
+              <button type="button" class="verify-btn" id="verifyOtpBtn">
+                Verify OTP
+              </button>
+            </div>
 
             <!-- PROVIDER ONLY FIELDS -->
 
@@ -276,7 +299,9 @@
 
             <!-- SUBMIT -->
 
-            <button type="submit" class="auth-btn">Continue to Login</button>
+            <button type="submit" class="auth-btn" id="signupBtn">
+              Send Verification OTP
+            </button>
           </form>
 
           <!-- DIVIDER -->

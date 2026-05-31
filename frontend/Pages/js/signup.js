@@ -1,17 +1,19 @@
+let otpVerified = false;
+
 // ============================
 // PASSWORD TOGGLE
 // ============================
 
 const togglePassword = document.getElementById("togglePassword");
 
-const password = document.getElementById("password");
+const passwordInput = document.getElementById("password");
 
-if (togglePassword && password) {
+if (togglePassword && passwordInput) {
   togglePassword.addEventListener("click", () => {
     const type =
-      password.getAttribute("type") === "password" ? "text" : "password";
+      passwordInput.getAttribute("type") === "password" ? "text" : "password";
 
-    password.setAttribute("type", type);
+    passwordInput.setAttribute("type", type);
 
     togglePassword.classList.toggle("fa-eye");
 
@@ -20,48 +22,52 @@ if (togglePassword && password) {
 }
 
 // ============================
+// PASSWORD STRENGTH
+// ============================
+
+const strengthText = document.getElementById("passwordStrength");
+
+passwordInput.addEventListener("input", () => {
+  const password = passwordInput.value;
+
+  let strength = "Weak";
+
+  if (
+    password.length >= 8 &&
+    /[A-Z]/.test(password) &&
+    /[0-9]/.test(password)
+  ) {
+    strength = "Strong";
+  } else if (password.length >= 6) {
+    strength = "Medium";
+  }
+
+  strengthText.innerText = `Password Strength: ${strength}`;
+});
+
+// ============================
 // ROLE SYSTEM
 // ============================
 
-// DEFAULT ROLE
-
 let selectedRole = "customer";
 
-// PROVIDER FIELDS
-
 const providerFields = document.querySelectorAll(".provider-field");
-
-// HIDE PROVIDER FIELDS INITIALLY
 
 providerFields.forEach((field) => {
   field.style.display = "none";
 });
 
-// ROLE BUTTONS
-
 const roleButtons = document.querySelectorAll(".role-btn");
-
-// ROLE SWITCH
 
 roleButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    // REMOVE ACTIVE CLASS
-
     roleButtons.forEach((btn) => {
       btn.classList.remove("active-role");
     });
 
-    // ADD ACTIVE CLASS
-
     button.classList.add("active-role");
 
-    // SAVE ROLE
-
     selectedRole = button.dataset.role;
-
-    console.log("Selected Role:", selectedRole);
-
-    // SHOW/HIDE PROVIDER FIELDS
 
     if (selectedRole === "provider") {
       providerFields.forEach((field) => {
@@ -76,35 +82,47 @@ roleButtons.forEach((button) => {
 });
 
 // ============================
-// SIGNUP FORM
+// ELEMENTS
 // ============================
 
 const authForm = document.querySelector(".auth-form");
 
-// SUBMIT
+const signupBtn = document.querySelector(".auth-btn");
+
+const otpSection = document.getElementById("otpSection");
+
+const otpInput = document.getElementById("otpInput");
+
+const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+
+// ============================
+// SEND OTP + REGISTER FLOW
+// ============================
 
 authForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // COMMON FIELDS
+  // ============================
+  // GET VALUES
+  // ============================
 
-  const name = document.getElementById("name").value;
+  const name = document.getElementById("name").value.trim();
 
   const email = document.getElementById("email").value.trim();
 
   const mobile = document.getElementById("mobile").value.trim();
 
-  const password = document.getElementById("password").value.trim();
+  const password = passwordInput.value.trim();
 
+  // ============================
   // VALIDATION
+  // ============================
 
   if (!name || !email || !mobile || !password) {
     alert("Please fill all fields");
 
     return;
   }
-
-  // EMAIL VALIDATION
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -114,17 +132,13 @@ authForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  // MOBILE VALIDATION
-
   const mobileRegex = /^[6-9]\d{9}$/;
 
   if (!mobileRegex.test(mobile)) {
-    alert("Enter valid Indian mobile number");
+    alert("Enter valid mobile number");
 
     return;
   }
-
-  // PASSWORD LENGTH
 
   if (password.length < 6) {
     alert("Password must be at least 6 characters");
@@ -132,7 +146,9 @@ authForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  // BODY OBJECT
+  // ============================
+  // USER DATA
+  // ============================
 
   let userData = {
     name,
@@ -147,21 +163,17 @@ authForm.addEventListener("submit", async (e) => {
   // ============================
 
   if (selectedRole === "provider") {
-    const service = document.getElementById("service").value;
+    const service = document.getElementById("service").value.trim();
 
-    const location = document.getElementById("location").value;
+    const location = document.getElementById("location").value.trim();
 
-    const experience = document.getElementById("experience").value;
-
-    // VALIDATE PROVIDER FIELDS
+    const experience = document.getElementById("experience").value.trim();
 
     if (!service || !location || !experience) {
       alert("Please fill provider details");
 
       return;
     }
-
-    // ADD TO BODY
 
     userData.service = service;
 
@@ -170,8 +182,67 @@ authForm.addEventListener("submit", async (e) => {
     userData.experience = experience;
   }
 
+  // ============================
+  // IF OTP NOT VERIFIED
+  // ============================
+
+  if (!otpVerified) {
+    try {
+      signupBtn.innerText = "Sending OTP...";
+
+      signupBtn.disabled = true;
+
+      const response = await fetch(
+        "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/otp/send-otp",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            email,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      signupBtn.innerText = "Continue";
+
+      signupBtn.disabled = false;
+
+      if (!response.ok) {
+        alert(data.message);
+
+        return;
+      }
+
+      alert("OTP sent to your email");
+
+      otpSection.style.display = "block";
+    } catch (error) {
+      console.log(error);
+
+      signupBtn.innerText = "Continue";
+
+      signupBtn.disabled = false;
+
+      alert("Server Error");
+    }
+
+    return;
+  }
+
+  // ============================
+  // FINAL REGISTER
+  // ============================
+
   try {
-    // API CALL
+    signupBtn.innerText = "Creating Account...";
+
+    signupBtn.disabled = true;
 
     const response = await fetch(
       "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/auth/register",
@@ -186,30 +257,95 @@ authForm.addEventListener("submit", async (e) => {
       },
     );
 
-    // JSON
-
     const data = await response.json();
 
-    console.log(data);
+    signupBtn.innerText = "Continue";
 
-    // SUCCESS
+    signupBtn.disabled = false;
 
     if (response.ok) {
-      localStorage.setItem("nexserveUser", JSON.stringify(data.user));
+      // STORE JWT TOKEN
+
+      localStorage.setItem("token", data.token);
+
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       alert("Signup Successful");
 
-      // REDIRECT
-
       window.location.href = "login.html";
-    }
-
-    // ERROR
-    else {
+    } else {
       alert(data.message);
     }
   } catch (error) {
     console.log(error);
+
+    signupBtn.innerText = "Continue";
+
+    signupBtn.disabled = false;
+
+    alert("Server Error");
+  }
+});
+
+// ============================
+// VERIFY OTP
+// ============================
+
+verifyOtpBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  const otp = otpInput.value.trim();
+
+  if (!otp) {
+    alert("Enter OTP");
+
+    return;
+  }
+
+  try {
+    verifyOtpBtn.innerText = "Verifying...";
+
+    verifyOtpBtn.disabled = true;
+
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/otp/verify",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+          otp,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    verifyOtpBtn.disabled = false;
+
+    if (response.ok) {
+      otpVerified = true;
+
+      verifyOtpBtn.innerText = "Verified";
+
+      verifyOtpBtn.style.background = "#22c55e";
+
+      alert("Email verified successfully");
+    } else {
+      verifyOtpBtn.innerText = "Verify OTP";
+
+      alert(data.message);
+    }
+  } catch (error) {
+    console.log(error);
+
+    verifyOtpBtn.innerText = "Verify OTP";
+
+    verifyOtpBtn.disabled = false;
 
     alert("Server Error");
   }

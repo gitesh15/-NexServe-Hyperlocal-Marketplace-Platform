@@ -14,6 +14,8 @@ const authRoutes = require("./routes/authRoutes");
 
 const providerAvailabilityRoutes = require("./routes/providerAvailabilityRoutes");
 
+const otpRoutes = require("./routes/otpRoutes");
+
 dotenv.config();
 
 connectDB();
@@ -23,6 +25,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use("/api/otp", otpRoutes);
 
 app.use("/api/auth", require("./routes/authRoutes"));
 
