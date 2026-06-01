@@ -1,5 +1,5 @@
 let otpVerified = false;
-
+let generatedOtp = "";
 // ============================
 // PASSWORD TOGGLE
 // ============================
@@ -219,7 +219,9 @@ authForm.addEventListener("submit", async (e) => {
         return;
       }
 
-      alert("OTP sent to your email");
+      generatedOtp = data.otp;
+
+      document.getElementById("captchaPopup").style.display = "flex";
 
       otpSection.style.display = "block";
     } catch (error) {
@@ -349,4 +351,19 @@ verifyOtpBtn.addEventListener("click", async () => {
 
     alert("Server Error");
   }
+});
+// CAPTCHA OTP REVEAL
+
+const showOtpBtn = document.getElementById("showOtpBtn");
+
+showOtpBtn.addEventListener("click", () => {
+  const captchaTick = document.getElementById("captchaTick");
+
+  if (!captchaTick.checked) {
+    alert("Please verify captcha");
+
+    return;
+  }
+
+  document.getElementById("demoOtp").innerText = generatedOtp;
 });

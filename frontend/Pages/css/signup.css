@@ -453,7 +453,86 @@ INPUTS */
 .terms a {
   color: #60a5fa;
   text-decoration: none;
-} /* RESPONSIVE */
+}
+/* CAPTCHA POPUP */
+
+.captcha-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+}
+
+.captcha-box {
+  width: 380px;
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.captcha-header i {
+  font-size: 40px;
+  color: #3b82f6;
+  margin-bottom: 14px;
+}
+
+.captcha-header h3 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.captcha-box p {
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+
+.captcha-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+}
+
+.captcha-check label {
+  color: white;
+}
+
+#showOtpBtn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#showOtpBtn:hover {
+  background: #1d4ed8;
+}
+
+.demo-otp {
+  margin-top: 20px;
+  font-size: 32px;
+  letter-spacing: 10px;
+  font-weight: 700;
+  color: #22c55e;
+}
+/* RESPONSIVE */
 @media (max-width: 1200px) {
   body {
     overflow: auto;

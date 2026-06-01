@@ -362,7 +362,27 @@
         </div>
       </div>
     </section>
+    <!-- CAPTCHA POPUP -->
 
+    <div class="captcha-popup" id="captchaPopup">
+      <div class="captcha-box">
+        <div class="captcha-header">
+          <i class="fa-solid fa-shield-check"></i>
+          <h3>Human Verification</h3>
+        </div>
+
+        <p>Please verify to reveal demo OTP</p>
+
+        <div class="captcha-check">
+          <input type="checkbox" id="captchaTick" />
+          <label for="captchaTick">I'm not a robot</label>
+        </div>
+
+        <button id="showOtpBtn">Reveal OTP</button>
+
+        <div class="demo-otp" id="demoOtp"></div>
+      </div>
+    </div>
     <script src="../js/signup.js"></script>
   </body>
 </html>
