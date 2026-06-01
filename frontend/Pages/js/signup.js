@@ -91,7 +91,7 @@ const signupBtn = document.querySelector(".auth-btn");
 
 const otpSection = document.getElementById("otpSection");
 
-const otpInput = document.getElementById("otpInput");
+const otpInput = document.getElementById("otp");
 
 const verifyOtpBtn = document.getElementById("verifyOtpBtn");
 
