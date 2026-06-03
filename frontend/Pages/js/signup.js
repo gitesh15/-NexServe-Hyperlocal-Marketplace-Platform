@@ -385,3 +385,32 @@ document.addEventListener("keydown", (e) => {
   }
 });
 ``;
+
+// CLOSE CAPTCHA POPUP
+
+const closeCaptchaPopup = document.getElementById("closeCaptchaPopup");
+
+closeCaptchaPopup.addEventListener("click", () => {
+  document.getElementById("captchaPopup").style.display = "none";
+});
+
+// AUTO CLOSE AFTER OTP REVEAL
+
+showOtpBtn.addEventListener("click", () => {
+  const captchaTick = document.getElementById("captchaTick");
+
+  if (!captchaTick.checked) {
+    alert("Please verify captcha");
+
+    return;
+  }
+
+  document.getElementById("demoOtp").innerText = generatedOtp;
+
+  // CLOSE AFTER 3 SECONDS
+
+  setTimeout(() => {
+    document.getElementById("captchaPopup").style.display = "none";
+  }, 3000);
+});
+``;

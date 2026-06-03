@@ -649,6 +649,28 @@ OTP SECTION
   transform: translateY(-2px);
 }
 
+#closeCaptchaPopup {
+  background: transparent;
+
+  border: none;
+
+  color: white;
+
+  font-size: 20px;
+
+  cursor: pointer;
+
+  margin-left: auto;
+}
+
+.captcha-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
 /* RESPONSIVE */
 @media (max-width: 1200px) {
   body {
