@@ -236,6 +236,12 @@
             <!-- OTP SECTION -->
 
             <div class="otp-section" id="otpSection" style="display: none">
+              <!-- CLOSE BUTTON -->
+
+              <button type="button" class="close-otp-btn" id="closeOtpBtn">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+
               <div class="input-group">
                 <label>Email OTP</label>
 
@@ -246,9 +252,15 @@
                 </div>
               </div>
 
-              <button type="button" class="verify-btn" id="verifyOtpBtn">
-                Verify OTP
-              </button>
+              <div class="otp-buttons">
+                <button type="button" class="verify-btn" id="verifyOtpBtn">
+                  Verify OTP
+                </button>
+
+                <button type="button" class="resend-btn" id="resendOtpBtn">
+                  Resend OTP
+                </button>
+              </div>
             </div>
 
             <!-- PROVIDER ONLY FIELDS -->

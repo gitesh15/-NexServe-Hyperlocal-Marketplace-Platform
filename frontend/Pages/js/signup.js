@@ -367,3 +367,85 @@ showOtpBtn.addEventListener("click", () => {
 
   document.getElementById("demoOtp").innerText = generatedOtp;
 });
+// ============================
+// OTP SECTION OPEN/CLOSE
+// ============================
+
+const otpSection = document.getElementById("otpSection");
+
+const closeOtpBtn = document.getElementById("closeOtpBtn");
+
+const resendOtpBtn = document.getElementById("resendOtpBtn");
+
+// CLOSE OTP SCREEN
+
+closeOtpBtn.addEventListener("click", () => {
+  otpSection.style.display = "none";
+
+  document.getElementById("otp").value = "";
+
+  otpVerified = false;
+
+  verifyOtpBtn.innerText = "Verify OTP";
+
+  verifyOtpBtn.disabled = false;
+
+  verifyOtpBtn.style.background = "";
+
+  signupBtn.innerText = "Send Verification OTP";
+});
+
+// ============================
+// RESEND OTP
+// ============================
+
+resendOtpBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    alert("Enter email first");
+
+    return;
+  }
+
+  try {
+    resendOtpBtn.innerText = "Sending...";
+
+    resendOtpBtn.disabled = true;
+
+    const response = await fetch(
+      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/otp/send-otp",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    resendOtpBtn.innerText = "Resend OTP";
+
+    resendOtpBtn.disabled = false;
+
+    if (response.ok) {
+      alert("OTP resent successfully");
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.log(error);
+
+    resendOtpBtn.innerText = "Resend OTP";
+
+    resendOtpBtn.disabled = false;
+
+    alert("Server Error");
+  }
+});
