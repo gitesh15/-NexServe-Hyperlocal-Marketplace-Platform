@@ -1,11 +1,11 @@
 let otpVerified = false;
 let generatedOtp = "";
+
 // ============================
 // PASSWORD TOGGLE
 // ============================
 
 const togglePassword = document.getElementById("togglePassword");
-
 const passwordInput = document.getElementById("password");
 
 if (togglePassword && passwordInput) {
@@ -16,7 +16,6 @@ if (togglePassword && passwordInput) {
     passwordInput.setAttribute("type", type);
 
     togglePassword.classList.toggle("fa-eye");
-
     togglePassword.classList.toggle("fa-eye-slash");
   });
 }
@@ -120,7 +119,6 @@ authForm.addEventListener("submit", async (e) => {
 
   if (!name || !email || !mobile || !password) {
     alert("Please fill all fields");
-
     return;
   }
 
@@ -128,7 +126,6 @@ authForm.addEventListener("submit", async (e) => {
 
   if (!emailRegex.test(email)) {
     alert("Enter valid email");
-
     return;
   }
 
@@ -136,13 +133,11 @@ authForm.addEventListener("submit", async (e) => {
 
   if (!mobileRegex.test(mobile)) {
     alert("Enter valid mobile number");
-
     return;
   }
 
   if (password.length < 6) {
     alert("Password must be at least 6 characters");
-
     return;
   }
 
@@ -171,14 +166,11 @@ authForm.addEventListener("submit", async (e) => {
 
     if (!service || !location || !experience) {
       alert("Please fill provider details");
-
       return;
     }
 
     userData.service = service;
-
     userData.location = location;
-
     userData.experience = experience;
   }
 
@@ -189,7 +181,6 @@ authForm.addEventListener("submit", async (e) => {
   if (!otpVerified) {
     try {
       signupBtn.innerText = "Sending OTP...";
-
       signupBtn.disabled = true;
 
       const response = await fetch(
@@ -210,12 +201,10 @@ authForm.addEventListener("submit", async (e) => {
       const data = await response.json();
 
       signupBtn.innerText = "Continue";
-
       signupBtn.disabled = false;
 
       if (!response.ok) {
         alert(data.message);
-
         return;
       }
 
@@ -228,7 +217,6 @@ authForm.addEventListener("submit", async (e) => {
       console.log(error);
 
       signupBtn.innerText = "Continue";
-
       signupBtn.disabled = false;
 
       alert("Server Error");
@@ -243,7 +231,6 @@ authForm.addEventListener("submit", async (e) => {
 
   try {
     signupBtn.innerText = "Creating Account...";
-
     signupBtn.disabled = true;
 
     const response = await fetch(
@@ -262,7 +249,6 @@ authForm.addEventListener("submit", async (e) => {
     const data = await response.json();
 
     signupBtn.innerText = "Continue";
-
     signupBtn.disabled = false;
 
     if (response.ok) {
@@ -282,7 +268,6 @@ authForm.addEventListener("submit", async (e) => {
     console.log(error);
 
     signupBtn.innerText = "Continue";
-
     signupBtn.disabled = false;
 
     alert("Server Error");
@@ -300,13 +285,11 @@ verifyOtpBtn.addEventListener("click", async () => {
 
   if (!otp) {
     alert("Enter OTP");
-
     return;
   }
 
   try {
     verifyOtpBtn.innerText = "Verifying...";
-
     verifyOtpBtn.disabled = true;
 
     const response = await fetch(
@@ -352,7 +335,10 @@ verifyOtpBtn.addEventListener("click", async () => {
     alert("Server Error");
   }
 });
+
+// ============================
 // CAPTCHA OTP REVEAL
+// ============================
 
 const showOtpBtn = document.getElementById("showOtpBtn");
 
@@ -361,91 +347,41 @@ showOtpBtn.addEventListener("click", () => {
 
   if (!captchaTick.checked) {
     alert("Please verify captcha");
-
     return;
   }
 
   document.getElementById("demoOtp").innerText = generatedOtp;
 });
-// ============================
-// OTP SECTION OPEN/CLOSE
-// ============================
-
-const otpSection = document.getElementById("otpSection");
-
-const closeOtpBtn = document.getElementById("closeOtpBtn");
-
-const resendOtpBtn = document.getElementById("resendOtpBtn");
-
-// CLOSE OTP SCREEN
-
-closeOtpBtn.addEventListener("click", () => {
-  otpSection.style.display = "none";
-
-  document.getElementById("otp").value = "";
-
-  otpVerified = false;
-
-  verifyOtpBtn.innerText = "Verify OTP";
-
-  verifyOtpBtn.disabled = false;
-
-  verifyOtpBtn.style.background = "";
-
-  signupBtn.innerText = "Send Verification OTP";
-});
 
 // ============================
-// RESEND OTP
+// CLOSE CAPTCHA POPUP
 // ============================
 
-resendOtpBtn.addEventListener("click", async () => {
-  const email = document.getElementById("email").value.trim();
+const closeCaptcha = document.getElementById("closeCaptcha");
 
-  if (!email) {
-    alert("Enter email first");
+if (closeCaptcha) {
+  closeCaptcha.addEventListener("click", () => {
+    document.getElementById("captchaPopup").style.display = "none";
+  });
+}
 
-    return;
-  }
+// CLOSE ON OUTSIDE CLICK
 
-  try {
-    resendOtpBtn.innerText = "Sending...";
+window.addEventListener("click", (e) => {
+  const captchaPopup = document.getElementById("captchaPopup");
 
-    resendOtpBtn.disabled = true;
-
-    const response = await fetch(
-      "https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/otp/send-otp",
-      {
-        method: "POST",
-
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          email,
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    resendOtpBtn.innerText = "Resend OTP";
-
-    resendOtpBtn.disabled = false;
-
-    if (response.ok) {
-      alert("OTP resent successfully");
-    } else {
-      alert(data.message);
-    }
-  } catch (error) {
-    console.log(error);
-
-    resendOtpBtn.innerText = "Resend OTP";
-
-    resendOtpBtn.disabled = false;
-
-    alert("Server Error");
+  if (e.target === captchaPopup) {
+    captchaPopup.style.display = "none";
   }
 });
+
+// CLOSE ON ESC KEY
+
+document.addEventListener("keydown", (e) => {
+  const captchaPopup = document.getElementById("captchaPopup");
+
+  if (e.key === "Escape") {
+    captchaPopup.style.display = "none";
+  }
+});
+``;
