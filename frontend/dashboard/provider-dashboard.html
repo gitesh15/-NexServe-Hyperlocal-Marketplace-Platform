@@ -9,14 +9,10 @@
 
     <link rel="stylesheet" href="./provider-dashboard.css" />
 
-    <!-- FONT -->
-
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-
-    <!-- ICONS -->
 
     <link
       rel="stylesheet"
@@ -26,7 +22,6 @@
 
   <body>
     <div class="bg-blur blur1"></div>
-
     <div class="bg-blur blur2"></div>
 
     <section class="dashboard">
@@ -40,18 +35,17 @@
 
           <div>
             <h2>NexServe</h2>
-
             <span>Provider Panel</span>
           </div>
         </div>
 
         <div class="sidebar-menu">
-          <button class="active-menu">
+          <button class="active-menu" id="dashboardBtn">
             <i class="fa-solid fa-house"></i>
             Dashboard
           </button>
 
-          <button>
+          <button id="requestsBtn">
             <i class="fa-solid fa-calendar-check"></i>
             Requests
           </button>
@@ -76,69 +70,77 @@
       <!-- MAIN -->
 
       <main class="main-content">
-        <!-- TOPBAR -->
+        <!-- DASHBOARD PAGE -->
 
-        <div class="topbar">
-          <div>
-            <span class="welcome-tag"> Provider Workspace </span>
+        <div id="dashboardSection">
+          <!-- TOPBAR -->
 
-            <h1 id="providerName">Welcome Back</h1>
+          <div class="topbar">
+            <div>
+              <span class="welcome-tag"> Provider Workspace </span>
+
+              <h1 id="providerName">Welcome Back</h1>
+            </div>
+
+            <div class="availability-box">
+              <span>Availability</span>
+
+              <label class="switch">
+                <input type="checkbox" id="availabilityToggle" />
+
+                <span class="slider"></span>
+              </label>
+            </div>
           </div>
 
-          <!-- AVAILABILITY -->
+          <!-- STATS -->
 
-          <div class="availability-box">
-            <span>Availability</span>
+          <section class="stats-grid">
+            <div class="stat-card">
+              <h2 id="totalRequests">0</h2>
+              <p>Total Requests</p>
+            </div>
 
-            <label class="switch">
-              <input type="checkbox" id="availabilityToggle" />
+            <div class="stat-card">
+              <h2 id="acceptedJobs">0</h2>
+              <p>Accepted Jobs</p>
+            </div>
 
-              <span class="slider"></span>
-            </label>
-          </div>
+            <div class="stat-card">
+              <h2>4.9★</h2>
+              <p>Rating</p>
+            </div>
+
+            <div class="stat-card">
+              <h2>₹12K</h2>
+              <p>This Month</p>
+            </div>
+          </section>
         </div>
 
-        <!-- STATS -->
+        <!-- REQUESTS PAGE -->
 
-        <section class="stats-grid">
-          <div class="stat-card">
-            <h2 id="totalRequests">0</h2>
+        <div id="requestsSection" style="display: none">
+          <div class="topbar">
+            <div>
+              <span class="welcome-tag"> Customer Requests </span>
 
-            <p>Total Requests</p>
+              <h1>Incoming Requests</h1>
+            </div>
           </div>
 
-          <div class="stat-card">
-            <h2 id="acceptedJobs">0</h2>
+          <section class="requests-section">
+            <div class="section-title">
+              <h2>Booking Requests</h2>
 
-            <p>Accepted Jobs</p>
-          </div>
+              <span> Realtime Updates </span>
+            </div>
 
-          <div class="stat-card">
-            <h2>4.9★</h2>
-
-            <p>Rating</p>
-          </div>
-
-          <div class="stat-card">
-            <h2>₹12K</h2>
-
-            <p>This Month</p>
-          </div>
-        </section>
-
-        <!-- REQUESTS -->
-
-        <section class="requests-section">
-          <div class="section-title">
-            <h2>Incoming Requests</h2>
-
-            <span>Realtime Updates</span>
-          </div>
-
-          <div class="requests-grid" id="bookingRequests">
-            <!-- DYNAMIC -->
-          </div>
-        </section>
+            <div class="requests-grid" id="bookingRequests">
+              <!-- DYNAMIC -->
+            </div>
+          </section>
+        </div>
       </main>
     </section>
 

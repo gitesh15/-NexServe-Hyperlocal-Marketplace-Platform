@@ -212,3 +212,30 @@ logoutBtn.addEventListener("click", () => {
 // ============================
 
 loadRequests();
+const dashboardBtn = document.getElementById("dashboardBtn");
+
+const requestsBtn = document.getElementById("requestsBtn");
+
+const dashboardSection = document.getElementById("dashboardSection");
+
+const requestsSection = document.getElementById("requestsSection");
+
+dashboardBtn.addEventListener("click", () => {
+  dashboardSection.style.display = "block";
+
+  requestsSection.style.display = "none";
+
+  dashboardBtn.classList.add("active-menu");
+
+  requestsBtn.classList.remove("active-menu");
+});
+
+requestsBtn.addEventListener("click", () => {
+  dashboardSection.style.display = "none";
+
+  requestsSection.style.display = "block";
+
+  requestsBtn.classList.add("active-menu");
+
+  dashboardBtn.classList.remove("active-menu");
+});
