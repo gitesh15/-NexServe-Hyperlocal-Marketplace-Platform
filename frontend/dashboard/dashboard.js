@@ -280,6 +280,69 @@ function scrollBookings() {
     });
   }
 }
+async function loadDashboardBookings() {
+  const customerBookings = document.getElementById("customerBookings");
+
+  if (!customerBookings) return;
+
+  try {
+    const response = await fetch(
+      `https://nexserve-hyperlocal-marketplace-platform.onrender.com/api/bookings/customer/${user._id}`,
+    );
+
+    const data = await response.json();
+
+    customerBookings.innerHTML = "";
+
+    if (!data.bookings || data.bookings.length === 0) {
+      customerBookings.innerHTML = `
+        <div class="empty-booking">
+          No bookings yet
+        </div>
+      `;
+      return;
+    }
+
+    data.bookings
+      .slice()
+      .reverse()
+      .forEach((booking) => {
+        customerBookings.innerHTML += `
+
+        <div class="booking-item">
+
+          <div class="booking-left">
+
+            <img
+              src="https://i.pravatar.cc/120?u=${booking.providerName}"
+            />
+
+            <div>
+
+              <h3>${booking.service}</h3>
+
+              <p>${booking.providerName}</p>
+
+              <span>
+                ${booking.date} • ${booking.time}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="booking-status ${booking.status}">
+            ${booking.status}
+          </div>
+
+        </div>
+
+        `;
+      });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 // ====================================
 // INITIAL LOAD
@@ -288,6 +351,8 @@ function scrollBookings() {
 loadProviders();
 
 loadBookings();
+
+loadDashboardBookings();
 // ====================================
 // MOBILE SIDEBAR
 // ====================================
