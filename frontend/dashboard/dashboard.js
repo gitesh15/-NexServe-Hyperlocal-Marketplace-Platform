@@ -331,10 +331,26 @@ async function loadDashboardBookings() {
 
           </div>
 
-          <div class="booking-status ${booking.status}">
-            ${booking.status}
-          </div>
+        <div class="booking-right">
 
+  <div class="booking-status ${booking.status}">
+    ${booking.status}
+  </div>
+
+  ${
+    booking.status === "accepted"
+      ? `
+      <button
+        class="pay-now-btn"
+        onclick="openPaymentPage('${booking._id}')"
+      >
+        Pay Now
+      </button>
+    `
+      : ""
+  }
+
+</div>
         </div>
 
         `;
@@ -375,4 +391,19 @@ if (mobileMenuBtn && sidebar && sidebarOverlay) {
 
     sidebarOverlay.classList.remove("active-overlay");
   });
+}
+let selectedBookingId = null;
+
+function openPaymentPage(bookingId) {
+  selectedBookingId = bookingId;
+
+  document.querySelector(".dashboard-grid").style.display = "none";
+
+  document.getElementById("paymentSection").style.display = "block";
+}
+
+function closePaymentPage() {
+  document.querySelector(".dashboard-grid").style.display = "grid";
+
+  document.getElementById("paymentSection").style.display = "none";
 }

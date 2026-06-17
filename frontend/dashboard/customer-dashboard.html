@@ -378,7 +378,59 @@
   </div>
 
 </div>
+<!-- PAYMENT PAGE -->
 
+<section
+  id="paymentSection"
+  class="payment-page"
+  style="display:none;"
+>
+
+  <div class="payment-header">
+
+    <button onclick="closePaymentPage()">
+      ← Back
+    </button>
+
+    <h2>Choose Payment Method</h2>
+
+  </div>
+
+  <div class="payment-options">
+
+    <div class="payment-card">
+
+      <i class="fa-solid fa-credit-card"></i>
+
+      <h3>Online Payment</h3>
+
+      <p>UPI, Card, Net Banking</p>
+
+      <button id="onlinePayBtn">
+        Pay Securely
+      </button>
+
+    </div>
+
+    <div class="payment-card">
+
+      <i class="fa-solid fa-money-bill-wave"></i>
+
+      <h3>Cash on Service</h3>
+
+      <p>
+        Pay after service completion
+      </p>
+
+      <button id="cashPaymentBtn">
+        Select Cash Option
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
 
       </main>
     </section>
