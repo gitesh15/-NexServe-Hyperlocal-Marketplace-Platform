@@ -66,6 +66,20 @@ body {
   flex-direction: column;
   justify-content: space-between;
 }
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  overflow-x: hidden;
+}
 
 /* LOGO */
 
