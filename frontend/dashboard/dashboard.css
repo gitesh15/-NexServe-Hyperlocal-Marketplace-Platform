@@ -80,7 +80,10 @@ body {
   flex: 1;
   overflow-x: hidden;
 } */
-
+.main-content {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+}
 /* LOGO */
 
 .logo {
